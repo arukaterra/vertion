@@ -1,0 +1,36 @@
+<?=$this->view('../default_view/admin/header')?>
+<body>
+
+<div class="contentWork">
+
+<!---------   s: Header -------------->
+<div class="headerSheet">
+
+<div class="topHeader">
+<img class="adsHeader" src="<?=ASSETS_ADMIN_PATH?>public/images/new-zte-blade.jpg">
+</div>
+<div class="clearBoth"> </div>
+</div>
+
+
+<!---------   e: Header -------------->
+
+<!---------   s: worksheet -------------->
+<div class="workSheet">
+<div class="clearBoth"> </div>
+<form action="<?=BASE_ADMIN_PATH?>admin/doLogin/">
+<div class="Title greenBackground"><div>AdsBox Administrator Sites</div></div>
+<div class="greenText">username<input type="text" name="username"></div>
+<div class="greenText">Password<input type="password" name="password"></div>
+<div><button onClick="submit()">Login</button></div>
+</form>
+<div class="clearBoth"> </div>
+</div>
+
+
+
+</div>
+<!---------   e: worksheet -------------->
+
+<!---------   s: footer -------------->
+<?=$this->view('../default_view/admin/footer')?>
