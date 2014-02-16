@@ -25,7 +25,8 @@ class login extends application {
 		//function untuk login
 	 
 		$qData = $this->apps->userministrator->getLoginUser();
-		
+			 // pr($qData);
+		 // exit;
 		if($qData)	{
 			$this->session->setSession('is_login',true);
 			$this->session->setSession($qData);	

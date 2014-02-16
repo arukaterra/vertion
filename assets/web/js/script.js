@@ -9,6 +9,8 @@ $(window).resize(sizeContent);
 function sizeContent() {
     var newHeight = $("html").height() + "px";
     $(".contentRight").css("height", newHeight);
+    $(".boxUpload").css("height", newHeight);
+    $(".loginPage").css("height", "1000px");
 //    var newWidth = $("html").width() + "px";
 //    $(".contentRight").css("width", newWidth);
 }
@@ -22,7 +24,10 @@ $(document).ready(function() {
 //    $('.item').mouseout(function() {
 //	  $('.itemText').addClass('dNone');
 //	});
-    
+    $('#boxUpload').addClass('dNone');
+    $('#buttonUpload').click(function() {
+	  $('#boxUpload').slideToggle(100);
+	});
     $('#dropdownHobby').addClass('dNone');
     $('#listProduct').click(function() {
 	  $('#dropdownHobby').slideToggle(100);
@@ -51,6 +56,23 @@ $('.dropdownUsername').addClass('dNone');
 	    		}
     		});
     		$('input[type="text"]').blur(function() {
+    			$(this).removeClass("focusField").addClass("idleField");
+    		    if ($.trim(this.value) == ''){
+			    	this.value = (this.defaultValue ? this.defaultValue : '');
+				}
+    		});
+    
+    $('input[type="password"]').addClass("idleField");
+       		$('input[type="password"]').focus(function() {
+       			$(this).removeClass("idleField").addClass("focusField");
+    		    if (this.value == this.defaultValue){ 
+    		    	this.value = '';
+				}
+				if(this.value != this.defaultValue){
+	    			this.select();
+	    		}
+    		});
+    		$('input[type="password"]').blur(function() {
     			$(this).removeClass("focusField").addClass("idleField");
     		    if ($.trim(this.value) == ''){
 			    	this.value = (this.defaultValue ? this.defaultValue : '');

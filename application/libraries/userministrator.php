@@ -23,9 +23,10 @@ class Userministrator {
 		$sql = "SELECT * FROM {$DATABASE['MAJOR']}._user WHERE username ='{$username}' LIMIT 1";
  
 		$qData = $this->apps->fetch($sql);
-		 
+		
 		if($qData) {
-			$hashPass = sha1(sha1($password.sha1($config['SALT']).$username).$qData->createdDate);
+			$hashPass = sha1(sha1($password.sha1($config['SALT']).$username).$qData->createddate );
+		
 			if($qData->password!=$hashPass) return false;	
 			
 			return $qData;

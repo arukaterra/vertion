@@ -8,13 +8,13 @@ function gotoPage($url=null){
 function _p($index=null,$removeBadStrings=true){	
 		if($index==null) return false;
 		if($removeBadStrings==true) removeBadStrings($_POST[$index]);
-		return mysql_escape_string($_POST[$index]);
+		return mysql_real_escape_string($_POST[$index]);
 	
 	}	
 function removeBadStrings($strings=null){
 		if($strings==null) return false;
 		$strings = htmlentities($strings);
-		return str_replace('-','',(mysql_escape_string(strip_tags(stripslashes($strings)))));
+		return str_replace('-','',(mysql_real_escape_string(strip_tags(stripslashes($strings)))));
 }
 function pr($namespace=null){
 	print '<pre>';

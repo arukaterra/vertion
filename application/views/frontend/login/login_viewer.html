@@ -1,11 +1,34 @@
 
-           
-
- <div style="top:90px;position:relative">
-					<form method="POST" action="<?=BASE_PATH?>login/goLogin" >
-						 
-						<div class="greenText">Email<input type="text" name="username" ></div>
-						<div class="greenText">Password<input type="password" name="password"></div>
-						<div><input type="submit" value="login"></div>
-					</form>
-      </div>
+             <div class="content clearfix">
+                <!-- login : s -->
+                <div class="loginPage">
+                    <!-- form login : s -->
+                    <div class="formLogin">
+					<form method="POST" action="<?=BASE_PATH?>login/goLogin" class="adsblockloginform"  >
+                            <h1>Login</h1>
+                        <input class="formLoginBox" type="text" value="Username"  name="username"  /><br />
+                        <input class="formLoginBox" type="password" value="Password" name="password" /><br /><br />
+							<input type='submit' style="display:none" />
+                            <a href="javascript:void(0)" class="bLogin" onclick="$('.adsblockloginform').submit()" >Login</a>
+							</form>
+                        </div>
+                    <!-- form login : e -->
+                    <!-- intro : s -->
+                    <div class="introLogin">
+                            <h1>Selamat datang di ADS BLOCK</h1>
+                        <p>Nikmati berselancar didunia maya dengan meng-eksplore beragam hobby yang kamu punya</p>
+                        </div>
+                    <!-- intro : e -->
+                    <!-- text login : s -->
+                    <div class="textLogin">
+                            <h1></h1>
+                        </div>
+                    <!-- text login : e -->
+                        <div class="imgLogin">
+                                <img src="<?=ASSETS_PATH?>web/images/login.jpg">
+                            </div>
+                    
+                    </div>
+                <!-- login : e -->
+            </div>
+ 

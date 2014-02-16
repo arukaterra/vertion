@@ -7,6 +7,7 @@
                     <!-- logo : e -->
                 <!-- menu top : s -->
                 <div class="menuTop left">
+				<?php if($this->load->controller()!='login'): ?>
                     <ul>
                         <li>
                             <a href="#" id="listProduct">Hobby<i class="icon-down-micro"></i></a>
@@ -18,7 +19,8 @@
                             <a href="#">Shop</a>
                         </li>
                     </ul>
-                    </div>
+				<?php endif ?>
+                 </div>
                 <!-- menu top : e -->
                 <!-- search : s -->
                 <div class="search1 right">
