@@ -1,29 +1,30 @@
-
-<?php if(!$this->session->getSession('is_login')): ?>
-<div class="sideRight">
-<div class="rightBoxContent">
-<form method="POST" action="<?=BASE_PATH?>login/goLogin" >
-<div class="Title greenBackground"><div>Ads</div><div>Block</div></div>
-<div class="greenText">Email<input type="text" name="username" ></div>
-<div class="greenText">Password<input type="password" name="password"></div>
-<div><input type="submit" value="login"></div>
-</form>
-</div>
-</div>
-<?php else: ?>
-<div class="sideRight">
-<div class="rightBoxContent">
-<div class="Title greenBackground"><div>Account</div></div>
-<div class="greenText"><a href="<?=BASE_PATH?>profile"><?=$name?></a></div>
-<div class="greenText"><a href="<?=BASE_PATH?>account/logout">Log Out</a></div>
-</div>
-
-
-<div class="rightBoxContent pTop10">
-<div class="Title greenBackground"><div>Settings</div></div>
-<div class="greenText"><a href="">Account Settings</a></div>
-<div class="greenText"><a href="">Security Settings</a></div>
-</div>
-
-</div>
-<?php endif ?>
+ <!-- header : s -->
+            <div class="header clearfix">
+                <!-- logo : s -->
+                    <div class="logo left">
+                        <img src="<?=ASSETS_PATH?>web/images/logo.png">
+                    </div>
+                    <!-- logo : e -->
+                <!-- menu top : s -->
+                <div class="menuTop left">
+                    <ul>
+                        <li>
+                            <a href="#" id="listProduct">Hobby<i class="icon-down-micro"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" id="myResources">Resources<i class="icon-down-micro"></i></a>
+                        </li>
+                        <li>
+                            <a href="#">Shop</a>
+                        </li>
+                    </ul>
+                    </div>
+                <!-- menu top : e -->
+                <!-- search : s -->
+                <div class="search1 right">
+                    <i class="icon-search"></i>&nbsp;
+                    <input class="defaultText" type="text" value="Search" />
+                </div>
+                <!-- search : e -->
+                
+            </div>

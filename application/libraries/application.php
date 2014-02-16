@@ -12,7 +12,7 @@ class Application extends Load {
 	
 	function initial(){ 
 		$this->userministrator = $this->library('userministrator');	
-		if($this->load->controller()!='login'){
+		if($this->load->controller()!='login'&&$this->load->controller()!='register'){
 			
 			if(!$this->userministrator->checklogin()){
 				gotoPage(BASE_PATH."login"); 

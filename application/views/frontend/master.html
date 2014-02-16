@@ -1,11 +1,24 @@
-<html>
-	<head>
-	 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
 		<?=$this->view('frontend/meta',$data)?>
 	</head>
 <body> 
-	<?=$this->view($main_content,$data)?>
-	<?=$this->view('frontend/navigation',$data)?>
+	<!-- wrapper : s -->
+        <div class="wrapper">
+		<?=$this->view('frontend/navigation',$data)?>
+		      
+		<!-- header : e -->
+		<!-- content : s -->
+		<div class="content clearfix">
+			<?=$this->view('frontend/navigation-left',$data)?>
+			<?=$this->view($main_content,$data)?>
+		</div>
+		<!-- content : e -->
+
+	      </div>
+        <!-- wrapper : e -->
 	<?=$this->view('frontend/footer',$data)?>
 </body>
 </html>
