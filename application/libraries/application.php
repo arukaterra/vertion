@@ -2,16 +2,20 @@
 
 class Application extends Load {
 	 
-	 
-	 function initial(){
-		parent::__construct(); 
+	var $userministrator ;
+	
+	function __construct(){
+		parent::__construct();
 		
-		$this->userministrator = $this->library('userministrator');
-		
+				
+	}
+	
+	function initial(){ 
+		$this->userministrator = $this->library('userministrator');	
 		if($this->load->controller()!='login'){
 			
 			if(!$this->userministrator->checklogin()){
-				//gotoPage(BASE_PATH."login"); 
+				gotoPage(BASE_PATH."login"); 
 				exit;
 			}
 		}
@@ -20,7 +24,7 @@ class Application extends Load {
 	 }
 	
 	function call(){
-		
+		 
 		if($this->load->controller()){ 
 			$sourcefile = ROOT_PATH.APPLICATION_PATH.APPS_PATH.'/modules/'.$this->load->controller().'.php';
 			if(file_exists($sourcefile)){
@@ -30,7 +34,9 @@ class Application extends Load {
 				$controller = $this->load->controller();
 				
 				$$controller = new $controller; 
-				 	
+				
+				$$controller->beforFilter($this);
+				
 				$func = $this->load->func();
 				if($func) {
 						

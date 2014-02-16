@@ -1,17 +1,14 @@
 <?php
 
-class login extends theConstructor {
+class login extends application {
 	
-
-	public function __construct() {
-		parent::__construct();
-		
-	} 
-	
-	function index(){
+	function beforFilter($apps=false){
+		$this->apps =$apps;
+	}
 	 
-		$data['main_content'] ='frontend/login/login_viewer';
-		$this->load->view('frontend/master',$data);
+	function index(){
+	  
+		$this->templates('frontend/login/login_viewer' );
 	}
 	
 	function goLogin(){
@@ -30,8 +27,8 @@ class login extends theConstructor {
 	function AuthLogin(){
 			
 		//function untuk login
-	
-		$qData = $this->userministrator->getLoginUser();
+	 
+		$qData = $this->apps->userministrator->getLoginUser();
 		
 		if($qData)	{
 			$this->session->setSession('is_login',true);
@@ -48,13 +45,13 @@ class login extends theConstructor {
 	
 	
 	function register(){
-		$data['main_content'] = 'frontend/login/register';
-		$this->load->view('frontend/master',$data);
+	 
+		$this->templates('frontend/login/register' );
 	}
 	
 	
 	function doRegistration(){
-		$qData = $this->userministrator->doRegister();
+		$qData = $this->apps->userministrator->doRegister();
 	
 	}
 }

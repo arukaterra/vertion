@@ -3,8 +3,7 @@
 class Userministrator {
 	
 	
-	function __construct($apps=false){ 
-	 
+	function __construct($apps=false){  
 		if($apps) $this->apps = $apps;
 	}
 	

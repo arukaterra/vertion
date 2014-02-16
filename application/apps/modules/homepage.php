@@ -1,7 +1,9 @@
 <?php
 
 class homepage extends application {
-	
+	function beforFilter($apps=false){
+		$this->apps =$apps;
+	}
  
 	function index(){ 
 		 

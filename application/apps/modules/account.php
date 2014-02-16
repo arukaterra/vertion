@@ -1,15 +1,12 @@
 <?php
 
-class Account extends Authorize{
-
-		
-	public function __construct() {
-		parent::__construct();
-	
-	} 
-	
+class Account extends application{
+function beforFilter($apps=false){
+		$this->apps =$apps;
+	}
+ 
 	function index(){
-			$this->load->view('frontend/profile/profile_view');
+			$this->templates('frontend/profile/profile_view');
 	
 	}
 	

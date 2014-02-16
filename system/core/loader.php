@@ -2,14 +2,7 @@
 require ROOT_PATH.APPLICATION_PATH.'libraries/Application.php';
 
 class Load extends db {
-
-	var $model;
-	var $view;
-	var $library;
-	var $helper;
-	var $session;
-	var $load;
-	
+ 
 	function __construct(){
 			$this->load = new AdsBlockController ;
 			$this->session = new session_controller ;
@@ -17,8 +10,8 @@ class Load extends db {
 	function model($modelName){
 		if($modelName==null) return false;
 		require ROOT_PATH.APPLICATION_PATH.'models/'.$modelName.'.php';
-		$$modelName = new $modelName($this);
-		return $$modelName;
+		$this->$modelName = new $modelName($this);
+		return $this->$modelName;
 	
 	}
 	
@@ -42,15 +35,15 @@ class Load extends db {
 	function library($libraryName=null){
 		if($libraryName==null) return false;
 		require ROOT_PATH.APPLICATION_PATH.'libraries/'.$libraryName.'.php';
-		$$libraryName = new $libraryName($this);
-		return $$libraryName; 
+		$this->$libraryName = new $libraryName($this); 
+		return $this->$libraryName; 
 	}
 	
 	function helper($helperName=null){
 		if($helperName==null) return false;
 		require ROOT_PATH.APPLICATION_PATH.'helper/'.$helperName.'.php';
-		$$helperName = new $helperName($this);
-		return $$helperName; 
+		$this->$helperName = new $helperName($this);
+		return $this->$helperName; 
 	}
 
 
