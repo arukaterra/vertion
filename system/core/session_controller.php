@@ -5,16 +5,18 @@ class session_controller{
 		if($index==null) return false;
 		if(is_object($index)){
 			foreach($index as $key => $val){
-				@$_SESSION[$key] = $val;			
+				$_SESSION[$key] = $val;			
 			}
-		} else @$_SESSION[$index] = $value;
+		} else $_SESSION[$index] = $value;
 	
 	}
 	
 	
 	function getSession($index=null){
-		if($index==null) return false;
-		return @$_SESSION[$index];
+ 
+		if($index==null) return  $_SESSION;
+		if(array_key_exists($index,$_SESSION))	return $_SESSION[$index];
+		return false;
 	}
 
 }

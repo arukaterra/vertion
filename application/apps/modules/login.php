@@ -9,12 +9,13 @@ class login extends theConstructor {
 	} 
 	
 	function index(){
+	 
 		$data['main_content'] ='frontend/login/login_viewer';
-		$this->load->view('master_view/frontend/master',$data);
+		$this->load->view('frontend/master',$data);
 	}
 	
 	function goLogin(){
-
+	
 		$this->AuthLogin();
 		
 		gotoPage(BASE_PATH."homepage"); 
@@ -29,12 +30,14 @@ class login extends theConstructor {
 	function AuthLogin(){
 			
 		//function untuk login
-		
-		$qData = $this->userministrator->getLoginUser();
 	
+		$qData = $this->userministrator->getLoginUser();
+		
 		if($qData)	{
 			$this->session->setSession('is_login',true);
 			$this->session->setSession($qData);	
+		}else{
+			$this->session->setSession('is_login',false);
 		}
 		
 		if($this->session->getSession('is_login')==false) gotoPage(BASE_PATH."login"); 
@@ -45,8 +48,8 @@ class login extends theConstructor {
 	
 	
 	function register(){
-		$data['main_content'] = 'frontend/login/login_viewer';
-		$this->load->view('master_view/frontend/master',$data);
+		$data['main_content'] = 'frontend/login/register';
+		$this->load->view('frontend/master',$data);
 	}
 	
 	

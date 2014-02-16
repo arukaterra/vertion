@@ -10,7 +10,7 @@ class Profile extends Authorize{
 	function index(){
 
 	$data['main_content'] = 'frontend/profile/profile_view';
-	$this->load->view('master_view/frontend/master',$data);
+	$this->load->view('frontend/master',$data);
 
 	}
 	
