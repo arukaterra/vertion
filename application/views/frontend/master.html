@@ -6,19 +6,25 @@
 	</head>
 <body> 
 	<!-- wrapper : s -->
+	
         <div class="wrapper">
 		<?=$this->view('frontend/navigation',$data)?>
 		      
 		<!-- header : e -->
 		<!-- content : s -->
 		<div class="content clearfix">
+		<?php if($this->load->controller()=='login'): ?>
+			<?=$this->view($main_content,$data)?>
+		<?php else: ?>
 			<?=$this->view('frontend/navigation-left',$data)?>
 			<?=$this->view($main_content,$data)?>
+		<?php endif ?>
 		</div>
 		<!-- content : e -->
 
 	      </div>
         <!-- wrapper : e -->
-	<?=$this->view('frontend/footer',$data)?>
+		<?=$this->view('frontend/footer',$data)?>
+		
 </body>
 </html>

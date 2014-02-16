@@ -16,15 +16,24 @@ class AdsBlockController {
 	function controller(){
 		$segment = $this->uri();
 		// pr(count($segment)-1);exit;	
-		$this->controller = $segment[array_search('index.php',$segment)+4];
+		$findindex = intval(array_search('index.php',$segment));
+		if($findindex==0)$uricontroll = 4;
+		else $uricontroll = $findindex+1;
+		$this->controller = $segment[$uricontroll];
 		return $this->controller;	
 	}
 	
 	function func(){
 		$segment = $this->uri(); 
-		$funcsegment = intval(array_search('index.php',$segment));
-		if(count($segment)<6) return false;
-		$this->func = $segment[$funcsegment+5];
+		$findindex = intval(array_search('index.php',$segment));
+		// pr($segment);
+		// pr($findindex);
+		// pr($uricontroll);
+		// exit;
+		if($findindex==0)$uricontroll = 5;
+		else $uricontroll = $findindex+2;
+		 if(array_key_exists($uricontroll,$segment)) 	$this->func = $segment[$uricontroll];
+		 else 	$this->func = "";
 		return $this->func;	
 	}
 	

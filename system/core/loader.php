@@ -1,5 +1,5 @@
 <?php
-require ROOT_PATH.APPLICATION_PATH.'libraries/Application.php';
+require ROOT_PATH.APPLICATION_PATH.'libraries/application.php';
 
 class Load extends db {
  

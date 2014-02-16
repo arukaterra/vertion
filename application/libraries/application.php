@@ -26,7 +26,7 @@ class Application extends Load {
 	function call(){
 		 
 		if($this->load->controller()){ 
-			$sourcefile = ROOT_PATH.APPLICATION_PATH.APPS_PATH.'/modules/'.$this->load->controller().'.php';
+			$sourcefile = ROOT_PATH.APPLICATION_PATH.APPS_PATH.'/'.$this->load->controller().'.php';
 			if(file_exists($sourcefile)){
 			 
 				include $sourcefile;
