@@ -40,6 +40,13 @@ $('.dropdownUsername').addClass('dNone');
     $('.userName').click(function() {
 	  $('.dropdownUsername').slideToggle(100);
 	});
+    $('a.changeProfile').addClass('dNone');
+    $('.photoProfile').mouseover(function() {
+	  $('a.changeProfile').removeClass('dNone');
+	});
+    $('.photoProfile').mouseout(function() {
+	  $('a.changeProfile').addClass('dNone');
+	});
 
     
     

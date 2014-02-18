@@ -3,26 +3,50 @@
                 <!-- login : s -->
                 <div class="loginPage">
                     <!-- form login : s -->
-                    <div class="formLogin">
-					<form method="POST" action="<?=BASE_PATH?>login/goLogin" class="adsblockloginform"  >
-                            <h1>Login</h1>
-                        <input class="formLoginBox" type="text" value="Username"  name="username"  /><br />
-                        <input class="formLoginBox" type="password" value="Password" name="password" /><br /><br />
-							<input type='submit' style="display:none" />
-                            <a href="javascript:void(0)" class="bLogin" onclick="$('.adsblockloginform').submit()" >Login</a>
-							</form>
+                    <div class="formLogin slidelogin ">
+						<form method="POST" action="<?=BASE_PATH?>login/goLogin" class="loginform"  >
+								<h1>Log in to your account </h1><br /> 
+								<input class="formLoginBox" type="text" value="Username"  name="username"  /><br />
+								<input class="formLoginBox" type="password" value="Password" name="password" /><br /><br />
+								<input type='submit' style="display:none" />
+								 <a href="#" class="forgotPass">Forgot your password?</a>
+								 <a href="javascript:void(0)" class="bLogin" onclick="$('.loginform').submit()" >Login</a>
+						</form> 
+                        <br /><br />
+                        <br /><br />
+                        <div class="loginSoc">
+                                <a href="#" id="logTw">LOG IN WITH TWITTER</a>
+                            <br />
+                            <br />
+                            <a href="#" id="logFb">LOG IN WITH FACEBOOK</a>
                         </div>
+                        <span class="dhAcc">Don't have an account ? <a href="javascript:void(0)" class="buttonsignup" >Sign up</a></span>
+                    </div>
+					<div class="formLogin slidesignup " style="display:none" >
+						<form method="POST" action="<?=BASE_PATH?>register/doRegistration" class="signupform"  >
+							<h1>Sign up to ADS BLOCK</h1>
+							<h6>By creating your ADS BLOCK account you agree to our <a href="#">Terms of Use and Privacy Policy.</a></h6>
+							<br />
+							<input class="formLoginBox" type="text" value="Gender" name="gender" /><br />
+							<input class="formLoginBox" type="text" value="Username"  name="username"  /><br />
+							<input class="formLoginBox" type="text" value="Email"  name="email"  /><br />
+							<input class="formLoginBox" type="password" value="Password" name="password" /><br /><br />		
+							<input type='submit' style="display:none" />							
+							<a href="javascript:void(0)" class="bLogin"  onclick="$('.signupform').submit()" >Sign In</a>  
+							<span class="dhAcc">Already have an account? <a href="javascript:void(0)" class="buttonsignin">Log in</a></span>	
+						</form> 						
+                    </div>
                     <!-- form login : e -->
                     <!-- intro : s -->
                     <div class="introLogin">
                             <h1>Selamat datang di ADS BLOCK</h1>
                         <p>Nikmati berselancar didunia maya dengan meng-eksplore beragam hobby yang kamu punya</p>
-                        </div>
+                    </div>
                     <!-- intro : e -->
                     <!-- text login : s -->
                     <div class="textLogin">
                             <h1></h1>
-                        </div>
+                     </div>
                     <!-- text login : e -->
                         <div class="imgLogin">
                                 <img src="<?=ASSETS_PATH?>web/images/login.jpg">
@@ -31,4 +55,38 @@
                     </div>
                 <!-- login : e -->
             </div>
+			
+			<script>
+			
+				
+				$(document).ready(function(){
+				
+					if(isactivepages=='login') {
+							$('.slidesignup').hide();
+							$('.slidelogin').show();
+					
+					}
+					if(isactivepages=='register') {
+							$('.slidelogin').hide();
+							$('.slidesignup').show();
+					}
+				});
+				$(document).on('click','.buttonsignup',function(){
+				
+					$('.slidelogin').fadeOut();
+					$('.slidesignup').fadeIn();
+					
+				
+				})
+				
+				
+				$(document).on('click','.buttonsignin',function(){
+				
+					$('.slidesignup').fadeOut();
+					$('.slidelogin').fadeIn();
+					
+				
+				})
+			</script>
+			
  

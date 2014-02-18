@@ -6,8 +6,9 @@ class homepage extends application {
 	}
  
 	function index(){ 
-		 
-		$data['name'] = $this->session->getSession('username') ;
+		 $users = $this->session->getSession('users');
+		 // pr($users);
+		$data['nickname'] = $users->nickname;
 		$this->templates('frontend/home/homepage',$data);
 
 	}

@@ -7,13 +7,15 @@ class register extends application {
 	}
 	 
 	function index(){
-	  
-		$this->templates('frontend/login/register' );
+		$data['isactivateform']='register';
+	   $this->templates('frontend/login/login_viewer'  ,$data);
 	}
 	 
 	function doRegistration(){
 		$qData = $this->apps->userministrator->doRegister();
-	
+		// pr($qData);
+		gotoPage(BASE_PATH."login"); 
+		exit;
 	}
 }
 

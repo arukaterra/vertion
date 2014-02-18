@@ -46,6 +46,7 @@ html {
   clear: both;
 }
 
+/*
 ::selection {
 	background: #f1140a;
 	color: #fff;
@@ -58,6 +59,7 @@ html {
   color: #fff;
   text-shadow: none;
 }
+*/
 
 .mt10 {
     margin-top:10px;
@@ -408,8 +410,8 @@ i.plusCategories:hover {
 }   
 .barCat {    
     background: #fff;
-    padding:10px 45px 10px 20px;
-    width:80%;
+    padding:0px 45px 0px 20px;
+    width:90%;
     
 }
 .searchCat i  {
@@ -454,8 +456,8 @@ i.plusCategories:hover {
 .FilterByCat {
     font: normal 11px 'OpenSansRegular', Arial, Helvetica, sans-serif;
     color:#999;
-    margin-right: 50px;
-    margin-top:5px;
+    margin-right: 0px;
+    margin-top:15px;
 }
 .headerCatIn {
     height: 40px;
@@ -463,13 +465,18 @@ i.plusCategories:hover {
     width:80%;
 }
 a.titleBlock {
-    background: rgba(0,0,0,0.7);
+    background: rgba(9,147,219,0.5);
     position: absolute;
     bottom: 0px !important;
     position: relative;
     z-index: 9999;
 /*    padding-bottom: 10px !important;*/
 }
+/*
+a.titleBlock:hover {
+    color:#000 !important;
+}
+*/
 .item {
     width:100%;
     height: 300px;
@@ -507,16 +514,16 @@ a.titleBlock {
     text-decoration: none;
     font: normal 15px/24px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
     color:#fff;
-    width:50%;
+    width:56%;
     padding:20px 20px;
     text-align: left;
     display: block;
     max-height: 58px;
     overflow: hidden;
-    border-radius: 0 3px 3px 0;
+/*    border-radius: 0 3px 3px 0;*/
     bottom:0px;
     left:0;
-/*    background: rgba(0,0,0,0.5);*/
+    background: rgba(23,167,82,0.5);
 }
 .item a:hover {
     color:#40bfaa;
@@ -565,8 +572,9 @@ a.titleBlock {
     display: block;
     max-height: 58px;
     overflow: hidden;
-    border-radius: 0 3px 3px 0;
+/*    border-radius: 0 3px 3px 0;*/
     bottom:0px;
+    background:rgba(0,0,0,0.5);
 }
 .item2 a:hover {
     color:#40bfaa;
@@ -593,14 +601,15 @@ a.titleBlock {
     text-decoration: none;
     font: normal 15px/24px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
     color:#fff;
-    width:100%;
+    width:90%;
     padding:20px 20px;
     text-align: left;
     display: block;
     max-height: 58px;
     overflow: hidden;
-    border-radius: 0 3px 3px 0;
+/*    border-radius: 0 3px 3px 0;*/
     bottom:20px;
+/*    background:rgba(23,167,82,0.5);*/
 }
 .item3 a:hover {
     color:#40bfaa;
@@ -832,23 +841,25 @@ a.plusNew {
 }
 a.plusNewHome {
     text-decoration: none;
-    padding:5px 10px;
+    padding:12px 20px 12px 15px;
     font: normal 12px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
     color:#fff;
     display: block;
 /*    right:0px;*/
 /*    border-right:solid 1px #ccc;*/
     position: relative;
-    border-radius: 3px;
+/*    border-radius: 3px;*/
     text-transform: uppercase;
-    background: #000;
+    background: #d32c06 ;
+    margin:0 0 0 -20px;
 /*    top:7px;*/
 }
 a.plusNewHome i {
-    color:#40bfaa;
+    color:#fff;
 }
 a.plusNewHome:hover {
-    color:#40bfaa;
+/*    color:#40bfaa;*/
+    background: #333;
 }
 .menuTop ul {
     margin:0;
@@ -897,7 +908,7 @@ p.pMainComm {
     background: #eee;
     position: absolute;
     z-index: 9999;
-    margin-top:7.5px;
+    margin-top:1px;
 }
 .boxUploadIn {
     width:80%;
@@ -950,11 +961,10 @@ textarea.descUpload {
 .loginPage {
     width:100%;
     height: 100%;
-/*    background:url("../images/login.jpg") no-repeat;*/
+    background:url("../images/login.jpg") no-repeat;
 }
 .loginPage img {
     width:100%;
-    
     
 }
 .imgLogin {
@@ -968,37 +978,54 @@ textarea.descUpload {
     left:0;
     z-index: 9;
 }
-.formLogin {
+.formLogin {    
     width:40%;
     height: 1000px;
-/*    background: rgba(23,167,82,0.4);*/
+    /*    background: rgba(23,167,82,0.4);*/
     position: absolute;
     right:0;
     z-index: 9;
-    padding:180px 0 0 140px;
+    padding:100px 0 0 140px;
+}
+.formSignup {
+    width:43% !important;   
 }
 .formLogin h1 {
-    font: normal 34px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
+    font: normal 28px 'OpenSansRegular', Arial, Helvetica, sans-serif;
     color:#000;
+    margin:0;
+    padding:0;
 /*    margin:100px 0 0 100px;*/
 }
-.formLogin input {
-    background: #eee;
+.formLogin h6 {
+    font: normal 12px 'OpenSansRegular', Arial, Helvetica, sans-serif;
+    color:#777;
+    margin:0;
+    padding:5px 0 10px 0;
+    /*    margin:100px 0 0 100px;*/
+}
+.formLogin h6 a {
+    color:#333;
+    text-decoration: none;
+    display: block;
+}
+.formLogin input {    
+    background: rgba(0,0,0,0.5);
     border: none;
     padding: 10px 20px;
-    width: 250px;
+    width: 280px;
     margin-bottom: 10px;
     border-radius: 3px;
     outline: none;
         font: normal 14px 'OpenSansRegular', Arial, Helvetica, sans-serif;
-color:#aaa;
+    color:#FDF9F9;
 }
 a.bLogin {
     text-decoration: none;
-            font: normal 18px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
+            font: normal 16px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
     background: #d32c06 ;
     color:#fff;
-    padding: 5px 15px;
+    padding: 10px 20px;
     margin-top: 20px;
 /*    margin-left: 214px;*/
     border-radius: 3px;
@@ -1018,6 +1045,145 @@ a.bLogin:hover {
     color:#fff;
     width: 300px;
     padding: 0 0 0 100px;
+}
+.FilterByGrid {
+    margin-top:15px;
+    margin-left:20px;
+}
+.FilterByGrid a {
+    text-decoration: none;
+    font-size: 16px;
+    color:#ccc;
+}
+.FilterByGrid a:hover , .FilterByGrid a.active {
+    color:#000;
+}
+a.forgotPass {
+    font: normal 14px 'OpenSansRegular', Arial, Helvetica, sans-serif;
+    color:#000;
+    text-decoration: none;
+    padding:0 89px 0 0;
+}
+.loginSoc {
+    border-top:solid 1px #fff;
+    width:320px;
+    padding-top:30px;
+    text-align: center;
+}
+.loginSoc a {
+    display: block;
+    text-decoration: none;
+    font: normal 12px 'OpenSansRegular', Arial, Helvetica, sans-serif;
+    color: #fff;
+    width:240px;
+    border-radius: 3px;
+}
+.loginSoc a#logTw {
+    background: #28b9dd;
+    padding:10px 40px;
+    display: inline-block;
+}
+.loginSoc a#logFb {
+    background: #0f66aa;
+    padding:10px 40px;
+    display: inline-block;
+}
+span.dhAcc {
+    font: normal 13px 'OpenSansRegular', Arial, Helvetica, sans-serif;
+    color:#000;
+    padding:20px 0 0 0;
+    display: block;
+}
+span.dhAcc a {
+    text-decoration: none;
+    color:#d32c06;
+    display: inline-block;
+    padding:6px 0px;
+        font: normal 13px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
+/*    text-shadow: 1px 1px 5px #ccc;*/
+
+}
+.photoProfile {    
+    width:150px;
+    border-radius: 150px;
+    height: 150px;
+    overflow: hidden;
+    margin:0px 20px 0 70px;
+    position: relative;
+}
+.photoProfile img {
+    width:150px;
+    height: auto;
+    position: absolute;
+    z-index: 99;
+}
+.titleProfile {
+    padding:0 0 0 20px;
+}
+.titleProfile span.mainTitle {
+            font: normal 16px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    color:#333;
+    min-width: 150px;
+    display: table-cell;
+    padding:10px 0;
+    vertical-align: top;
+/*    margin-bottom: 20px;*/
+}
+.titleProfile span.contentForm input ,.titleProfile span.contentForm textarea {
+            font: normal 12px 'OpenSansRegular', Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    color:#aaa;
+/*    width: 150px;*/
+    display: inline-block;
+    padding:10px 0px;
+    border:None;
+    border-bottom: solid 1px #ccc;
+    min-width:500px;
+    max-width:500px;
+    max-height: 200px;
+    outline: none;
+}
+
+.titleProfile span.contentForm select {
+            font: normal 11px 'OpenSansRegular', Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    color:#aaa;
+/*    width: 150px;*/
+    display: inline-block;
+    padding:10px 20px;
+    border:None;
+    border-bottom: solid 1px #ccc;
+/*    width:200px;*/
+    outline: none;
+    height: 30px;
+    width:80px;
+    border-radius: 2px;
+}
+.titleProfile span.contentForm select {
+    padding:5px;
+    display: inline-block;
+/*    background: red;*/
+    
+}
+.bProfile {
+    margin:40px 0 0 22px;
+}
+a.changeProfile {
+    position: absolute;
+    z-index: 9999;
+                font: normal 11px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
+color:#000;
+    text-decoration: none;
+    top:45%;
+    left:14%;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.7    );
+    padding:5px 10px;
+    border-radius: 3px;
+}
+.boxEditAccount {
+    padding:0 0 0 100px !important;
 }
 /* specific : e 
 ============================================= */

@@ -13,7 +13,7 @@
 		<!-- header : e -->
 		<!-- content : s -->
 		<div class="content clearfix">
-		<?php if($this->load->controller()=='login'): ?>
+		<?php if($this->load->controller()=='login'||$this->load->controller()=='register'): ?>
 			<?=$this->view($main_content,$data)?>
 		<?php else: ?>
 			<?=$this->view('frontend/navigation-left',$data)?>

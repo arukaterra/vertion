@@ -8,7 +8,15 @@
         <!--[if IE 7]>
             <link rel="stylesheet" href="css/fontello-ie7.css">
         <![endif]-->
-        <script>
+      
+        <script src="<?=ASSETS_PATH?>web/js/jquery-1.8.2.js"></script>
+        <script src="<?=ASSETS_PATH?>web/js/jquery-ui-1.8.min.js"></script>
+      
+        <script src="<?=ASSETS_PATH?>web/js/script.js"></script>
+		<script>
+            var isactivepages ='<?=$this->load->controller()?>';
+        </script>
+		<script>
             function toggleCodes(on) {
                 var obj = document.getElementById('icons');
                 
@@ -19,8 +27,3 @@
                 }
               }
         </script>
-        <script src="<?=ASSETS_PATH?>web/js/jquery-1.4.2.min.js"></script>
-      
-        <script src="<?=ASSETS_PATH?>web/js/script.js"></script>
-		
-  
