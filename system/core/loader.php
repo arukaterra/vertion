@@ -2,10 +2,11 @@
 require ROOT_PATH.APPLICATION_PATH.'libraries/application.php';
 
 class Load extends db {
- 
+	var $assign;
 	function __construct(){
 			$this->load = new AdsBlockController ;
 			$this->session = new session_controller ;
+			 
 	}
 	function model($modelName){
 		if($modelName==null) return false;
@@ -26,7 +27,13 @@ class Load extends db {
 			$$key = $val;
 			}
 		}
-		 
+		
+		if($this->assign()){
+			foreach($this->assign['userssession'] as $key => $val){
+					$$key = $val;
+			}
+		}
+		 // pr($users);
         require_once ROOT_PATH.APPLICATION_PATH.'views/'.$viewName.'.html';
 		
 	}
@@ -54,7 +61,18 @@ class Load extends db {
 		$this->view('frontend/master',$data); 
 	
 	}
-
+	
+	function assign(){
+  
+		if($this->session->getSession('is_login')){ 
+			
+			 $this->assign['userssession']['users']=$this->session->getSession('users');
+			 
+			return true;			
+		}
+		return false;
+	
+	}
 }
 
 

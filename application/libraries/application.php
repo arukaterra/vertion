@@ -2,7 +2,7 @@
 
 class Application extends Load {
 	 
-	var $userministrator ;
+	var $usersAuth ;
 	
 	function __construct(){
 		parent::__construct();
@@ -11,10 +11,10 @@ class Application extends Load {
 	}
 	
 	function initial(){ 
-		$this->userministrator = $this->library('userministrator');	
+		$this->usersAuth = $this->library('usersAuth');	
 		if($this->load->controller()!='login'&&$this->load->controller()!='register'){
 			
-			if(!$this->userministrator->checklogin()){
+			if(!$this->usersAuth->checklogin()){
 				gotoPage(BASE_PATH."login"); 
 				exit;
 			}

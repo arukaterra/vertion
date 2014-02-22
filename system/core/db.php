@@ -4,30 +4,38 @@
 class db{
 	
 	var $lastid = false;
+	var $link=false;
+	var $port=false;
 	//sementara mysql dulu
 	public function connect($port=0){
 		GLOBAL $config;
-		$link = mysql_connect($config['DATABASE'][$port]['HOST'],$config['DATABASE'][$port]['USERNAME'],$config['DATABASE'][$port]['PASSWORD']);
-		mysql_select_db($config['DATABASE'][$port]['DB']);
-		if (!$link) {
+		$this->port = $port;
+		if($this->link==false){
+			$this->link = mysql_connect($config['DATABASE'][$port]['HOST'],$config['DATABASE'][$port]['USERNAME'],$config['DATABASE'][$port]['PASSWORD']);
+			mysql_select_db($config['DATABASE'][$port]['DB']);
+		}
+		if (!$this->link) {
 			// pr($config['DATABASE'][$port]);
 			die('Could not connect: ' . mysql_error());
 		}
 	}
 	
 	public function close(){
-		mysql_close();
+		if($this->link!=false){
+			mysql_close($this->link);
+			$this->link = false;
+		}
 	}	
 	
 	public function query($query=NULL){
 		if($query==NULL) return false;
-		$this->connect();
+		if($this->link==false) $this->connect($this->port);
 			$data = mysql_query($query);
 			// pr($data);
 			$lastid = mysql_insert_id();
 			if($lastid) $this->setLastinsertID($lastid);
 			else $this->setLastinsertID();
-		$this->close();
+		if($this->link==false) $this->close();
 		return $data;
 	}
 	
@@ -36,14 +44,14 @@ class db{
 		$data = null;
 		$queryThis = $this->query($query);
 		if($queryThis){
-		$this->connect();
+		if($this->link==false) $this->connect($this->port);
 			if($all==TRUE) {
-				while($row = mysql_fetch_object($queryThis)){
+				while($row = mysql_fetch_array($queryThis,MYSQL_ASSOC)){
 					$data[] = $row;
 				}
-			}else $data = mysql_fetch_object($queryThis);
+			}else $data = mysql_fetch_array($queryThis,MYSQL_ASSOC);
 			mysql_free_result($queryThis);
-		$this->close();
+		if($this->link==false) $this->close();
 		}		
 		return $data;
 	}

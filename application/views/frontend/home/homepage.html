@@ -4,155 +4,73 @@
                 <!-- content right : s -->
                 <div class="contentRight">
                     <div class="contentRightIn">
+						<?php foreach($stickyads as $val) : ?>
                         <div class="item">
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
-                                        Gadget
+                                        <?=$val['category_name']?>
                                     </a></div>
                                 <div class="right">
                                 <span>
-                                    <i class="icon-thumbs-up">&nbsp;13</i>
-                                    <i class="icon-comment-1">&nbsp;240</i>
+                                    <i class="icon-thumbs-up">&nbsp;<?=$val['cool']['total']?></i>
+                                    <i class="icon-comment-1">&nbsp;<?=$val['views']?></i>
                                 </span>
                                 </div>
                                 <div class="clearit"></div>
-                                <a href="readingPage.html"  class=" aMainCon titleBlock">Yet Jeter's control of his career has mirrored his command of the middle of a baseball diamond.</a>
+                                <a href="readingPage.html"  class=" aMainCon titleBlock"><?=$val['content']?></a>
                             </div>
                             <div class="itemImg">
                                 <img src="<?=ASSETS_PATH?>web/images/img3.jpg">
                             </div>
                             <!-- comment : s -->
                             <!-- list comment : s -->
-                            <div class="mainComment">
+                            <div class="mainComment">'
+								<?php if($val['comment']['total']>0) : ?>
+								<?php foreach($val['comment']['users'] as $comment) : ?>
                                 <div class="listComment listCommentMain clearfix">
                                     <div class="imgProfCom left"></div>
                                     <div class="boxNameCom left">
-                                        <a href="#">Rizki Mardita</a>
-                                        <h6>&nbsp; - 3 minutes ago</h6>
-                                        <p class="pMainComm">Hacker of minds. Staff writer at ReadWritend Burning Man blogger. Cutting my teeth and trying out voices Decent explainer. Hacker of minds.</p>
+                                        <a href="#"><?=$comment['fullname']?></a>
+                                        <h6>&nbsp; - <?=$comment['createddate']?></h6>
+                                        <p class="pMainComm"><?=$comment['comment']?></p>
                                     </div>
                                 </div>
-                                <div class="listComment listCommentMain clearfix">
-                                    <div class="imgProfCom left"></div>
-                                    <div class="boxNameCom left">
-                                        <a href="#">Rizki Mardita</a>
-                                        <h6>&nbsp; - 3 minutes ago</h6>
-                                        <p class="pMainComm">Hacker of minds. Staff writer at ReadWritend Burning Man blogger. Cutting my teeth and trying out voices Decent explainer. Hacker of minds.</p>
-                                    </div>
-                                </div>
-                                </div>
+                                <?php endforeach ?>
+                                <?php endif ?>
+                             </div>
                                 <!-- list comment : e -->
                             
                             <!-- comment : e -->
                         </div>
-                        <div class="item3">
+						<?php endforeach ?>
+						<?php foreach($timeline as $val) : ?>
+						<!-- have item,item2,item3 -->
+						<?php $items = rand(2,3);?>
+                        <div class="item<?=$items?>">
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
-                                        Gadget
+                                         <?=$val['category_name']?>
                                     </a></div>
                                 <div class="right">
                                 <span>
-                                    <i class="icon-thumbs-up">&nbsp;13</i>
-                                    <i class="icon-comment-1">&nbsp;240</i>
+                                    <i class="icon-thumbs-up">&nbsp;<?=$val['cool']['total']?></i>
+                                    <i class="icon-comment-1">&nbsp;<?=$val['views']?></i>
                                 </span>
                                 </div>
                                 <div class="clearit"></div>
-                                <a href="readingPage.html"  class="titleBlock">3 Lets something new togedher</a>
+                                <a href="readingPage.html"  class="titleBlock">
+								<?php if($items==2) : ?>  
+									<?=$val['caption']?>
+								<?php else : ?>
+										<?=$val['content']?>
+								<?php endif ?>
+								</a>
                             </div>
                             <div class="itemImg">
                                 <img src="<?=ASSETS_PATH?>web/images/img5.jpg">
                             </div>
                         </div>
-                        <div class="item3">
-                            <div class="itemText">
-                                <div class="left"><a href="#" class="CatTag">
-                                        Gadget
-                                    </a></div>
-                                <div class="right">
-                                <span>
-                                    <i class="icon-thumbs-up">&nbsp;13</i>
-                                    <i class="icon-comment-1">&nbsp;240</i>
-                                </span>
-                                </div>
-                                <div class="clearit"></div>
-                                <a href="readingPage.html" class="titleBlock">Lorem ipsum dolor sit amet</a>
-                            </div>
-                            <div class="itemImg">
-                                <img src="<?=ASSETS_PATH?>web/images/img1.jpg">
-                            </div>
-                        </div>
-                        <div class="item2">
-                            <div class="itemText">
-                                <div class="left"><a href="#" class="CatTag">
-                                        Gadget
-                                    </a></div>
-                                <div class="right">
-                                <span>
-                                    <i class="icon-thumbs-up">&nbsp;13</i>
-                                    <i class="icon-comment-1">&nbsp;240</i>
-                                </span>
-                                </div>
-                                <div class="clearit"></div>
-                                <a href="readingPage.html" class="titleBlock">Yet Jeter's control of his career has mirrored his command of the middle of a baseball diamond.</a>
-                            </div>
-                            <div class="itemImg">
-                                <img src="<?=ASSETS_PATH?>web/images/img3.jpg">
-                            </div>
-                        </div>
-                        <div class="item2">
-                            <div class="itemText">
-                                <div class="left"><a href="#" class="CatTag">
-                                        Gadget
-                                    </a></div>
-                                <div class="right">
-                                <span>
-                                    <i class="icon-thumbs-up">&nbsp;13</i>
-                                    <i class="icon-comment-1">&nbsp;240</i>
-                                </span>
-                                </div>
-                                <div class="clearit"></div>
-                                <a href="readingPage.html" class="titleBlock">Yet Jeter's control of his career has mirrored his command of the middle of a baseball diamond.</a>
-                            </div>
-                            <div class="itemImg">
-                                <img src="<?=ASSETS_PATH?>web/images/img5.jpg">
-                            </div>
-                        </div>
-                        <div class="item3">
-                            <div class="itemText">
-                                <div class="left"><a href="#" class="CatTag">
-                                        Gadgetx
-                                    </a></div>
-                                <div class="right">
-                                <span>
-                                    <i class="icon-thumbs-up">&nbsp;13</i>
-                                    <i class="icon-comment-1">&nbsp;240</i>
-                                </span>
-                                </div>
-                                <div class="clearit"></div>
-                                <a href="readingPage.html" class="titleBlock">Yet Jeter's control of his career has mirrored his command of the middle of a baseball diamond.</a>
-                            </div>
-                            <div class="itemImg">
-                                <img src="<?=ASSETS_PATH?>web/images/img4.jpg">
-                            </div>
-                        </div>
-                        <div class="item3">
-                            <div class="itemText">
-                                <div class="left"><a href="#" class="CatTag">
-                                        Gadgetx
-                                    </a></div>
-                                <div class="right">
-                                <span>
-                                    <i class="icon-thumbs-up">&nbsp;13</i>
-                                    <i class="icon-comment-1">&nbsp;240</i>
-                                </span>
-                                </div>
-                                <div class="clearit"></div>
-                                <a href="readingPage.html" class="titleBlock">Yet Jeter's control of his career has mirrored his command of the middle of a baseball diamond.</a>
-                            </div>
-                            <div class="itemImg">
-                                <img src="<?=ASSETS_PATH?>web/images/img2.jpg">
-                            </div>
-                        </div>
+                       <?php endforeach ?>
                         <div class="clearit"></div>
                     </div>
                 </div>

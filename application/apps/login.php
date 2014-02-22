@@ -13,7 +13,7 @@ class login extends application {
 	
 	function goLogin(){
 	
-		$this->apps->userministrator->AuthLogin();
+		$this->apps->usersAuth->AuthLogin();
 		
 		gotoPage(BASE_PATH."login"); 
 		exit;

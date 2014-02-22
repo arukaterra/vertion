@@ -1,6 +1,6 @@
 <?php 
 
-class Userministrator {
+class usersAuth {
 	
 	
 	function __construct($apps=false){  
@@ -30,9 +30,9 @@ class Userministrator {
 		$qData = $this->apps->fetch($sql);
 		
 		if($qData) {
-			$hashPass =sha1(sha1($password.$qData->salt."{".$username)."}".$qData->createddate);
+			$hashPass =sha1(sha1($password.$qData['salt']."{".$username)."}".$qData['createddate']);
 		
-			if($qData->password!=$hashPass) return false;	
+			if($qData['password']!=$hashPass) return false;	
 			
 			return $qData;
 		}else return false;
@@ -57,6 +57,7 @@ class Userministrator {
 		
 		if($this->apps->session->getSession('is_login')){	 
 			$this->apps->session->setSession('verified',1);
+		
 			gotoPage(BASE_PATH."homepage"); 
 			exit;
 		}

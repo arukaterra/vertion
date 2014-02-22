@@ -12,7 +12,7 @@ class register extends application {
 	}
 	 
 	function doRegistration(){
-		$qData = $this->apps->userministrator->doRegister();
+		$qData = $this->apps->usersAuth->doRegister();
 		// pr($qData);
 		gotoPage(BASE_PATH."login"); 
 		exit;

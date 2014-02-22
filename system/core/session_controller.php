@@ -3,7 +3,7 @@ class session_controller{
 
 	function setSession($index,$value=0){
 		if($index==null) return false;
-		if(is_object($index)){
+		if(is_array($index)){
 			foreach($index as $key => $val){
 				$_SESSION[$key] = $val;			
 			}
