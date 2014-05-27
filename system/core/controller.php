@@ -9,7 +9,11 @@ class AdsBlockController {
 	
 		
 	function uri(){
-		$uri = explode('/',$_SERVER['REQUEST_URI']);
+		 
+		$oriuri = $_SERVER['REQUEST_URI']; 
+		$dispath  = parse_url($oriuri);
+		if(array_key_exists('path',$dispath))	$uri = explode('/',$dispath['path']);
+		else $uri = explode('/',$oriuri);
 		return $uri;
 	}
 	

@@ -1,0 +1,1 @@
+<?php$locale['uploadlabel']['post'] = 'POST';$locale['uploadlabel']['upload'] = 'UPLOAD';$locale['post']['failed'] = 'failed to post';$locale['post']['success'] = 'success to post';$locale['post']['uploading'] = 'please wait';?>

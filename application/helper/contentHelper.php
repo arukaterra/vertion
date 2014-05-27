@@ -10,6 +10,7 @@ class contentHelper {
 		$this->config = $config;
 		$this->database = $DATABASE;
 		
+		if(is_array($this->apps->user)) $this->uid = intval($this->apps->user['id']);	
 	}
 	
 	function getStickyAds($start=0,$limit=6){ 
@@ -26,6 +27,7 @@ class contentHelper {
 		$qData = $this->apps->fetch($sql,1);
 		
 		if($qData) {
+		
 			$qData = $this->getContentSummary($qData);
 			return $qData;
 		}else return false;
@@ -34,16 +36,56 @@ class contentHelper {
 	
 	function getTimeline($start=0,$limit=6){
 	
- 
+	
+		$search = strip_tags(_g('s'));
+	
+		$qSearch = "";
+		
+		if($search){
+			$qSearch = " AND ( caption like '%{$search}' OR content like '%{$search}%' ) ";
+		}
+		
 		$sql = "
 		SELECT *
 		FROM `vertion_content`
 		WHERE nstatus = 1 AND sticky = 0 
+		{$qSearch}
 		ORDER BY modifieddate DESC
 		LIMIT {$start},{$limit}
 		
 		";
- 
+		// pr($sql);
+		$qData = $this->apps->fetch($sql,1);
+		
+		if($qData) {
+		 	$qData = $this->getContentSummary($qData);
+			// pr($qData);exit;
+			return $qData;
+		}else return false;
+		
+	}
+	
+	function getDetailPost($vsid=false){
+	
+		if(!$vsid)$vsid = explode('_',strip_tags(_g('vsid')));
+		
+		if(!$vsid) return false;
+		$vsid = explode('_',$vsid);
+		
+		$stringid = $vsid[0];
+		$id = $vsid[1];
+		$userid = $vsid[2];
+	
+		
+		$sql = "
+		SELECT *
+		FROM `vertion_content`
+		WHERE nstatus = 1 AND stringid = '{$stringid}' AND id = {$id} AND userid={$userid}
+		ORDER BY modifieddate DESC
+		LIMIT 1
+		
+		";
+	// pr($sql);
 		$qData = $this->apps->fetch($sql,1);
 		
 		if($qData) {
@@ -52,7 +94,6 @@ class contentHelper {
 		}else return false;
 		
 	}
-	
 	  
 	function getContentSummary($rqData=null){
 		
@@ -64,7 +105,7 @@ class contentHelper {
 		$arrayContentID = array();
 	 
 		foreach($rqData as $key => $val){
-		
+			$qData[$key]['imagesdata'] = array();
 			$arrayContentID[] = $val['id']; 
 			$arrayCategoryID[] = $val['category']; 
 			$arrayTypeID[] = $val['type']; 
@@ -78,7 +119,12 @@ class contentHelper {
 			$qData[$key]['cool']['total'] = 0;
 			$qData[$key]['cool']['users'] = array();
 			$qData[$key]['views'] = 0;
+		 
+			$qData[$key]['vsid'] = $val['stringid']."_".$val['id']."_".$val['userid']; 
 			 
+			$qData[$key]['imagesdata'] = $this->getImagesPath($qData[$key],'images','posts');
+			 
+			
 		}		
 		
 		if(!$arrayContentID) return array();
@@ -354,6 +400,74 @@ class contentHelper {
 		}else return false;
 		
 	}
+	
+	function getImagesPath($thedata=false,$indeximage='image',$imagepath='',$thumbnail='small_'){
+		$imagedata['imagepath'] = false;
+		$imagedata['imagepath_small'] = false;
+		GLOBAL $CONFIG;
+		if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thedata[$indeximage]}")) $imagedata['imagepath'] = $imagepath;	 
+		if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thumbnail}_{$thedata[$indeximage]}")) $imagedata['imagepath_small'] = $imagepath;
+ 
+		
+		if($imagedata['imagepath']) $imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
+		else $imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+		if($imagedata['imagepath_small']) $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath_small']."/{$thumbnail}_".$thedata[$indeximage];
+		else $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+		
+		
+		return $imagedata;
+	}
+	
+	function sendPost($imagesdata=false){
+		global $locale;
+		$respond['result'] = false;
+		$respond['code'] = false;
+		$respond['message'] = $locale['post']['failed'];
+		$respond['data'] =  array();
+		 
+		$caption = strip_tags(_p('caption'));
+		$content = strip_tags(_p('content')); 
+		$category =9;
+		$type = 1;
+		$createddate =  date("Y-m-d H:i:s");
+		$modifieddate = date("Y-m-d H:i:s");
+		$userid = $this->uid;
+		$sticky = 0;
+		$nstatus = 1;
+		$images = "";
+		
+		if(!$caption) return $data;
+		if(!$content)return $data;
+		
+		if($imagesdata) $images = $imagesdata['arrImage']['filename'];
+		 
+		$stringid = str_replace(' ','.',$caption).".".strtotime($createddate).".".$this->uid;
+		
+		
+		
+		$sql = "
+		INSERT INTO  `vertion_content` 
+		( `caption`, `content`, `images`, `category`, `type`, `createddate`, `modifieddate`, `userid`, `sticky`, `nstatus`,stringid) 
+		VALUES 
+		(  '{$caption}', '{$content}', '{$images}', '{$category}', '{$type}', '{$createddate}', '{$modifieddate}', '{$userid}', '{$sticky}', '{$nstatus}','{$stringid}') 
+		";
+		// pr($sql);
+		$qData = $this->apps->query($sql);
+		$lastId = $this->apps->getLastinsertID();
+		if($lastId>0) { 
+			$vsid = $stringid."_".$lastId."_".$userid;
+			 
+			
+			$respond['result'] = true;
+			$respond['code'] = 1;
+			$respond['message'] = $locale['post']['success']; 
+			$respond['data'] = $this->getDetailPost($vsid)[0];
+		} 
+		
+		return $respond;
+		
+	}
+	
 }
 
 

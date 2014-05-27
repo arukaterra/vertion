@@ -909,6 +909,7 @@ p.pMainComm {
     position: absolute;
     z-index: 9999;
     margin-top:1px;
+    position:fixed;
 }
 .boxUploadIn {
     width:80%;

@@ -27,8 +27,9 @@
                         <ul>
                             <li class="clearfix active">
  
-                                <div class="categoriesTitle lefte"><a href="index.html" class="active">Home</a></div>
+                                <div class="categoriesTitle lefte"><a href="<?=BASE_PATH?>homepage" class="active">Home</a></div>
                             </li>
+							<!--
                             <li class="clearfix active">
  
                                 <div class="categoriesTitle lefte"><a href="#">My Inbox</a></div>
@@ -46,42 +47,44 @@
                                 <div class="categoriesTitle left"><a href="#">Find Friends</a></div>
                             </li>
                             
-                            
+                            -->
                         </ul>
                     </div>
                     <!-- categories : e -->
                     <!-- categories : s -->
+					<!--
                     <div class="categories">
                         <h1>Your Communities
                             <i class="icon-plus-circle plusCategories"></i>
                         </h1>
                         <ul>
                             <li class="clearfix active">
-                                <!-- <div class="categoriesAvatar left"></div>-->
+                               
                                 <div class="categoriesTitle lefte">
                                     <a href="#">Rackters</a>
                                 </div>
                             </li>
                             <li class="clearfix">
-                                <!-- <div class="categoriesAvatar left"></div>-->
+                              
                                 <div class="categoriesTitle left">
                                     <a href="#">Fcore</a>
                                 </div>
                             </li>
                             <li class="clearfix">
-                                <!-- <div class="categoriesAvatar left"></div>-->
+                       
                                 <div class="categoriesTitle left">
                                     <a href="#">Siskom UG</a>
                                 </div>
                             </li>
                             <li class="clearfix">
-                                <!-- <div class="categoriesAvatar left"></div>-->
+                               
                                 <div class="categoriesTitle left">
                                     <a href="#">ACSL Lab</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
+					-->
                     <!-- categories : e -->
                     <!-- categories : s -->
                     <div class="categories">
@@ -97,11 +100,12 @@
  
                                 <div class="categoriesTitle left"><a href="#">Account</a></div>
                             </li>
+							<!--
                             <li class="clearfix">
  
                                 <div class="categoriesTitle left"><a href="#">Notifications</a></div>
                             </li>
-                            
+                            -->
                         </ul>
                     </div>
                     <!-- categories : e -->
@@ -111,10 +115,12 @@
  
                         </h1>
                         <ul>
+						<!--
                             <li class="clearfix">
  
                                 <div class="categoriesTitle left"><a href="#">Help</a></div>
                             </li>
+						-->
                             <li class="clearfix">
  
                                 <div class="categoriesTitle left"><a href="<?=BASE_PATH?>logout">Logout</a></div>
@@ -127,6 +133,7 @@
                 </div>
                 <!-- content left adefsfsdfdsf: e -->
                 <!-- dropdown collections : s -->
+				
                 <div class="dropdownCollections" id="dropdownHobby">
                     <ul>
  
@@ -190,16 +197,20 @@
                     <div class="barCat clearfix">
                         <!-- menuCat : s -->
                         <div class="left">
-                            <div class="menuInCat left">
-								<a href="#" class="plusNewHome">
-									<i class=" icon-upload-1"></i>&nbsp;Upload</a>
+							 <div class="menuInCat left">
+								<a href="javascript:void(0)" class="plusNewHome" id="buttonUpload">
+									<i class=" icon-upload-1 "></i>&nbsp;<span class="uploadlabel">POST</span></a>
 							</div>
                           
                         </div>
                         <!-- menuCat : e -->
                         <!-- sort filter search : s -->
                         <div class="left">
-                             
+                             <div class="FilterByGrid left">
+                                <a href="javascript:void(0)"  class="ads-block active" ads-block="item1" ><i class="icon-th-list-2"></i></a>
+                                <a href="javascript:void(0)"  class="ads-block  " ads-block="item2" ><i class="icon-th-large-2"></i></a>
+                                <a href="javascript:void(0)"  class="ads-block  " ads-block="item3" ><i class="icon-th-2"></i></a>
+                            </div>
  
                         </div>
                         <!-- sort filter search : e -->
@@ -207,3 +218,118 @@
                     <!-- bar cat : e -->
                 </div>
                 <!-- header categories : e -->
+				
+<script>
+	var uploadlabel = 0;
+	 
+	$(document).on('click','.plusNewHome',function(){
+			
+	
+		if(uploadlabel==1){
+			$(".uploadlabel").html(locale.uploadlabel.post);
+			
+			var caption = $('.titleUpload').val();
+			var content = $('.descUpload').val();
+			
+			if(!caption) return false;
+			if(!content) return false;
+			
+			 var fd = new FormData($("#postform")[0]);
+				//fd.append("CustomField", "This is some extra data"); 
+				$.ajax({
+					url: basedomain+"post",
+					beforeSend : function() {
+						$(".stickypaths").after(uploadingtimelineView(locale.post.uploading));
+						 
+					},
+					type: "POST",
+					data: fd,
+					dataType : "JSON",
+					processData: false,  // tell jQuery not to process the data
+					contentType: false   // tell jQuery not to set contentType
+					}).done(function( data ) {
+						$('.onuploading').remove();
+						if(data.result){
+							html = timelineView(data.data);
+						}else{
+							html = locale.post.failed;
+						}
+						
+						$(".stickypaths").after(html);
+				});;
+
+			
+			uploadlabel = 0;
+		}else {
+			$(".uploadlabel").html(locale.uploadlabel.upload);
+			
+			uploadlabel = 1;
+		}
+		
+	});	
+	
+	$(document).on('click','.openuploadvertion',function(){
+	
+		$('.imagesvertion').trigger('click');
+		
+	});
+	$(document).on('change','.imagesvertion',function(){
+		
+		//$('.previewimages').attr('src','');
+	});
+	
+	$(document).on('click','.ads-block',function(){
+		$(".ads-block").removeClass('active');
+		$(this).addClass('active');
+		var item = $(this).attr('ads-block');
+		if(item=='item1') window.location = location.href;
+		else {
+			$('.ads-block-timeline').removeClass('item2');
+			$('.ads-block-timeline').removeClass('item3');
+			$('.ads-block-timeline').addClass(item);			
+						
+		}
+	});
+	
+	function uploadingtimelineView(message){
+		var html ="<div class='ads-block-timeline item2 onuploading'>";
+		html +=message;
+		html +="</div>";
+		
+		return html;
+		
+	}
+	function timelineView(e){
+				var html ="";
+				html+="<div class='ads-block-timeline item2'>";
+				html+="                   <div class='itemText'>";
+				html+="                       <div class='left'><a href='#' class='CatTag'>";
+				html+=								e.category_name;
+				html+="                            </a></div>";
+				html+="                        <div class='right'>";
+				html+="                        <span>";
+				html+="                            <i class='icon-thumbs-up'>&nbsp; cool 0 total </i>";
+				html+="                           <i class='icon-comment-1'>&nbsp; 0 views</i>";
+				html+="                        </span>";
+				html+="                        </div>";
+				html+="                       <div class='clearit'></div>";
+				html+="                      <a href='readingPage.html'  class='titleBlock'>"; 
+				html+=								 e.caption ; 
+				html+="						</a>";
+				html+="                   </div>";
+				html+="                   <div class='itemImg'>";
+				html+="                        <img src='"+e.imagesdata.image_full_path+"'>";
+				html+="                   </div>";
+				html+="               </div>";
+				
+			return html;
+	}
+	
+	
+	$('.searchPost').keypress(function (e) {
+		 
+		  if (e.which == 13) {
+				window.location = basedomain + isactivepages + "?s=" + $(this).val();
+		  }
+	});
+</script>

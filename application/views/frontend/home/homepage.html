@@ -4,8 +4,10 @@
                 <!-- content right : s -->
                 <div class="contentRight">
                     <div class="contentRightIn">
+						<?=$this->view('frontend/widgets/upload-box')?>
+						
 						<?php foreach($stickyads as $val) : ?>
-                        <div class="item">
+                        <div class="item stickypaths">
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
                                         <?=$val['category_name']?>
@@ -17,10 +19,10 @@
                                 </span>
                                 </div>
                                 <div class="clearit"></div>
-                                <a href="readingPage.html"  class=" aMainCon titleBlock"><?=$val['content']?></a>
+                                <a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>"  class="aMainCon titleBlock showdetail" vsid="<?=$val['vsid']?>" ><?=$val['content']?></a>
                             </div>
                             <div class="itemImg">
-                                <img src="<?=ASSETS_PATH?>web/images/img3.jpg">
+                                <img src="<?=$val['imagesdata']['image_full_path']?>" />
                             </div>
                             <!-- comment : s -->
                             <!-- list comment : s -->
@@ -43,10 +45,19 @@
                             <!-- comment : e -->
                         </div>
 						<?php endforeach ?>
-						<?php foreach($timeline as $val) : ?>
+						<?php 
+							$arrAbsoluteItemBlock = array(3,3,2,2,3,3) ;
+							$n = 0;
+						?>
+						
+						<?php foreach($timeline as  $val) : ?>
 						<!-- have item,item2,item3 -->
-						<?php $items = rand(2,3);?>
-                        <div class="item<?=$items?>">
+						<?php 
+							$items = $arrAbsoluteItemBlock[$n];
+							if($n>count($arrAbsoluteItemBlock))$n=0;
+							else $n++;
+						?>
+                        <div class="ads-block-timeline item<?=$items?>">
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
                                          <?=$val['category_name']?>
@@ -58,16 +69,17 @@
                                 </span>
                                 </div>
                                 <div class="clearit"></div>
-                                <a href="readingPage.html"  class="titleBlock">
+								 
+                                <a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>"   class="titleBlock"  vsid="<?=$val['vsid']?>" >
 								<?php if($items==2) : ?>  
-									<?=$val['caption']?>
+										<?=$val['caption']?>
 								<?php else : ?>
 										<?=$val['content']?>
 								<?php endif ?>
 								</a>
                             </div>
                             <div class="itemImg">
-                                <img src="<?=ASSETS_PATH?>web/images/img5.jpg">
+                                <img src="<?=$val['imagesdata']['image_full_path']?>" />
                             </div>
                         </div>
                        <?php endforeach ?>

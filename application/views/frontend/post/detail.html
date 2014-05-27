@@ -1,0 +1,75 @@
+<?php foreach($timeline as  $val) : ?>
+<div class="headerCategories">
+                    <div class="headerCatIn">
+                        <div class="categoriesAvatar2 left"></div>
+                        <div class="left">
+                            <div class="backtoCat">
+                                <a href="<?=BASE_PATH?>homepage">
+                                    <i class="icon-angle-left"></i>Back to Basket</a>
+                            </div>
+                           
+					</div>
+                        <div class="shareButton right">
+                            <a href="#">
+                                <i class="icon-thumbs-up"></i>Cool <span class=""><?=$val['cool']['total']?></span></a>
+                            <a href="#">
+                                <i class="icon-facebook-1"></i>Share <span class=""><?=$val['views']?></span></a>
+                            <a href="#">
+                                <i class="icon-twitter-1"></i>Twitter <span class="">97</span></a>
+                        </div>
+                    </div>
+                    <div class="clearit"></div>
+                </div>
+                <!-- header categories : e -->
+                <!-- content right : s -->
+                <div class="contentRight boxRead">
+					
+                    <div class="contentRightIn">
+                        <br />
+                        <br />
+                        <div class="imgCatCont left">
+                            <img src="<?=$val['imagesdata']['image_full_path']?>">
+                        </div>
+                        <div class="detailCatCont left">
+                            <div class="tagCat">
+                                <a href="#"> <?=$val['category_name']?> </a>&nbsp; <?=$val['createddate']?></div>
+                            <h1><?=$val['caption']?></h1>
+                           <?php if($val['creator']) :?>
+							<a href="#" class="author">by  <?=$val['creator']['fullname']?></a>
+							<?php endif ; ?>
+                            <div class="DesIntro">
+                                <br />
+								<?=$val['content']?>
+                            </div>
+                            <div class="commentBox">
+                                <a href="#" class="totCom">
+                                    <!-- <i class=" icon-comment-alt"></i>7 more comments<i class="icon-down-micro"></i></a> -->
+                                
+                                <!-- add comment : s -->
+                                <div class="addCom">
+                                    <textarea value="Add Comment ...">Add Comment ...</textarea>
+                                    </div>
+                                <!-- add comment : e -->
+                                <!-- list comment : s -->
+								<?php if($val['comment']['total']>0) : ?>
+								<?php foreach($val['comment']['users'] as $comment) : ?>
+                                <div class="listComment clearfix">
+                                    <div class="imgProfCom left"></div>
+                                    <div class="boxNameCom left">
+                                        <a href="#"><?=$comment['fullname']?></a>
+                                        <h6>&nbsp;  <?=$comment['createddate']?></h6>
+                                        <p><?=$comment['comment']?></p>
+                                    </div>
+                                </div>
+                               
+								 <?php endforeach ?>
+                                <?php endif ?>
+                                <!-- list comment : e -->
+                            </div>
+                        </div>
+                        <div class="clearit"></div>
+                    </div>
+					
+                </div>
+    <?php endforeach ?>         
+ 

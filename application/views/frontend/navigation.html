@@ -8,6 +8,7 @@
                 <!-- menu top : s -->
                 <div class="menuTop left">
 				<?php if($this->load->controller()!='login'&&$this->load->controller()!='register'): ?>
+				<!--
                     <ul>
                         <li>
                             <a href="#" id="listProduct">Hobby<i class="icon-down-micro"></i></a>
@@ -19,13 +20,14 @@
                             <a href="#">Shop</a>
                         </li>
                     </ul>
+				-->
 				<?php endif ?>
                  </div>
                 <!-- menu top : e -->
                 <!-- search : s -->
                 <div class="search1 right">
                     <i class="icon-search"></i>&nbsp;
-                    <input class="defaultText" type="text" value="Search" />
+                    <input class="defaultText searchPost" type="text" value="<?php echo $qs ? $qs : 'Search' ?>"  />
                 </div>
                 <!-- search : e -->
                 

@@ -3,6 +3,7 @@
 class Application extends Load {
 	 
 	var $usersAuth ;
+	var $user ;
 	
 	function __construct(){
 		parent::__construct();
@@ -17,7 +18,9 @@ class Application extends Load {
 			if(!$this->usersAuth->checklogin()){
 				gotoPage(BASE_PATH."login"); 
 				exit;
-			}
+			}else{
+				$this->user = @$this->session->getSession('users');
+			}	
 		}
 		
 		$this->call();
@@ -53,7 +56,10 @@ class Application extends Load {
 				exit;
 			}
 			
-		}  
+		}else{
+				gotoPage(BASE_PATH.DEFAULT_CONTROLLER); 
+				exit;
+		}		
 	}
 }
 

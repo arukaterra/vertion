@@ -17,8 +17,8 @@ class usersAuth {
 	
 		global $config,$DATABASE;
 			
-		$username = _p('username');
-		$password = _p('password');
+		$username = strip_tags(_p('username'));
+		$password = strip_tags(_p('password'));
 				 
 		$sql = "
 		SELECT salt,password, createddate,p.*
