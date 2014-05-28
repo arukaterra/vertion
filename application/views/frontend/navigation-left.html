@@ -353,7 +353,7 @@
 	}
 	
 	
-	$('.searchPost').keypress(function (e) {
+	$(document).on('keypress','.searchPost',function (e) {
 		 
 		  if (e.which == 13) {
 				window.location = basedomain + isactivepages + "?s=" + $(this).val();
@@ -419,4 +419,100 @@
  
 	}
 	 
+	var loadcommentok = 0;
+  
+	$(document).on('keypress','.addSocialComment',function (e) {
+		
+		if(e.which==13&&e.shiftKey)	{
+			 
+		}else {
+			if (e.which == 13) {
+		  		var thisobject = $(this);
+		  		var cmt = $(this).val();
+		  		
+		  		var vsid = $(this).attr('vsid');
+				 if(loadcommentok==1) return false; 
+		  
+				$.ajax({
+					url: basedomain+"post/comment",
+					beforeSend : function() {
+						thisobject.val(locale.post.uploading); 
+						thisobject.attr('disabled',true);
+						loadcommentok=1;
+					},
+					type: "POST",
+					data: {message:cmt,vsid:vsid},
+					dataType : "json"
+					}).done(function( data ) {
+						var html ="";
+						$('.onuploading').remove();
+						if(data.result){
+ 
+							html  = commentView(data.data); 
+							$(".commentBox").prepend(html);
+							thisobject.val(''); 
+							 
+						}else{
+							thisobject.val('failed to save comment'); 
+							 
+						}
+						thisobject.attr('disabled',false);
+						loadcommentok=0;  
+						
+					});
+					
+			}
+		 }
+	});
+	
+	
+	function commentView(e){
+		  var html ="";
+				html+="<div class='listComment clearfix'>";
+              	html+="<div class='imgProfCom left'></div>";
+             	html+="<div class='boxNameCom left'>";
+				html+="<a href='#'>  "+e.fullname+"</a>";
+				html+="<h6>&nbsp;  "+e.createddate+"</h6>";
+            	html+="<p>  "+e.comment+"</p>";
+            	html+="</div>";
+            	html+="</div>";
+			return html;
+	}
+	
+	
+	function commentPaging(selector,start){
+				 
+		  		 
+		  		var vsid = $(selector).attr('vsid');
+				 if(loadcommentok==1) return false; 
+				if(loadcommentok==1) return false;
+				 if(loadcommentok==3) return false;
+				 
+				$.ajax({
+					url: basedomain+"post/pagecomment",
+					beforeSend : function() {
+						$(selector).append(slideLoadPagingView(locale.post.uploading));
+						loadcommentok=1;
+					},
+					type: "POST",
+					data: {start:start,vsid:vsid},
+					dataType : "json"
+					}).done(function( data ) {
+							var html ="";
+							$('.slideloadpaging').remove();
+							if(data.result){
+								$.each(data.data,function(i,e){
+										html +=  commentView(e);
+								});  
+								loadcommentok=2;
+								pages++;
+							}else{
+								html = slideLoadPagingView('end of comment history');
+								loadcommentok=3;
+							}
+							
+							$(selector).append(html); 
+					});
+	}
+	
 </script>

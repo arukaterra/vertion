@@ -27,7 +27,10 @@
                     
                             <div class="mainComment">'
 								<?php if($val['comment']['total']>0) : ?>
-								<?php foreach($val['comment']['users'] as $comment) : ?>
+									<a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>" class="totCom">
+										<i class=" icon-comment-alt"></i><?=$val['comment']['total']?> more comments<i class="icon-down-micro"></i>
+										</a>
+								<?php foreach(array_reverse($val['comment']['users']) as $ckeys=> $comment) : ?>
                                 <div class="listComment listCommentMain clearfix">
                                     <div class="imgProfCom left"></div>
                                     <div class="boxNameCom left">
@@ -36,7 +39,9 @@
                                         <p class="pMainComm"><?=$comment['comment']?></p>
                                     </div>
                                 </div>
+								 
                                 <?php endforeach ?>
+								
                                 <?php endif ?>
                              </div>
  

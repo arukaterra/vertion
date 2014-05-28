@@ -22,7 +22,7 @@
                 </div>
                 <!-- header categories : e -->
                 <!-- content right : s -->
-                <div class="contentRight boxRead">
+                <div class="contentRight boxRead" id="commentBox">
 					
                     <div class="contentRightIn">
                         <br />
@@ -41,18 +41,23 @@
                                 <br />
 								<?=$val['content']?>
                             </div>
-                            <div class="commentBox">
-                                <a href="#" class="totCom">
-                                    <!-- <i class=" icon-comment-alt"></i>7 more comments<i class="icon-down-micro"></i></a> -->
-                                
+																<a href="javascript:void(0)" class="totCom">
+										 
+										</a>
                                 <!-- add comment : s -->
                                 <div class="addCom">
-                                    <textarea value="Add Comment ...">Add Comment ...</textarea>
-                                    </div>
+                                    <textarea placeholder="Add Comment ..." class="addSocialComment"  vsid="<?=$val['vsid']?>" >
+									
+									</textarea>									
+                                </div>
                                 <!-- add comment : e -->
+                            <div class="commentBox" vsid="<?=$val['vsid']?>" >
+
+                              
+                              
                                 <!-- list comment : s -->
 								<?php if($val['comment']['total']>0) : ?>
-								<?php foreach($val['comment']['users'] as $comment) : ?>
+								<?php foreach($val['comment']['users'] as $keys => $comment) : ?>
                                 <div class="listComment clearfix">
                                     <div class="imgProfCom left"></div>
                                     <div class="boxNameCom left">
@@ -61,7 +66,12 @@
                                         <p><?=$comment['comment']?></p>
                                     </div>
                                 </div>
-                               
+								
+									<?php if($keys==-1) : ?>
+										<a href="javascript:void(0)" class="totCom loadmorecomment">
+										<i class=" icon-comment-alt"></i><?=$val['comment']['total']?> more comments<i class="icon-down-micro"></i>
+										</a>
+									<?php endif ?>
 								 <?php endforeach ?>
                                 <?php endif ?>
                                 <!-- list comment : e -->
@@ -72,4 +82,14 @@
 					
                 </div>
     <?php endforeach ?>         
- 
+ <script>
+		
+			var limit = 5;
+		 	
+			$(document).ready(function(){
+				$("#commentBox").scroll(function() { 
+				 
+					  if( $(this).scrollTop() >= this.scrollTopMax ) callPaging('commentPaging','.commentBox',limit,false); 
+				});
+			});
+</script>

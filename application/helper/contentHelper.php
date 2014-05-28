@@ -13,7 +13,7 @@ class contentHelper {
 		if(is_array($this->apps->user)) $this->uid = intval($this->apps->user['id']);	
 	}
 	
-	function getStickyAds($start=0,$limit=6){ 
+	function getStickyAds($start=0,$limit=1){ 
  
 		$sql = "
 		SELECT *
@@ -68,9 +68,9 @@ class contentHelper {
 	function getDetailPost($vsid=false){
 	
 		if(!$vsid)$vsid = explode('_',strip_tags(_g('vsid')));
-		
+		else $vsid = explode('_',$vsid);
 		if(!$vsid) return false;
-		$vsid = explode('_',$vsid);
+		
 		
 		$stringid = $vsid[0];
 		$id = $vsid[1];
@@ -89,13 +89,13 @@ class contentHelper {
 		$qData = $this->apps->fetch($sql,1);
 		
 		if($qData) {
-		 	$qData = $this->getContentSummary($qData);
+		 	$qData = $this->getContentSummary($qData,true);
 			return $qData;
 		}else return false;
 		
 	}
 	  
-	function getContentSummary($rqData=null){
+	function getContentSummary($rqData=null,$isDetail=false){
 		
 		if($rqData==null) return array(); 
 		$arrayUserID = array(); 
@@ -171,7 +171,8 @@ class contentHelper {
 				}
 				if($commentsData){ 
 			 
-						$commentsDataComment = $this->getComment($val['id'],false,0,2,true,true);
+						if($isDetail) $commentsDataComment = $this->getComment($val['id']);
+						else $commentsDataComment = $this->getComment($val['id'],false,0,2,true,true);
 						
 						if(array_key_exists($val['id'],$commentsData)) $qData[$key]['comment']['total'] = $commentsData[$val['id']];
 						if($commentsDataComment) {							
@@ -196,7 +197,7 @@ class contentHelper {
 	
 	 function getUserProfile($selectedUserID=null){
 		  
-		 $sql = "SELECT id, name, lastname ,img  FROM _user_profile WHERE userid IN ({$selectedUserID}) ";
+		 $sql = "SELECT id, name, lastname  FROM _user_profile WHERE userid IN ({$selectedUserID}) ";
 		 
 		// pr($sql);
 		$data = $this->apps->fetch($sql,1);
@@ -262,12 +263,12 @@ class contentHelper {
 			
 	}
 
-	function getComment($cid=null,$all=false,$start=0,$limit=50,$summary=false,$firstCommentAndLastComment=false){
+	function getComment($cid=null,$all=false,$start=0,$limit=5,$summary=false,$firstCommentAndLastComment=false){
 		// return $cid;
 		global $CONFIG;
-		if($cid==null) $cid = intval(_r('id'));
+		if($cid==null) $cid = intval(_p('id'));
 		
-		if(!$summary) if(intval(_r('start'))>=0)$start = intval(_r('start'));
+		if(!$summary) if(intval(_p('start'))>=0)$start = intval(_p('start'));
 	
 		if($cid){			
 			if($all==true) $qAllRecord = "";
@@ -301,7 +302,7 @@ class contentHelper {
 						FROM vertion_comment 
 						WHERE contentid IN ({$cid}) AND nstatus = 1
 						{$qGroupRecord}
-						ORDER BY createddate ASC {$qAllRecord}
+						ORDER BY createddate DESC {$qAllRecord}
 						";
 				
 				$qData = $this->apps->fetch($sql,1);
@@ -468,6 +469,9 @@ class contentHelper {
 		return $respond;
 		
 	}
+	
+	
+	 
 	
 }
 
