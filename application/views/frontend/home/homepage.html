@@ -1,9 +1,9 @@
 
-           
+      
 
                 <!-- content right : s -->
-                <div class="contentRight">
-                    <div class="contentRightIn">
+                <div class="contentRight" id="timelinepages" >
+                    <div class="contentRightIn timelinepages"  >
 						<?=$this->view('frontend/widgets/upload-box')?>
 						
 						<?php foreach($stickyads as $val) : ?>
@@ -24,8 +24,7 @@
                             <div class="itemImg">
                                 <img src="<?=$val['imagesdata']['image_full_path']?>" />
                             </div>
-                            <!-- comment : s -->
-                            <!-- list comment : s -->
+                    
                             <div class="mainComment">'
 								<?php if($val['comment']['total']>0) : ?>
 								<?php foreach($val['comment']['users'] as $comment) : ?>
@@ -40,9 +39,7 @@
                                 <?php endforeach ?>
                                 <?php endif ?>
                              </div>
-                                <!-- list comment : e -->
-                            
-                            <!-- comment : e -->
+ 
                         </div>
 						<?php endforeach ?>
 						<?php 
@@ -51,7 +48,7 @@
 						?>
 						
 						<?php foreach($timeline as  $val) : ?>
-						<!-- have item,item2,item3 -->
+						 
 						<?php 
 							$items = $arrAbsoluteItemBlock[$n];
 							if($n>count($arrAbsoluteItemBlock))$n=0;
@@ -70,7 +67,7 @@
                                 </div>
                                 <div class="clearit"></div>
 								 
-                                <a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>"   class="titleBlock"  vsid="<?=$val['vsid']?>" >
+                            <a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>"   class="titleBlock"  vsid="<?=$val['vsid']?>" >
 								<?php if($items==2) : ?>  
 										<?=$val['caption']?>
 								<?php else : ?>
@@ -83,7 +80,19 @@
                             </div>
                         </div>
                        <?php endforeach ?>
-                        <div class="clearit"></div>
+                      
                     </div>
+					  <div class="clearit"></div>
                 </div>
                 <!-- content right : e -->
+<script>
+		
+			var limit = 6;
+		 	
+			$(document).ready(function(){
+				$("#timelinepages").scroll(function() { 
+				 
+					  if( $(this).scrollTop() >= this.scrollTopMax ) callPaging('timelinePaging','.timelinepages',limit,false); 
+				});
+			});
+</script>

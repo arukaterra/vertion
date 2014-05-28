@@ -37,8 +37,8 @@ class contentHelper {
 	function getTimeline($start=0,$limit=6){
 	
 	
-		$search = strip_tags(_g('s'));
-	
+		$search = strip_tags(_g('s')); 
+		
 		$qSearch = "";
 		
 		if($search){
@@ -51,9 +51,9 @@ class contentHelper {
 		WHERE nstatus = 1 AND sticky = 0 
 		{$qSearch}
 		ORDER BY modifieddate DESC
-		LIMIT {$start},{$limit}
-		
+		LIMIT {$start},{$limit} 
 		";
+		
 		// pr($sql);
 		$qData = $this->apps->fetch($sql,1);
 		
@@ -461,7 +461,8 @@ class contentHelper {
 			$respond['result'] = true;
 			$respond['code'] = 1;
 			$respond['message'] = $locale['post']['success']; 
-			$respond['data'] = $this->getDetailPost($vsid)[0];
+			$postdata = $this->getDetailPost($vsid);
+			$respond['data'] = $postdata[0];
 		} 
 		
 		return $respond;

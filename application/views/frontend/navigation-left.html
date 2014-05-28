@@ -218,7 +218,22 @@
                     <!-- bar cat : e -->
                 </div>
                 <!-- header categories : e -->
+		<style>
+				.loadingContentBox{
+					width: 100%; display: inline-block; height: 300px;
+				}
 				
+				.loadingContentBoxLabel{
+					background-color: #B8B8B8;
+					display: inline-block;
+					height: 25px;
+					margin: 20px;
+					padding: 10px;
+					text-align: center;
+					width: 94%;
+				}
+					
+		</style>		
 <script>
 	var uploadlabel = 0;
 	 
@@ -248,6 +263,7 @@
 					processData: false,  // tell jQuery not to process the data
 					contentType: false   // tell jQuery not to set contentType
 					}).done(function( data ) {
+						var html = "";
 						$('.onuploading').remove();
 						if(data.result){
 							html = timelineView(data.data);
@@ -256,7 +272,7 @@
 						}
 						
 						$(".stickypaths").after(html);
-				});;
+				});
 
 			
 			uploadlabel = 0;
@@ -299,6 +315,17 @@
 		return html;
 		
 	}
+	
+	function slideLoadPagingView(message){
+		var html ="<div class='loadingContentBox slideloadpaging' >";
+		html +="<div  class='loadingContentBoxLabel'  >";
+		html +=message;
+		html +="</div>";
+		html +="</div>";
+		
+		return html;
+		
+	}
 	function timelineView(e){
 				var html ="";
 				html+="<div class='ads-block-timeline item2'>";
@@ -313,7 +340,7 @@
 				html+="                        </span>";
 				html+="                        </div>";
 				html+="                       <div class='clearit'></div>";
-				html+="                      <a href='readingPage.html'  class='titleBlock'>"; 
+				html+="                      <a href='"+basedomain+"post/detail/?g=layer&vsid="+e.vsid+"'  class='titleBlock'>"; 
 				html+=								 e.caption ; 
 				html+="						</a>";
 				html+="                   </div>";
@@ -332,4 +359,64 @@
 				window.location = basedomain + isactivepages + "?s=" + $(this).val();
 		  }
 	});
+	
+	 var pages = 0;
+	 var loadslideok = 0;
+	function callPaging(func,selector,limit,incpages){
+  
+			var func = func; 
+			var selector = selector;  
+			var limit = limit;  
+			if(pages==0) pages = 2;
+			if(limit==0) limit = 5;
+			var start = 0;
+			if(pages>1)start = (pages-1)*limit;
+			else return false;
+ 
+			if(incpages)pages++;
+			
+			// find object
+			var stringfunc = window[func];
+
+			// is object a function?
+			if (typeof stringfunc === "function") stringfunc.apply(null, [ selector, start ] );
+			
+			
+	}
+	
+	function timelinePaging(selector,start){
+		
+				var s = $(".searchPost").val();
+				 if(loadslideok==1) return false;
+				 if(loadslideok==3) return false;
+				$.ajax({
+					url: basedomain+"post/pages",
+					beforeSend : function() {
+						$(selector).append(slideLoadPagingView(locale.post.uploading));
+						loadslideok=1;
+					},
+					type: "POST",
+					data: {start:start,s:s},
+					dataType : "json"
+					}).done(function( data ) {
+						var html ="";
+						$('.slideloadpaging').remove();
+						if(data.result){
+							$.each(data.data,function(i,e){
+									html += timelineView(e);
+							});  
+							loadslideok=2;
+							pages++;
+						}else{
+							html = slideLoadPagingView('end of post history');
+							loadslideok=3;
+						}
+						
+						$(selector).append(html);
+						
+						
+					});
+ 
+	}
+	 
 </script>
