@@ -22,67 +22,139 @@
                 </div>
                 <!-- header categories : e -->
                 <!-- content right : s -->
-                <div class="contentRight boxRead" id="commentBox">
-					
-                    <div class="contentRightIn">
-                        <br />
-                        <br />
-                        <div class="imgCatCont left">
-                            <img src="<?=$val['imagesdata']['image_full_path']?>">
-                        </div>
-                        <div class="detailCatCont left">
-                            <div class="tagCat">
-                                <a href="#"> <?=$val['category_name']?> </a>&nbsp; <?=$val['createddate']?></div>
-                            <h1><?=$val['caption']?></h1>
-                           <?php if($val['creator']) :?>
-							<a href="#" class="author">by  <?=$val['creator']['fullname']?> </a>
-							<br/>
-							<a href="#" class="author">join date <?=$val['creator']['createddate']?>   </a>
-							<?php endif ; ?>
-                            <div class="DesIntro">
-                                <br />
-								<?=$val['content']?>
-                            </div>
-																<a href="javascript:void(0)" class="totCom">
-										 
-										</a>
-                                <!-- add comment : s -->
-                                <div class="addCom">
-                                    <textarea placeholder="Add Comment ..." class="addSocialComment"  vsid="<?=$val['vsid']?>" >
-									
-									</textarea>									
-                                </div>
-                                <!-- add comment : e -->
-                            <div class="commentBox" vsid="<?=$val['vsid']?>" >
+				 <?php
+					$items = 3;
+					if($val['imagesdata']['image_type']=='L')$items = 2;
+					if($val['imagesdata']['image_type']=='P')$items = 3;
+					if($val['imagesdata']['image_type']=='B')$items = 3;
+				 ?>
+				<?php if($items==3) : ?>
+					<div class="contentRight boxRead" id="commentBox">
+						
+						<div class="contentRightIn">
+							<br />
+							<br />
+							<div class="imgCatCont left">
+								<img src="<?=$val['imagesdata']['image_full_path']?>">
+							</div>
+							<div class="detailCatCont left">
+								<div class="tagCat">
+									<a href="#"> <?=$val['category_name']?> </a>&nbsp; <?=$val['createddate']?></div>
+								<h1><?=$val['caption']?></h1>
+							   <?php if($val['creator']) :?>
+								<a href="#" class="author">by  <?=$val['creator']['fullname']?> </a>
+								<br/>
+								<a href="#" class="author">join date <?=$val['creator']['createddate']?>   </a>
+								<?php endif ; ?>
+								<div class="DesIntro">
+									<br />
+									<?=$val['content']?>
+								</div>
+								 <a href="javascript:void(0)" class="totCom"> </a>
+									<!-- add comment : s -->
+									<div class="addCom">
+										<textarea placeholder="Add Comment ..." class="addSocialComment"  vsid="<?=$val['vsid']?>" >
+										
+										</textarea>									
+									</div>
+									<!-- add comment : e -->
+								<div class="commentBox" vsid="<?=$val['vsid']?>" >
 
-                              
-                              
-                                <!-- list comment : s -->
-								<?php if($val['comment']['total']>0) : ?>
-								<?php foreach($val['comment']['users'] as $keys => $comment) : ?>
-                                <div class="listComment clearfix">
-                                    <div class="imgProfCom left"></div>
-                                    <div class="boxNameCom left">
-                                        <a href="#"><?=$comment['fullname']?></a>
-                                        <h6>&nbsp;  <?=$comment['createddate']?></h6>
-                                        <p><?=$comment['comment']?></p>
-                                    </div>
-                                </div>
-								
-									<?php if($keys==-1) : ?>
-										<a href="javascript:void(0)" class="totCom loadmorecomment">
-										<i class=" icon-comment-alt"></i><?=$val['comment']['total']?> more comments<i class="icon-down-micro"></i>
-										</a>
+								  
+								  
+									<!-- list comment : s -->
+									<?php if($val['comment']['total']>0) : ?>
+									<?php foreach($val['comment']['users'] as $keys => $comment) : ?>
+									<div class="listComment clearfix">
+										<div class="imgProfCom left"></div>
+										<div class="boxNameCom left">
+											<a href="#"><?=$comment['fullname']?></a>
+											<h6>&nbsp;  <?=$comment['createddate']?></h6>
+											<p><?=$comment['comment']?></p>
+										</div>
+									</div>
+									
+										<?php if($keys==-1) : ?>
+											<a href="javascript:void(0)" class="totCom loadmorecomment">
+											<i class=" icon-comment-alt"></i><?=$val['comment']['total']?> more comments<i class="icon-down-micro"></i>
+											</a>
+										<?php endif ?>
+									 <?php endforeach ?>
 									<?php endif ?>
-								 <?php endforeach ?>
-                                <?php endif ?>
-                                <!-- list comment : e -->
-                            </div>
-                        </div>
-                        <div class="clearit"></div>
-                    </div>
+									<!-- list comment : e -->
+								</div>
+							</div>
+							<div class="clearit"></div>
+						</div>
+						
+					</div>
 					
-                </div>
+				<?php else : ?>
+					<div class="contentRight boxRead" id="commentBox">
+						
+						<div class="contentRightIn">
+							<br />
+							<br />
+							<div class="imgCatCont left w93"  >
+								<img  class="w100"   src="<?=$val['imagesdata']['image_full_path']?>"  />
+							</div>
+							
+							<div class="detailCatCont left w40"  >
+							 <a href="javascript:void(0)" class="totCom"> </a>
+								<div class="tagCat">
+									<a href="#"> <?=$val['category_name']?> </a>&nbsp; <?=$val['createddate']?></div>
+								<h1><?=$val['caption']?></h1>
+							   <?php if($val['creator']) :?>
+								<a href="#" class="author">by  <?=$val['creator']['fullname']?> </a>
+								<br/>
+								<a href="#" class="author">join date <?=$val['creator']['createddate']?>   </a>
+								<?php endif ; ?>
+								<div class="DesIntro">
+									<br />
+									<?=$val['content']?>
+								</div>
+								 
+							</div>
+							 
+							<div class="detailCatCont right"    >
+								 
+								 <a href="javascript:void(0)" class="totCom"> </a>
+									<!-- add comment : s -->
+									<div class="addCom">
+										<textarea placeholder="Add Comment ..." class="addSocialComment"  vsid="<?=$val['vsid']?>" >
+										
+										</textarea>									
+									</div>
+									<!-- add comment : e -->
+								<div class="commentBox" vsid="<?=$val['vsid']?>" > 
+								  
+									<!-- list comment : s -->
+									<?php if($val['comment']['total']>0) : ?>
+									<?php foreach($val['comment']['users'] as $keys => $comment) : ?>
+									<div class="listComment clearfix">
+										<div class="imgProfCom left"></div>
+										<div class="boxNameCom left">
+											<a href="#"><?=$comment['fullname']?></a>
+											<h6>&nbsp;  <?=$comment['createddate']?></h6>
+											<p><?=$comment['comment']?></p>
+										</div>
+									</div>
+									
+										<?php if($keys==-1) : ?>
+											<a href="javascript:void(0)" class="totCom loadmorecomment">
+											<i class=" icon-comment-alt"></i><?=$val['comment']['total']?> more comments<i class="icon-down-micro"></i>
+											</a>
+										<?php endif ?>
+									 <?php endforeach ?>
+									<?php endif ?>
+									<!-- list comment : e -->
+								</div>
+							</div>
+							<div class="clearit"></div>
+						</div>
+						
+					</div>
+				<?php endif; ?>
     <?php endforeach ?>         
  <script>
 		
