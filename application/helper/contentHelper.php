@@ -113,7 +113,8 @@ class contentHelper {
 			//get profile array
 			$arrayUserID[$val['userid']] = $val['userid']; 
 			$qData[$key] = $val;
-			$qData[$key]['ts'] = strtotime($val['modifieddate']);
+			$qData[$key]['ts'] = strtotime($val['modifieddate']); 
+			$qData[$key]['createddate'] = datereadable($val['createddate']); 
 			$qData[$key]['creator'] = array(); 
 			$qData[$key]['comment']['total'] = 0;
 			$qData[$key]['comment']['users'] = array();
@@ -199,7 +200,7 @@ class contentHelper {
 	
 	 function getUserProfile($selectedUserID=null){
 		  
-		 $sql = "SELECT id, name, lastname  FROM _user_profile WHERE userid IN ({$selectedUserID}) ";
+		 $sql = "SELECT *  FROM _user_profile WHERE userid IN ({$selectedUserID}) ";
 		 
 		// pr($sql);
 		$data = $this->apps->fetch($sql,1);
@@ -209,6 +210,7 @@ class contentHelper {
 		 
 			$data[$key]['fullname'] =  ucwords(strtolower($data[$key]['name']." ".$data[$key]['lastname']));
 			$data[$key]['lastname'] =  ucwords($data[$key]['lastname']); 
+			$data[$key]['createddate'] =  datereadable($data[$key]['createddate']); 
 			$arrData[$val['id']] = $data[$key];
 			
 		} 
@@ -234,7 +236,7 @@ class contentHelper {
 									
 					$users = implode(",",$arrUserid); 
 					
-					$sql = "SELECT id,name,lastname FROM _user_profile WHERE userid IN ({$users})    ";
+					$sql = "SELECT * FROM _user_profile WHERE userid IN ({$users})    ";
 					$qDataUser = $this->apps->fetch($sql,1);
 					if($qDataUser){
 								
@@ -329,7 +331,7 @@ class contentHelper {
 				
 				$users = implode(",",$arrUserid);
 				
-				$sql = "SELECT id,name,lastname FROM _user_profile WHERE userid IN ({$users})    ";
+				$sql = "SELECT * FROM _user_profile WHERE userid IN ({$users})    ";
 				$qDataUser = $this->apps->fetch($sql,1);
 				// if($firstCommentAndLastComment)  pr($sql); 
 				if($qDataUser){
@@ -341,6 +343,7 @@ class contentHelper {
 					foreach($qData as $key => $val){
 						/* html entity decode */
 						$qData[$key]['comment'] = nl2br(html_entity_decode($qData[$key]['comment']));
+						$qData[$key]['createddate'] = timeago($qData[$key]['createddate']);
 						$arrComment[$val['contentid']][$key] = $qData[$key];
 						
 						if(array_key_exists($val['userid'],$userDetail)){
@@ -507,7 +510,7 @@ class contentHelper {
 	}
 	
 	
-	 
+	
 	
 }
 

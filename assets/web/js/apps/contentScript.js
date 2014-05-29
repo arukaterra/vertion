@@ -116,7 +116,7 @@
 				html+="                      <a href='"+basedomain+"post/detail/?g=layer&vsid="+e.vsid+"'  class='titleBlock'>"; 
 				
 				if(items==3)html+=								 e.caption ; 
-				else html+=								 e.content ; 
+				else html+=								 e.caption ; 
 				
 				html+="						</a>";
 				html+="                   </div>";
@@ -296,7 +296,7 @@
 	
 	var loadcoolsok = 0;
 	$(document).on('click','.addcool',function(){
-	
+			var thisobj = $(this);
 			var vsid = $(this).attr('vsid');
 			var cid = $(this).attr('cid');
 			var ct = parseInt($(this).attr('ct'),10); 
@@ -320,7 +320,7 @@
  
 							ct++;
 							$(".vcool"+cid).html(ct); 
-							 
+							 thisobj.attr('ct',ct)
 						}else{
 							$(".vcool"+cid).html(ct); 
 							 

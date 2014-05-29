@@ -66,7 +66,7 @@ class socialActivityHelper {
 			$postdata['fullname'] = $this->apps->user['name']; 	
 			$postdata['img'] = 'default.jpg';
 			$postdata['comment'] = str_replace('\n','<br/>',$message);
-			$postdata['createddate'] = $createddate;
+			$postdata['createddate'] = timeago($createddate);
 			
 			$respond['result'] = true;
 			$respond['code'] = 1;

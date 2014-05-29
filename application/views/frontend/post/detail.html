@@ -35,7 +35,9 @@
                                 <a href="#"> <?=$val['category_name']?> </a>&nbsp; <?=$val['createddate']?></div>
                             <h1><?=$val['caption']?></h1>
                            <?php if($val['creator']) :?>
-							<a href="#" class="author">by  <?=$val['creator']['fullname']?></a>
+							<a href="#" class="author">by  <?=$val['creator']['fullname']?> </a>
+							<br/>
+							<a href="#" class="author">join date <?=$val['creator']['createddate']?>   </a>
 							<?php endif ; ?>
                             <div class="DesIntro">
                                 <br />
