@@ -346,6 +346,41 @@
 					});
 	}
 	
+	
+	function commentPagingonShare(selector,start){
+				 
+		  		 
+		  		var vsid = $(selector).attr('vsid');
+				 if(loadcommentok==1) return false; 
+				if(loadcommentok==1) return false;
+				 if(loadcommentok==3) return false;
+				 
+				$.ajax({
+					url: basedomain+"share/pagecomment",
+					beforeSend : function() {
+						$(selector).append(slideLoadPagingView(locale.post.uploading));
+						loadcommentok=1;
+					},
+					type: "POST",
+					data: {start:start,vsid:vsid},
+					dataType : "json"
+					}).done(function( data ) {
+							var html ="";
+							$('.slideloadpaging').remove();
+							if(data.result){
+								$.each(data.data,function(i,e){
+										html +=  commentView(e);
+								});  
+								loadcommentok=2;
+								pages++;
+							}else{
+								html = slideLoadPagingView('end of comment history');
+								loadcommentok=3;
+							}
+							
+							$(selector).append(html); 
+					});
+	}
 	var loadcoolsok = 0;
 	$(document).on('click','.addcool',function(){
 			var thisobj = $(this);

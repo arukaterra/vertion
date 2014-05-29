@@ -10,10 +10,14 @@
                            
 					</div>
                         <div class="shareButton right">
+							
                             <a href="javascript:void(0)" class="addcool"  vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>" cid="<?=$val['id']?>" >
-                                <i class="icon-thumbs-up" ></i>Cool <span class="vcool<?=$val['id']?>"><?=$val['cool']['total']?></span></a>
-                            <a href="#">
+                            <i class="icon-thumbs-up" ></i>Cool <span class="vcool<?=$val['id']?>"><?=$val['cool']['total']?></span></a>
+                            <a href="javascript:void(0)"  class="adsShare" cid="<?=$val['id']?>"   vsid="<?=$val['vsid']?>"  >
+                                <i class="icon-flag"></i>Ads Share </a><span class="adsShareLink<?=$val['id']?>"></span>
+							<a href="#">
                                 <i class="icon-facebook-1"></i>Share <span class="">0</span></a>
+							
                             <a href="#">
                                 <i class="icon-twitter-1"></i>Twitter <span class="">0</span></a>
                         </div>
@@ -166,4 +170,25 @@
 					  if( $(this).scrollTop() >= this.scrollTopMax ) callPaging('commentPaging','.commentBox',limit,false); 
 				});
 			});
+			
+			var openadshare = 0;
+			$(document).on('click','.adsShare',function(){
+				var cid = $(this).attr('cid');
+				var vsid = $(this).attr('vsid');
+				var html = 	'';
+				
+				if(openadshare){
+					openadshare = 0;
+				}else{
+					 html = " <input type='text' value='"+basedomain+"share/?g=layer&vsid="+vsid+"' class='copylinkshare' /> ";
+					
+					openadshare = 1;
+				}
+				$('.adsShareLink'+cid).html(html);
+			})
+			
+			$(document).on('click','.copylinkshare',function(){
+				
+							this.select();	 
+			})
 </script>

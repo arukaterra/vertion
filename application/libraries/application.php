@@ -13,7 +13,7 @@ class Application extends Load {
 	
 	function initial(){ 
 		$this->usersAuth = $this->library('usersAuth');	
-		if($this->load->controller()!='login'&&$this->load->controller()!='register'){
+		if($this->load->controller()!='login'&&$this->load->controller()!='share'&&$this->load->controller()!='register'){
 			
 			if(!$this->usersAuth->checklogin()){
 				gotoPage(BASE_PATH."login"); 

@@ -7,7 +7,7 @@
                     <!-- logo : e -->
                 <!-- menu top : s -->
                 <div class="menuTop left">
-				<?php if($this->load->controller()!='login'&&$this->load->controller()!='register'): ?>
+				<?php if($this->load->controller()!='login'&&$this->load->controller()!='share'&&$this->load->controller()!='register'): ?>
 				<!--
                     <ul>
                         <li>
@@ -21,7 +21,7 @@
                         </li>
                     </ul>
 				-->
-				<?php endif ?>
+				
                  </div>
                 <!-- menu top : e -->
                 <!-- search : s -->
@@ -29,6 +29,8 @@
                     <i class="icon-search"></i>&nbsp;
                     <input class="defaultText searchPost" type="text" value="<?php echo $qs ? $qs : '' ?>" placeholder='Search' />
                 </div>
+				
+				<?php endif ?>
                 <!-- search : e -->
                 
             </div>
