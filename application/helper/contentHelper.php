@@ -121,7 +121,7 @@ class contentHelper {
 			$qData[$key]['cool']['total'] = 0;
 			$qData[$key]['cool']['users'] = array();
 			$qData[$key]['views'] = 0;
-			$qData[$key]['content'] = nl2br(html_entity_decode($val['content']));
+			$qData[$key]['content'] = stripslashes(nl2br(html_entity_decode($val['content'])));
 		 
 			$qData[$key]['vsid'] = $val['stringid']."_".$val['id']."_".$val['userid']; 
 			 
@@ -430,7 +430,7 @@ class contentHelper {
 		
 		$imagedata['image_type'] = "B";
 		
-		list($width, $height, $type, $attr) = @getimagesize($rootimg);
+		list($width, $height, $type, $attr) = getimagesize($rootimg);
 		/* w : h */
 		$w = 0;
 		$h = 0;
