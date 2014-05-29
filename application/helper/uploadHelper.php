@@ -30,20 +30,20 @@ class uploadHelper {
 			 
 			if(move_uploaded_file($files['tmp_name'],$path.$filename)){ 
 			
-				list($width, $height, $type, $attr) = getimagesize("{$path}{$filename}");
+				list($width, $height, $types, $attr) = getimagesize("{$path}{$filename}");
 				$maxSize = $maxSize;
  
-				$w_small = $width - ($width * 0.5);
-				$h_small = $height - ($height * 0.5);
-				$w_tiny = $width - ($width * 0.7);
-				$h_tiny = $height - ($height * 0.7);
+				$w_small = $width - ($width * 0.7);
+				$h_small = $height - ($height * 0.7);
+				$w_tiny = $width - ($width * 0.5);
+				$h_tiny = $height - ($height * 0.5);
 					
 				//images drop color depth
 				/* todo : create image color depth  */
 
 				
-				$this->resizeImage($w_small,$h_small,$path,$filename,$type[$jmlArr],"s_");
-				$this->resizeImage($w_tiny,$h_tiny,$path,$filename,$type[$jmlArr],"t_"); 
+				$this->resizeImage($width,$height,$w_small,$h_small,$path,$filename,$type[$jmlArr],"s_".$filename);
+				$this->resizeImage($width,$height,$w_tiny,$h_tiny,$path,$filename,$type[$jmlArr],"t_".$filename); 
 				$arrImageData['filename'] =$filename;
 
 				 
@@ -54,7 +54,7 @@ class uploadHelper {
 		return array('result'=>false,'arrImage'=> false);
 	}
 	
-	function resizeImage($width=0, $height=0,$path='',$filename='',$extensions='',$targetfilename=''){
+	function resizeImage($width=0, $height=0,$targ_w=0, $targ_h=0,$path='',$filename='',$extensions='',$targetfilename=''){
 		if($width==0) return false;
 		if($height==0) return false;
 		if($path=='') return false;
@@ -63,13 +63,7 @@ class uploadHelper {
 		if($targetfilename=='') return false;
 		/* todo : create image resizer */ 
 		$jpeg_quality = 100;	  
-		//count view dimension, size same as x and y
-		$targ_w = $width;
-		$targ_h = $height;		
-		//count image dimension, size progresize from targ_w
-		$width  = $x;
-		$height = $y; 
-		
+	 
 		$src = 	$path.$filename;
 		try{
 			$img_r = false;
@@ -80,7 +74,7 @@ class uploadHelper {
 			if(!$img_r) return false;
 			$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 
-			imagecopyresampled($dst_r,$img_r,0,0,$x,$y,	$targ_w,$targ_h,$width,$height);
+			imagecopyresampled($dst_r,$img_r,0,0,0,0,$targ_w,$targ_h,$width,$height);
 
 			// header('Content-type: image/jpeg');
 			$arrJpgFormat = array("jpg","jpeg","pjpeg");

@@ -409,7 +409,7 @@ class contentHelper {
 		
 	}
 	
-	function getImagesPath($thedata=false,$indeximage='image',$imagepath='',$thumbnail='small_'){
+	function getImagesPath($thedata=false,$indeximage='image',$imagepath='',$thumbnail='s_'){
 		$imagedata['imagepath'] = false;
 		$imagedata['imagepath_small'] = false;
 		GLOBAL $CONFIG;
