@@ -15,7 +15,7 @@
                                 <div class="right">
                                 <span>
                                     <i class="icon-thumbs-up">&nbsp;<?=$val['cool']['total']?></i>
-                                    <i class="icon-comment-1">&nbsp;<?=$val['views']?></i>
+                                    <i class="icon-comment-1">&nbsp;<?=$val['comment']['total']?></i>
                                 </span>
                                 </div>
                                 <div class="clearit"></div>
@@ -27,9 +27,11 @@
                     
                             <div class="mainComment">'
 								<?php if($val['comment']['total']>0) : ?>
+								<?php if($val['comment']['total']>2) : ?>
 									<a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>" class="totCom">
-										<i class=" icon-comment-alt"></i><?=$val['comment']['total']?> more comments<i class="icon-down-micro"></i>
+										<i class=" icon-comment-alt"></i><?=($val['comment']['total']-2)?> more comments<i class="icon-down-micro"></i>
 										</a>
+								 <?php endif ?>
 								<?php foreach(array_reverse($val['comment']['users']) as $ckeys=> $comment) : ?>
                                 <div class="listComment listCommentMain clearfix">
                                     <div class="imgProfCom left"></div>
@@ -67,7 +69,7 @@
                                 <div class="right">
                                 <span>
                                     <i class="icon-thumbs-up">&nbsp;<?=$val['cool']['total']?></i>
-                                    <i class="icon-comment-1">&nbsp;<?=$val['views']?></i>
+                                    <i class="icon-comment-1">&nbsp;<?=$val['comment']['total']?></i>
                                 </span>
                                 </div>
                                 <div class="clearit"></div>

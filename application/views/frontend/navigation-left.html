@@ -515,4 +515,39 @@
 					});
 	}
 	
+	var loadcoolsok = 0;
+	$(document).on('click','.addcool',function(){
+	
+			var vsid = $(this).attr('vsid');
+			var ct = parseInt($(this).attr('ct'),10); 
+		    
+			if(loadcoolsok==1) return false; 
+		  
+			$.ajax({
+					url: basedomain+"post/cool",
+					beforeSend : function() {
+						$(".vcool").html(locale.post.uploading); 
+						 
+						loadcoolsok=1;
+					},
+					type: "POST",
+					data: {vsid:vsid},
+					dataType : "json"
+					}).done(function( data ) {
+						var html =""; 
+						if(data.result){
+ 
+							ct++;
+							$(".vcool").html(ct); 
+							 
+						}else{
+							$(".vcool").html(ct); 
+							 
+						}
+						 
+						loadcoolsok=0;  
+						
+					});
+					
+	})
 </script>

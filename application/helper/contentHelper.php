@@ -222,7 +222,7 @@ class contentHelper {
 			$cidin = " AND contentid IN ({$selectedContentID}) ";
 		}
 			$sql ="
-			SELECT  contentid,userid FROM vertion_cool_statistic WHERE nstatus=  1 {$cidin}  
+			SELECT  contentid,userid FROM vertion_cool_statistic WHERE nstatus=  1 {$cidin} 
 			";
 			$qData = $this->apps->fetch($sql,1);
 			if($qData) { 
@@ -236,25 +236,27 @@ class contentHelper {
 					$qDataUser = $this->apps->fetch($sql,1);
 					if($qDataUser){
 								
-						foreach($qDataUser as $val){
-							$userDetail[$val['id']]['fullname'] =  ucwords(strtolower($val['name']." ".$val['lastname'])); 
-						}
-						
-						foreach($qData as $key => $val ){						
-							if(array_key_exists($val['userid'],$userDetail)) $qData[$key]['userdetail'] = $userDetail[$val['userid']];
-							else $qData[$key]['userdetail'] = false;
-							$data[$val['contentid']][$val['userid']]= $qData[$key];
-						}
-						
-					
-						if($data){
-							foreach($data as $key => $val){
-								$favoriteData[$key]['total']=count($val);								
-								$favoriteData[$key]['users']=$val; 
-								
-								
+							foreach($qDataUser as $val){
+								$userDetail[$val['id']]['fullname'] =  ucwords(strtolower($val['name']." ".$val['lastname'])); 
 							}
-						} 
+							
+							foreach($qData as $key => $val ){						
+								if(array_key_exists($val['userid'],$userDetail)){
+									$qData[$key]['userdetail'] = $userDetail[$val['userid']]; 
+									$data[$val['contentid']][$val['userid']]= $qData[$key];
+								}
+							}
+							
+						
+							if($data){ 
+								foreach($data as $key => $val){
+									 
+									$favoriteData[$key]['total']=count($val);								
+									$favoriteData[$key]['users']=$val; 
+									
+									
+								}
+							} 
 							return $favoriteData;
 						}
 				}

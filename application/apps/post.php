@@ -95,6 +95,14 @@ class post extends application {
 		
 	}
 	
+	function cool(){
+			$res = $this->socialActivityHelper->sendCool();
+			 
+			print json_encode($res);exit;
+		
+	}
+	
+	
 }
 
 ?>

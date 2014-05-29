@@ -78,7 +78,39 @@ class socialActivityHelper {
 		
 	}
 	
-	 
+	 function sendCool($vsid=false){
+		global $locale;
+		$respond['result'] = false;
+		$respond['code'] = false;
+		$respond['message'] = $locale['post']['failed']; 
+		   
+		$cid = $this->checkVSID();
+		
+		if(!$cid) return $respond; 
+		$createddate =  date("Y-m-d H:i:s");
+		$modifieddate = date("Y-m-d H:i:s");
+		
+		$sql = "
+			INSERT INTO `vertion_cool_statistic` 
+			( `userid`, `contentid`, `createddate`, `modifieddate`, `nstatus`) 
+			VALUES 
+			( '{$this->uid}', '{$cid}', '{$createddate}', '{$createddate}', '1')			 
+		"; 
+		
+		$qData = $this->apps->query($sql);
+		$lastId = $this->apps->getLastinsertID();
+		if($lastId>0) {
+		 
+			$respond['result'] = true;
+			$respond['code'] = 1;
+			$respond['message'] = $locale['post']['success']; 
+		} 
+		
+		return $respond;
+		
+	}
+	
+
 	
 }
 
