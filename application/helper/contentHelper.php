@@ -38,7 +38,7 @@ class contentHelper {
 	
 	
 		$search = strip_tags(_g('s')); 
-		
+		if(!$search)$search = strip_tags(_p('s')); 
 		$qSearch = "";
 		
 		if($search){

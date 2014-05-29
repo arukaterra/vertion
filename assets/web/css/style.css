@@ -159,11 +159,12 @@ html {
 .contentLeft {
   width:20%;
   height:1000px;
-  position:left;
+  position:relative;
   background: #09171b;
   float:left;
     z-index: 9999;
 /*    display: none;*/
+/*    overflow: hidden;*/
 }
 .contentRight{
   width:80%;
@@ -214,7 +215,7 @@ html {
     font: normal 14px 'OpenSansRegular', Arial, Helvetica, sans-serif;
     color:#fff;
     display: block;
-    padding:12px 18px 5px 0;
+    padding:4px 18px 5px 0;
     min-width:220px;
     position: relative;
 /*    background: red;*/
@@ -592,8 +593,6 @@ a.titleBlock:hover {
     vertical-align: middle;
     position: relative;
 }
-
-/* ini box ya ki*/
 .item3 img {
     width:100%;
     height: 100%;
@@ -911,8 +910,7 @@ p.pMainComm {
     position: absolute;
     z-index: 9999;
     margin-top:1px;
-    position:fixed;
-}
+    position:fixed;}
 .boxUploadIn {
     width:80%;
     height: 100%;
@@ -1190,3 +1188,66 @@ color:#000;
 }
 /* specific : e 
 ============================================= */
+
+.userNameHelp {
+/*    background: red;*/
+}
+
+.userProfileSet {
+    width:180px;
+}
+
+a.settingProfile {
+    font-size: 10px;
+    margin:0;
+    padding:0;
+    color:#999;
+}
+
+a.CatWP {
+    font-size: 20px;
+    display: block;
+    margin: 4px 0 0 5px !important;
+    
+}
+.wpHotLines {
+    height:80%;
+    overflow: hidden;
+}
+.wpHotLines h1 {
+    font: normal 20px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
+    color:#fff;
+    width:80%;
+    margin:0 auto;
+    padding:20px 0px;
+    border-bottom: solid 1px #fff;
+}
+.wpHotLines h1 a {
+    text-decoration: none;
+    color:#fff;
+}
+.wpHotLines h1 a:hover {
+    color:#d32c06;
+}
+.wpHotLines p {
+     font: normal 14px/22px 'OpenSansRegular', Arial, Helvetica, sans-serif;
+    color:#666;
+    width:80%;
+    margin:0 auto;
+    padding:10px 0;
+    height: 52px;
+    overflow: hidden;
+}
+.listHL {
+    padding-bottom: 20px;
+}
+.bigImageWPHL {
+    position: absolute;
+    z-index: 9999999;
+    left:100px;
+    top:100px;
+}
+.bigImageWPHL img {
+    width:350px;
+    height: auto;
+}
