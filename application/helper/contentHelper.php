@@ -90,6 +90,7 @@ class contentHelper {
 		
 		if($qData) {
 		 	$qData = $this->getContentSummary($qData,true);
+			// pr($qData); exit;
 			return $qData;
 		}else return false;
 		
@@ -119,6 +120,7 @@ class contentHelper {
 			$qData[$key]['cool']['total'] = 0;
 			$qData[$key]['cool']['users'] = array();
 			$qData[$key]['views'] = 0;
+			$qData[$key]['content'] = nl2br(html_entity_decode($val['content']));
 		 
 			$qData[$key]['vsid'] = $val['stringid']."_".$val['id']."_".$val['userid']; 
 			 
@@ -338,7 +340,7 @@ class contentHelper {
 					
 					foreach($qData as $key => $val){
 						/* html entity decode */
-						$qData[$key]['comment'] = html_entity_decode($qData[$key]['comment']);
+						$qData[$key]['comment'] = nl2br(html_entity_decode($qData[$key]['comment']));
 						$arrComment[$val['contentid']][$key] = $qData[$key];
 						
 						if(array_key_exists($val['userid'],$userDetail)){

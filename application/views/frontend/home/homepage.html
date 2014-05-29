@@ -27,21 +27,25 @@
                     
                             <div class="mainComment">'
 								<?php if($val['comment']['total']>0) : ?>
-								<?php if($val['comment']['total']>2) : ?>
-									<a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>" class="totCom">
-										<i class=" icon-comment-alt"></i><?=($val['comment']['total']-2)?> more comments<i class="icon-down-micro"></i>
-										</a>
-								 <?php endif ?>
-								<?php foreach(array_reverse($val['comment']['users']) as $ckeys=> $comment) : ?>
+								
+								<?php foreach($val['comment']['users'] as $ckeys=> $comment) : ?>
                                 <div class="listComment listCommentMain clearfix">
                                     <div class="imgProfCom left"></div>
                                     <div class="boxNameCom left">
                                         <a href="#"><?=$comment['fullname']?></a>
                                         <h6>&nbsp; - <?=$comment['createddate']?></h6>
+										<?php if($ckeys==0) : ?><a href="#"> - first comments </a> <?php endif ?>
+										<?php if($ckeys==1) : ?><a href="#"> - lastest comments </a> <?php endif ?>
                                         <p class="pMainComm"><?=$comment['comment']?></p>
                                     </div>
                                 </div>
-								 
+								 <?php if($ckeys==0) : ?>
+									 <?php if($val['comment']['total']>2) : ?>
+										<a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>" class="totCom">
+											<i class=" icon-comment-alt"></i><?=($val['comment']['total']-2)?> more comments<i class="icon-down-micro"></i>
+											</a>
+									 <?php endif ?>
+								 <?php endif ?>
                                 <?php endforeach ?>
 								
                                 <?php endif ?>
@@ -58,7 +62,7 @@
 							if($val['imagesdata']['image_type']=='B')$items = 3;
 						 ?>
 					 
-                        <div class="ads-block-timeline item<?=$items?>">
+                        <div class="ads-block-timeline item<?=$items?>" style="margin:5px" >
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
                                          <?=$val['category_name']?>
@@ -72,7 +76,7 @@
                                 <div class="clearit"></div>
 								 
                             <a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>"   class="titleBlock"  vsid="<?=$val['vsid']?>" >
-								<?php if($items==2) : ?>  
+								<?php if($items==3) : ?>  
 										<?=$val['caption']?>
 								<?php else : ?>
 										<?=$val['content']?>

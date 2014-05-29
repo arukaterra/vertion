@@ -71,7 +71,7 @@
 	});
 	
 	function uploadingtimelineView(message){
-		var html ="<div class='ads-block-timeline item2 onuploading'>";
+		var html ="<div class='ads-block-timeline item3 onuploading'>";
 		html +=message;
 		html +="</div>";
 		
@@ -97,7 +97,7 @@
 				if(e.imagesdata.image_type=='B')items = 3;
 							
 				var html ="";
-				html+="<div class='ads-block-timeline item"+items+"'>";
+				html+="<div class='ads-block-timeline item"+items+"' style='margin:5px' >";
 				html+="                   <div class='itemText'>";
 				html+="                       <div class='left'><a href='#' class='CatTag'>";
 				html+=								e.category_name;
@@ -110,7 +110,10 @@
 				html+="                        </div>";
 				html+="                       <div class='clearit'></div>";
 				html+="                      <a href='"+basedomain+"post/detail/?g=layer&vsid="+e.vsid+"'  class='titleBlock'>"; 
-				html+=								 e.caption ; 
+				
+				if(items==3)html+=								 e.caption ; 
+				else html+=								 e.content ; 
+				
 				html+="						</a>";
 				html+="                   </div>";
 				html+="                   <div class='itemImg'>";
