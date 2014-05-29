@@ -430,7 +430,7 @@ class contentHelper {
 		
 		$imagedata['image_type'] = "B";
 		
-		list($width, $height, $type, $attr) = getimagesize($rootimg);
+		list($width, $height, $type, $attr) = @getimagesize($rootimg);
 		/* w : h */
 		$w = 0;
 		$h = 0;
