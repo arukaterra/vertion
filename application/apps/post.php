@@ -102,7 +102,55 @@ class post extends application {
 		
 	}
 	
+	function tempimages(){
 	
+			global $locale; 
+			$respond['result'] = false;
+			$respond['code'] = false;
+			$respond['message'] = $locale['post']['failed'];
+			$respond['data'] =  array();
+			$path = ROOT_PUBLIC_ASSETS_PATH."temps/";
+			
+			
+			$unlinken = strip_tags(_p('ultm'));
+			
+			if($unlinken){
+				if(unlink($path.$unlinken)){
+					$respond['result'] = true;
+					$respond['code'] = 1;
+					$respond['message'] = $locale['post']['success']; 
+					$respond['data'] = array();
+				}
+			}
+			
+			if (isset($_FILES['images'])&&$_FILES['images']['name']!=NULL) {
+				if (isset($_FILES['images'])&&$_FILES['images']['size'] <= 20000000) {
+					
+					$uploaddata = $this->uploadHelper->uploadThisImage($_FILES['images'],$path);
+						 
+					if ($uploaddata['arrImage']!=NULL) {
+						
+					} else {
+						$uploaddata = false;
+					}
+				} else {
+					$uploaddata = false;
+				}
+			} else {
+				$uploaddata = false;
+			}
+			
+			if($uploaddata){
+				$respond['result'] = true;
+				$respond['code'] = 1;
+				$respond['message'] = $locale['post']['success']; 
+				$uploaddata['imagesdata'] = 	$this->contentHelper->getImagesPath($uploaddata['arrImage'],'filename','temps',false);
+				$respond['data'] = $uploaddata;
+			}
+			
+			print json_encode($respond);exit;
+		
+	}
 }
 
 ?>

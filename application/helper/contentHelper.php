@@ -414,9 +414,8 @@ class contentHelper {
 		$imagedata['imagepath_small'] = false;
 		GLOBAL $CONFIG;
 		if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thedata[$indeximage]}")) $imagedata['imagepath'] = $imagepath;	 
-		if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thumbnail}_{$thedata[$indeximage]}")) $imagedata['imagepath_small'] = $imagepath;
- 
-		
+		if($thumbnail)if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thumbnail}_{$thedata[$indeximage]}")) $imagedata['imagepath_small'] = $imagepath;
+  
 		if($imagedata['imagepath']){
 			$imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
 			$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
@@ -424,8 +423,10 @@ class contentHelper {
 			$imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
 			$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
 		}
-		if($imagedata['imagepath_small']) $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath_small']."/{$thumbnail}_".$thedata[$indeximage];
-		else $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+		if($thumbnail){
+			if($imagedata['imagepath_small']) $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath_small']."/{$thumbnail}_".$thedata[$indeximage];
+			else $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+		}
 		
 		$imagedata['image_type'] = "B";
 		

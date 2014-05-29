@@ -1,5 +1,4 @@
-	var uploadlabel = 0;
-	 
+	var uploadlabel = 0; 
 	$(document).on('click','.plusNewHome',function(){
 			
 	
@@ -8,6 +7,7 @@
 			
 			var caption = $('.titleUpload').val();
 			var content = $('.descUpload').val();
+			uploadlabel = 0;
 			
 			if(!caption) return false;
 			if(!content) return false;
@@ -42,7 +42,7 @@
 				});
 
 			
-			uploadlabel = 0;
+			
 		}else {
 			$(".uploadlabel").html(locale.uploadlabel.upload);
 			
@@ -56,10 +56,62 @@
 		$('.imagesvertion').trigger('click');
 		
 	});
+	
 	$(document).on('change','.imagesvertion',function(){
-		
-		//$('.previewimages').attr('src','');
+		 
+		//tempimagespreview();
+		readURL(this,".previewimages")
 	});
+	
+	function readURL(input,target) {
+
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				var html = "<img src='"+e.target.result+"' class='maxWidth100 maxHeight100' />";
+				$(target).html(html);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+ 
+	function tempimagespreview(ultm){
+		
+		if(uploadlabel==1){
+			$(".previewimages").html(locale.uploadlabel.post); 
+			
+			 var fd = new FormData($("#postform")[0]);
+				//fd.append("CustomField", "This is some extra data"); 
+				$.ajax({
+					url: basedomain+"tempimages",
+					beforeSend : function() {
+						$(".previewimages").html(uploadingtimelineView(locale.post.uploading)); 
+					},
+					type: "POST",
+					data: fd,
+					dataType : "JSON",
+					processData: false,  // tell jQuery not to process the data
+					contentType: false   // tell jQuery not to set contentType
+					}).done(function( data ) {
+						var html = ""; 
+						if(data.result){
+							html = "<img src='"+data.data.imagesdata.image_full_path+"' />";
+						}else{
+							html = locale.post.failed;
+						}
+						
+						$(".previewimages").html(html);
+				});
+ 
+				uploadlabel = 0;
+		}else {
+			$(".previewimages").html(locale.uploadlabel.upload); 
+			uploadlabel = 1;
+		}
+		
+	}
 	
 	$(document).on('click','.ads-block',function(){
 		$(".ads-block").removeClass('active');
