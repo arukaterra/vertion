@@ -42,8 +42,10 @@ class uploadHelper {
 				/* todo : create image color depth  */
 
 				
-				$this->resizeImage($width,$height,$w_small,$h_small,$path,$filename,$type[$jmlArr],"s_".$filename);
-				$this->resizeImage($width,$height,$w_tiny,$h_tiny,$path,$filename,$type[$jmlArr],"t_".$filename); 
+				// $this->downGradeColor( $path.$filename, $path.$filename,$type[$jmlArr]);
+				$this->resizeImage($width,$height,$width,$height,$path,$filename,$type[$jmlArr],$filename);
+				$this->resizeImage($width,$height,$w_small,$h_small,$path,$filename,$type[$jmlArr],"s_01/s_".$filename);
+				$this->resizeImage($width,$height,$w_tiny,$h_tiny,$path,$filename,$type[$jmlArr],"t_01/t_".$filename); 
 				$arrImageData['filename'] =$filename;
 
 				 
@@ -62,7 +64,7 @@ class uploadHelper {
 		if($extensions=='') return false;
 		if($targetfilename=='') return false;
 		/* todo : create image resizer */ 
-		$jpeg_quality = 100;	  
+		$jpeg_quality = 80;	  
 	 
 		$src = 	$path.$filename;
 		try{
@@ -78,15 +80,35 @@ class uploadHelper {
 
 			// header('Content-type: image/jpeg');
 			$arrJpgFormat = array("jpg","jpeg","pjpeg");
-			if(in_array(strtolower($extensions),$arrJpgFormat)) imagejpeg($dst_r,$path.$targetfilename,$jpeg_quality);
-			if($extensions=='png' ) imagepng($dst_r,$path.$targetfilename);
-			if($extensions=='gif' ) imagegif($dst_r,$path.$targetfilename);
+			 imagejpeg($dst_r,$path.$targetfilename,$jpeg_quality);
+			 
 			
 		}catch (Exception $e){
 			return false;
 		}
 		return true;
 	}
+	
+	function downGradeColor($sourcePath=false, $destPath=false,$extensions=false) {
+		$src = $sourcePath;
+		$img_r = false;
+		$arrJpgFormat = array("jpg","jpeg","pjpeg");
+		if(in_array(strtolower($extensions),$arrJpgFormat)) $img_r = imagecreatefromjpeg($src);
+		if($extensions=='png' ) $img_r = imagecreatefrompng($src);
+		if($extensions=='gif' ) $img_r = imagecreatefromgif($src);
+		if(!$img_r) return false;
+		
+		list($width, $height) = getimagesize($sourcePath);
+		$img = imagecreatetruecolor($width, $height);
+		 
+		imagecopy($img, $img_r, 0, 0, 0, 0, $width, $height);
+		imagetruecolortopalette($img, false, 255); 
+		  
+		$arrJpgFormat = array("jpg","jpeg","pjpeg");
+		imagejpeg($img,$destPath,70);
+		 
+		
+    }
 	
 	function autoCropCenterArea($imageFilename=null,$imageUrl=null,$width=0,$height=0){
 		
