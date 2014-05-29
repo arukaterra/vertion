@@ -18,6 +18,26 @@
 			var locale = <?=LOCALE?>;
 			var basedomain = '<?=BASE_PATH?>';
         </script>
+		
+		<!-- ALL SCRIPT ON PAGE GOES HERE (HELPER,VIEW,SOMETHING,CSS) -->
+			<style>
+				.loadingContentBox{
+					width: 100%; display: inline-block; height: 300px;
+				}
+				
+				.loadingContentBoxLabel{
+					background-color: #B8B8B8;
+					display: inline-block;
+					height: 25px;
+					margin: 20px;
+					padding: 10px;
+					text-align: center;
+					width: 94%;
+				}
+					
+		</style>	
+        <script src="<?=ASSETS_PATH?>web/js/apps/contentScript.js"></script>
+
 		<script>
             function toggleCodes(on) {
                 var obj = document.getElementById('icons');
