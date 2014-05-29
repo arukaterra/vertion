@@ -98,8 +98,8 @@
 				html+="                            </a></div>";
 				html+="                        <div class='right'>";
 				html+="                        <span>";
-				html+="                            <i class='icon-thumbs-up'>&nbsp; cool 0 total </i>";
-				html+="                           <i class='icon-comment-1'>&nbsp; 0 views</i>";
+				html+="                            <i class='icon-thumbs-up addcool' vsid='"+e.vsid+"' cid='"+e.id+"' ct='"+e.cool.total+"' >&nbsp;<span class='vcool"+e.id+"' >"+e.cool.total+"</span> </i>";
+				html+="                           <i class='icon-comment-1'>&nbsp; "+e.comment.total+"</i>";
 				html+="                        </span>";
 				html+="                        </div>";
 				html+="                       <div class='clearit'></div>";
@@ -282,6 +282,7 @@
 	$(document).on('click','.addcool',function(){
 	
 			var vsid = $(this).attr('vsid');
+			var cid = $(this).attr('cid');
 			var ct = parseInt($(this).attr('ct'),10); 
 		    
 			if(loadcoolsok==1) return false; 
@@ -289,7 +290,8 @@
 			$.ajax({
 					url: basedomain+"post/cool",
 					beforeSend : function() {
-						$(".vcool").html(locale.post.uploading); 
+						  
+						$(".vcool"+cid).html(locale.post.uploading); 
 						 
 						loadcoolsok=1;
 					},
@@ -301,10 +303,10 @@
 						if(data.result){
  
 							ct++;
-							$(".vcool").html(ct); 
+							$(".vcool"+cid).html(ct); 
 							 
 						}else{
-							$(".vcool").html(ct); 
+							$(".vcool"+cid).html(ct); 
 							 
 						}
 						 
