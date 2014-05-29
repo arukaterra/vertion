@@ -12,13 +12,17 @@
 			if(!caption) return false;
 			if(!content) return false;
 			
+			
 			 var fd = new FormData($("#postform")[0]);
 				//fd.append("CustomField", "This is some extra data"); 
 				$.ajax({
 					url: basedomain+"post",
 					beforeSend : function() {
 						$(".stickypaths").after(uploadingtimelineView(locale.post.uploading));
-						 
+						
+						 $('.imagesvertion').val('');
+						 $('.titleUpload').val('');
+						 $('.descUpload').val('');
 					},
 					type: "POST",
 					data: fd,
@@ -204,11 +208,13 @@
 		  		
 		  		var vsid = $(this).attr('vsid');
 				 if(loadcommentok==1) return false; 
+				 if(cmt=='') return false; 
 		  
 				$.ajax({
 					url: basedomain+"post/comment",
 					beforeSend : function() {
-						thisobject.val(locale.post.uploading); 
+						thisobject.val(''); 
+						thisobject.attr('placeholder',locale.post.uploading); 
 						thisobject.attr('disabled',true);
 						loadcommentok=1;
 					},
@@ -218,14 +224,15 @@
 					}).done(function( data ) {
 						var html ="";
 						$('.onuploading').remove();
+					
 						if(data.result){
  
 							html  = commentView(data.data); 
 							$(".commentBox").prepend(html);
-							thisobject.val(''); 
+							thisobject.attr('placeholder','Add Comment ...'); 
 							 
 						}else{
-							thisobject.val('failed to save comment'); 
+							thisobject.attr('placeholder','failed to save comment'); 
 							 
 						}
 						thisobject.attr('disabled',false);

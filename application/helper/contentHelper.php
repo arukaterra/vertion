@@ -419,7 +419,7 @@ class contentHelper {
 			$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
 		}else {
 			$imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
-				$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+			$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
 		}
 		if($imagedata['imagepath_small']) $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath_small']."/{$thumbnail}_".$thedata[$indeximage];
 		else $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
@@ -427,10 +427,31 @@ class contentHelper {
 		$imagedata['image_type'] = "B";
 		
 		list($width, $height, $type, $attr) = getimagesize($rootimg);
+		/* w : h */
+		$w = 0;
+		$h = 0;
+		if($height>$width) {
+			$w = ceil($width/$width); 
+			$h = ceil($height/$width); 
+			if($w<$h) $imagedata['image_type'] = "P";
+		}
+		if($width>$height){
 		
-		if(round($width/$width)<round($height/$width)) $imagedata['image_type'] = "P";
-		if(round($width/$height)>round($height/$height)) $imagedata['image_type'] = "L";
+			$w = ceil($width/$height);
+			$h = ceil($height/$height);
+			if($w>$h) $imagedata['image_type'] = "L"; 
+			
+			// $d[$rootimg][] = $rootimg;
+			// $d[$rootimg][] = $width;
+			// $d[$rootimg][] = $height;
+			// $d[$rootimg][] = $w ;
+			// $d[$rootimg][] = $h ;
+			// $d[$rootimg][] = $imagedata['image_type'];
+			// pr($d);
+		}
 		
+		
+		// pr($imagedata);
 		return $imagedata;
 	}
 	
