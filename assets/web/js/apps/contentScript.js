@@ -90,8 +90,14 @@
 		
 	}
 	function timelineView(e){
+				
+				var items = 3;
+				if(e.imagesdata.image_type=='L')items = 2;
+				if(e.imagesdata.image_type=='P')items = 3;
+				if(e.imagesdata.image_type=='B')items = 3;
+							
 				var html ="";
-				html+="<div class='ads-block-timeline item2'>";
+				html+="<div class='ads-block-timeline item"+items+"'>";
 				html+="                   <div class='itemText'>";
 				html+="                       <div class='left'><a href='#' class='CatTag'>";
 				html+=								e.category_name;

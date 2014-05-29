@@ -412,11 +412,22 @@ class contentHelper {
 		if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thumbnail}_{$thedata[$indeximage]}")) $imagedata['imagepath_small'] = $imagepath;
  
 		
-		if($imagedata['imagepath']) $imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
-		else $imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+		if($imagedata['imagepath']){
+			$imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
+			$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
+		}else {
+			$imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+				$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
+		}
 		if($imagedata['imagepath_small']) $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath_small']."/{$thumbnail}_".$thedata[$indeximage];
 		else $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
 		
+		$imagedata['image_type'] = "B";
+		
+		list($width, $height, $type, $attr) = getimagesize($rootimg);
+		
+		if(round($width/$width)<round($height/$width)) $imagedata['image_type'] = "P";
+		if(round($width/$height)>round($height/$height)) $imagedata['image_type'] = "L";
 		
 		return $imagedata;
 	}

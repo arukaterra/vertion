@@ -49,18 +49,15 @@
  
                         </div>
 						<?php endforeach ?>
-						<?php 
-							$arrAbsoluteItemBlock = array(3,3,2,2,3,3) ;
-							$n = 0;
-						?>
-						
+						  
 						<?php foreach($timeline as  $val) : ?>
-						 
-						<?php 
-							$items = $arrAbsoluteItemBlock[$n];
-							if($n>count($arrAbsoluteItemBlock))$n=0;
-							else $n++;
-						?>
+						 <?php
+							$items = 3;
+							if($val['imagesdata']['image_type']=='L')$items = 2;
+							if($val['imagesdata']['image_type']=='P')$items = 3;
+							if($val['imagesdata']['image_type']=='B')$items = 3;
+						 ?>
+					 
                         <div class="ads-block-timeline item<?=$items?>">
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
