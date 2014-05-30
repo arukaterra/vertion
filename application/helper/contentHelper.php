@@ -13,17 +13,39 @@ class contentHelper {
 		if(is_array($this->apps->user)) $this->uid = intval($this->apps->user['id']);	
 	}
 	
+	function getUserContentID(){
+		$layname = false;
+		if($this->apps->controller=='profile'){ 
+			if($this->apps->func)$layname = strtolower(strip_tags($this->apps->func));
+			else $layname=$this->apps->user['username']; 
+		}
+		
+		if(!$layname) return false;
+		$sql = "SELECT id FROM _user WHERE username='{$layname}' LIMIT 1 "; 
+		$uiddata = $this->apps->fetch($sql);
+		
+		if($uiddata) return $uiddata['id'];
+		
+		return false;
+		
+		
+	}
+	
 	function getStickyAds($start=0,$limit=1){ 
- 
+ 	
+		 
+		$qUser = "";
+		if($this->apps->layname)$qUser = " AND userid = {$this->apps->layname} "; 
+		
 		$sql = "
 		SELECT *
 		FROM `vertion_content`
-		WHERE nstatus = 1 AND sticky = 1 
+		WHERE nstatus = 1 AND sticky = 1 {$qUser}
 		ORDER BY modifieddate DESC
 		LIMIT {$start},{$limit}
 		
 		";
- 
+	// pr($sql);
 		$qData = $this->apps->fetch($sql,1);
 		
 		if($qData) {
@@ -45,11 +67,15 @@ class contentHelper {
 			$qSearch = " AND ( caption like '%{$search}' OR content like '%{$search}%' ) ";
 		}
 		
+		
+		$qUser = "";
+		if($this->apps->layname)$qUser = " AND userid = {$this->apps->layname} "; 
+		
 		$sql = "
 		SELECT *
 		FROM `vertion_content`
 		WHERE nstatus = 1 AND sticky = 0 
-		{$qSearch}
+		{$qSearch} {$qUser}
 		ORDER BY modifieddate DESC
 		LIMIT {$start},{$limit} 
 		";
@@ -209,6 +235,7 @@ class contentHelper {
 		foreach($data as $key => $val){
 		 
 			$data[$key]['fullname'] =  ucwords(strtolower($data[$key]['name']." ".$data[$key]['lastname']));
+			$data[$key]['layname'] =  strtolower($data[$key]['username']); 
 			$data[$key]['lastname'] =  ucwords($data[$key]['lastname']); 
 			$data[$key]['createddate'] =  datereadable($data[$key]['createddate']); 
 			$arrData[$val['id']] = $data[$key];
@@ -242,6 +269,7 @@ class contentHelper {
 								
 							foreach($qDataUser as $val){
 								$userDetail[$val['id']]['fullname'] =  ucwords(strtolower($val['name']." ".$val['lastname'])); 
+								$userDetail[$val['id']]['layname'] =  strtolower($val['username']); 
 							}
 							
 							foreach($qData as $key => $val ){						
@@ -338,6 +366,7 @@ class contentHelper {
 				 
 					foreach($qDataUser as $val){
 						$userDetail[$val['id']]['fullname'] =  ucwords(strtolower($val['name']." ".$val['lastname'])); 			 
+						$userDetail[$val['id']]['layname'] =   strtolower($val['username']); 			 
 					}
 					
 					foreach($qData as $key => $val){
@@ -348,6 +377,7 @@ class contentHelper {
 						
 						if(array_key_exists($val['userid'],$userDetail)){
 							$arrComment[$val['contentid']][$key]['fullname'] = $userDetail[$val['userid']]['fullname'] ; 
+							$arrComment[$val['contentid']][$key]['layname'] = $userDetail[$val['userid']]['layname'] ; 
 						}
 					}
 				

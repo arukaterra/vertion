@@ -4,6 +4,9 @@ class Application extends Load {
 	 
 	var $usersAuth ;
 	var $user ;
+	var $layname ;
+	var $controller ;
+	var $func ;
 	
 	function __construct(){
 		parent::__construct();
@@ -29,6 +32,10 @@ class Application extends Load {
 	function call(){
 		 
 		if($this->load->controller()){ 
+				
+			$this->controller = $this->load->controller();
+			$this->func =  $this->load->func();
+			
 			$sourcefile = ROOT_PATH.APPLICATION_PATH.APPS_PATH.'/'.$this->load->controller().'.php';
 			if(file_exists($sourcefile)){
 			 
@@ -41,19 +48,46 @@ class Application extends Load {
 				$$controller->beforFilter($this);
 				
 				$func = $this->load->func();
+				
 				if($func) {
 						
 						if(method_exists($$controller,$func)){
 							$$controller->$func();
 							
+						}else{
+						 
+							$$controller->index();
 						}
+						
 				}else $$controller->index();
 					
 				exit;
 			}else {
-				pr(' cannot find page '); 
-				pr($sourcefile); 
-				exit;
+				
+				/* vertion screen name link */
+				$this->func = $this->load->controller();
+				$this->controller = 'profile';
+				
+				$sourcefile = ROOT_PATH.APPLICATION_PATH.APPS_PATH.'/'.$this->controller.'.php';
+				
+				if(file_exists($sourcefile)){
+				 
+					include $sourcefile;
+				
+					$controller = $this->controller;
+					
+					$$controller = new $controller; 
+					
+					$$controller->beforFilter($this);
+					
+					$$controller->index(); 
+						
+					exit;
+				}else{
+					pr(' cannot find page '); 
+					// pr($sourcefile); 
+					exit;
+				}
 			}
 			
 		}else{
