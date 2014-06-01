@@ -613,7 +613,7 @@ a.titleBlock:hover {
     margin:0 !important;
 }
 .item3 img {
-    width:220%;
+    width:100%;
     height: auto;
 }
 .item3 a {    
@@ -637,37 +637,77 @@ a.titleBlock:hover {
     /* text-decoration: underline; */
     color:#ccc;
 }
-.item4 {
-    width:25%;
-    height: 300px;
+.item4 {    
+    width:40%;
+    height: 600px;
     background: #fff;
     float: left;
-/*    margin:20px 0 0 28px;*/
-/*    border-radius: 2px;*/
+    /*    margin:20px 0 0 28px;*/
+    /*    border-radius: 2px;*/
     overflow: hidden;
     text-align: center;
     vertical-align: middle;
     position: relative;
+    margin:0 !important;
 }
 .item4 img {
-    
+    width:100%;
+    height: auto;
 }
-.item4 a {
+.item4 a {    
     position: absolute;
     text-decoration: none;
-    font: normal 15px/24px 'OpenSansSemibold', Arial, Helvetica, sans-serif;
+    font: normal 32px/50px 'OpenSansBold', Arial, Helvetica, sans-serif;
     color:#fff;
-    width:220px;
+    width:80%;
+    padding:40px 100px 200px 20px;
+    text-align: left;
+    display: block;
+    /* max-height: 58px; */
+    overflow: hidden;
+    /*    border-radius: 0 3px 3px 0;*/
+    bottom:0px;
+    text-transform: uppercase;
+    left:0;
+    text-shadow: 0px 0px 15px #000000;
+}
+.item4 a:hover {
+    /* text-decoration: underline; */
+    color:#333;
+}
+.item4 a.titleBlock {
+   position: absolute;
+    text-decoration: none;
+    font: normal 14px/22px 'OpenSansBold', Arial, Helvetica, sans-serif;
+    color:#fff;
+    width:95%;
     padding:20px 20px;
     text-align: left;
     display: block;
-    max-height: 58px;
+    /* max-height: 58px; */
     overflow: hidden;
-    border-radius: 0 3px 3px 0;
-    bottom:20px;
+    /*    border-radius: 0 3px 3px 0;*/
+    bottom:0px;
+    text-transform: uppercase;
+    left:0;
+    text-shadow: 0px 0px 15px #000000;
+    /* text-shadow: 0px 0px 0px #000000; */
 }
-.item4 a:hover {
-    text-decoration: underline;
+.item4 a.CatTag {    
+    top:13px;
+    font: normal 12px/24px 'OpenSansBold', Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    color:#fff;
+    text-decoration: none;
+    z-index: 99999;
+    text-shadow: 0px 0px 15px #000000;
+    position: absolute;
+	padding: 7px 75px 19px 20px;
+	width:10px;
+	height:5px;
+}
+.item4 a.CatTag:hover {
+    color:#333;
 }
 .itemImg {    
     position: absolute;
@@ -753,7 +793,7 @@ color:#fff;
     height: auto;
 }
 .detailCatCont {
-    width:50%;
+    width:40%;
     padding: 0 0 0 40px;
 }
 .tagCat {
@@ -1295,3 +1335,6 @@ a.CatWP {
 font: normal 16px/28px 'OpenSansRegular', Arial, Helvetica, sans-serif;
     margin-bottom: 40px;
 }
+.box { width: 100%; }
+.box.v2 { width: 49%; }
+.box.v3 { width: 24%; }

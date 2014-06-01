@@ -7,6 +7,7 @@ class Application extends Load {
 	var $layname ;
 	var $controller ;
 	var $func ;
+	var $userHelper ;
 	
 	function __construct(){
 		parent::__construct();
@@ -22,7 +23,10 @@ class Application extends Load {
 				gotoPage(BASE_PATH."login"); 
 				exit;
 			}else{
-				$this->user = @$this->session->getSession('users');
+				$activeuser = @$this->session->getSession('users');
+				$this->userHelper = $this->helper('userHelper');	
+				$activeuserdata = $this->userHelper->getUserProfile($activeuser['id']); 
+				$this->user = $activeuserdata[$activeuser['id']]; 
 			}	
 		}
 		

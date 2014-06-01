@@ -18,8 +18,14 @@
 				$.ajax({
 					url: basedomain+"post",
 					beforeSend : function() {
-						$(".stickypaths").after(uploadingtimelineView(locale.post.uploading));
-						
+						// $(".stickypaths").after(uploadingtimelineView(locale.post.uploading));
+						$("#timelinepagesCont").prepend(uploadingtimelineView(locale.post.uploading)).masonry('reloadItems');
+							var $container = $("#timelinepagesCont"); 
+							$container.masonry({
+							columnWidth: 1,
+							itemSelector: '.box'
+							});
+
 						 $('.imagesvertion').val('');
 						 $('.titleUpload').val('');
 						 $('.descUpload').val('');
@@ -38,7 +44,14 @@
 							html = locale.post.failed;
 						}
 						
-						$(".stickypaths").after(html);
+						// $(".stickypaths").after(html);
+												
+						$("#timelinepagesCont").prepend(html).masonry('reloadItems');
+							var $container = $("#timelinepagesCont"); 
+							$container.masonry({
+							columnWidth: 1,
+							itemSelector: '.box'
+							});
 				});
 
 			
@@ -88,6 +101,7 @@
 					url: basedomain+"tempimages",
 					beforeSend : function() {
 						$(".previewimages").html(uploadingtimelineView(locale.post.uploading)); 
+						
 					},
 					type: "POST",
 					data: fd,
@@ -127,7 +141,7 @@
 	});
 	
 	function uploadingtimelineView(message){
-		var html ="<div class='ads-block-timeline item3 onuploading'>";
+		var html ="<div class='ads-block-timeline item3 box v3 onuploading'>";
 		html +=message;
 		html +="</div>";
 		
@@ -148,12 +162,13 @@
 	function timelineView(e){
 				
 				var items = 3;
-				if(e.imagesdata.image_type=='L')items = 2;
-				if(e.imagesdata.image_type=='P')items = 3;
+				var vitems = 3;
+				if(e.imagesdata.image_type=='L'){ items = 2; vitems=2 }
+				if(e.imagesdata.image_type=='P'){ items = 3; vitems=2 }
 				if(e.imagesdata.image_type=='B')items = 3;
 							
 				var html ="";
-				html+="<div class='ads-block-timeline item"+items+"' style='margin:5px' >";
+				html+="<div class='ads-block-timeline item"+items+" box v"+vitems+"' style='margin:5px' >";
 				html+="                   <div class='itemText'>";
 				html+="                       <div class='left'><a href='#' class='CatTag'>";
 				html+=								e.category_name;
@@ -221,6 +236,8 @@
 					url: basedomain+"post/pages",
 					beforeSend : function() {
 						$(selector).append(slideLoadPagingView(locale.post.uploading));
+						
+						
 						loadslideok=1;
 					},
 					type: "POST",
@@ -240,9 +257,14 @@
 							loadslideok=3;
 						}
 						
-						$(selector).append(html);
-						
-						
+						//$(selector).append(html);
+					
+						$("#timelinepagesCont").append(html).masonry('reloadItems');
+							var $container = $("#timelinepagesCont"); 
+							$container.masonry({
+							columnWidth: 1,
+							itemSelector: '.box'
+							});
 					});
  
 	}
@@ -386,6 +408,7 @@
 			var thisobj = $(this);
 			var vsid = $(this).attr('vsid');
 			var cid = $(this).attr('cid');
+			var coolme = parseInt($(".vcool"+cid).attr('coolme'));
 			var ct = parseInt($(this).attr('ct'),10); 
 		    
 			if(loadcoolsok==1) return false; 
@@ -405,16 +428,23 @@
 						var html =""; 
 						if(data.result){
  
-							ct++;
+							if(!coolme) {
+								ct++;
+								$(".vcool"+cid).attr('coolme',1);
+							}else {
+								ct--;
+								$(".vcool"+cid).attr('coolme',0);
+							}
+							
+							 
 							$(".vcool"+cid).html(ct); 
-							 thisobj.attr('ct',ct)
+							thisobj.attr('ct',ct)
 						}else{
 							$(".vcool"+cid).html(ct); 
 							 
 						}
 						 
-						loadcoolsok=0;  
-						
+						loadcoolsok=0;   
 					});
 					
 	})

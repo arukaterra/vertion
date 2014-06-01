@@ -62,16 +62,15 @@ class socialActivityHelper {
 		$qData = $this->apps->query($sql);
 		$lastId = $this->apps->getLastinsertID();
 		if($lastId>0) {
-		
-			$postdata['fullname'] = $this->apps->user['name']; 	
-			$postdata['img'] = 'default.jpg';
-			$postdata['comment'] = str_replace('\n','<br/>',$message);
-			$postdata['createddate'] = timeago($createddate);
+			
+			$postdata =$this->apps->userHelper->getUserProfile($this->uid);   	 
+			$postdata[$this->uid]['comment'] = str_replace('\n','<br/>',$message);
+			$postdata[$this->uid]['createddate'] = timeago($createddate);
 			
 			$respond['result'] = true;
 			$respond['code'] = 1;
 			$respond['message'] = $locale['post']['success'];
-			$respond['data'] = $postdata;
+			$respond['data'] = $postdata[$this->uid];
 		} 
 		
 		return $respond;
@@ -94,12 +93,14 @@ class socialActivityHelper {
 			INSERT INTO `vertion_cool_statistic` 
 			( `userid`, `contentid`, `createddate`, `modifieddate`, `nstatus`) 
 			VALUES 
-			( '{$this->uid}', '{$cid}', '{$createddate}', '{$createddate}', '1')			 
+			( '{$this->uid}', '{$cid}', '{$createddate}', '{$createddate}', '1')
+			ON DUPLICATE KEY UPDATE
+			nstatus = IF(nstatus=1,0,1)
 		"; 
 		
 		$qData = $this->apps->query($sql);
-		$lastId = $this->apps->getLastinsertID();
-		if($lastId>0) {
+		// $lastId = $this->apps->getLastinsertID();
+		if($qData) {
 		 
 			$respond['result'] = true;
 			$respond['code'] = 1;

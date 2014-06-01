@@ -13,23 +13,7 @@ class contentHelper {
 		if(is_array($this->apps->user)) $this->uid = intval($this->apps->user['id']);	
 	}
 	
-	function getUserContentID(){
-		$layname = false;
-		if($this->apps->controller=='profile'){ 
-			if($this->apps->func)$layname = strtolower(strip_tags($this->apps->func));
-			else $layname=$this->apps->user['username']; 
-		}
-		
-		if(!$layname) return false;
-		$sql = "SELECT id FROM _user WHERE username='{$layname}' LIMIT 1 "; 
-		$uiddata = $this->apps->fetch($sql);
-		
-		if($uiddata) return $uiddata['id'];
-		
-		return false;
-		
-		
-	}
+	
 	
 	function getStickyAds($start=0,$limit=1){ 
  	
@@ -146,12 +130,14 @@ class contentHelper {
 			$qData[$key]['comment']['users'] = array();
 			$qData[$key]['cool']['total'] = 0;
 			$qData[$key]['cool']['users'] = array();
+			$qData[$key]['cool']['me'] = false; 
 			$qData[$key]['views'] = 0;
 			$qData[$key]['content'] = stripslashes(nl2br(html_entity_decode($val['content'])));
+			$qData[$key]['caption'] = stripslashes(nl2br(html_entity_decode($val['caption'])));
 		 
-			$qData[$key]['vsid'] = $val['stringid']."_".$val['id']."_".$val['userid']; 
+			$qData[$key]['vsid'] = stripslashes(nl2br(html_entity_decode($val['stringid']."_".$val['id']."_".$val['userid']))); 
 			 
-			$qData[$key]['imagesdata'] = $this->getImagesPath($qData[$key],'images','posts');
+			$qData[$key]['imagesdata'] = $this->apps->userHelper->getImagesPath($qData[$key],'images','posts');
 			 
 			
 		}		
@@ -170,7 +156,7 @@ class contentHelper {
 		//get profile
 		if($arrayUserID){
 			$userSelectedID = implode(",",$arrayUserID);
-			$usersProfile = $this->getUserProfile($userSelectedID );
+			$usersProfile = $this->apps->userHelper->getUserProfile($userSelectedID);
 		}  
 		
 		// favorite or like data
@@ -191,6 +177,8 @@ class contentHelper {
 						if(array_key_exists($val['id'],$favoriteData)) {
 							foreach($favoriteData[$val['id']]['users'] as $valfav){
 								$userfavorites[] = $valfav; 
+								if($this->uid==$valfav['userid'])	$qData[$key]['cool']['me'] = true; 
+							 
 								$qData[$key]['cool']['users'] = $userfavorites;
 								$userfavorites = false;
 							 
@@ -224,27 +212,7 @@ class contentHelper {
 		} 
 	}
 	
-	 function getUserProfile($selectedUserID=null){
-		  
-		 $sql = "SELECT *  FROM _user_profile WHERE userid IN ({$selectedUserID}) ";
-		 
-		// pr($sql);
-		$data = $this->apps->fetch($sql,1);
-		if(!$data) return false;
-		
-		foreach($data as $key => $val){
-		 
-			$data[$key]['fullname'] =  ucwords(strtolower($data[$key]['name']." ".$data[$key]['lastname']));
-			$data[$key]['layname'] =  strtolower($data[$key]['username']); 
-			$data[$key]['lastname'] =  ucwords($data[$key]['lastname']); 
-			$data[$key]['createddate'] =  datereadable($data[$key]['createddate']); 
-			$arrData[$val['id']] = $data[$key];
-			
-		} 
-		
-		if(!isset($arrData)) return false;
-		return $arrData;
-	}
+	
 	
 	function getFavorite($selectedContentID=null){
 		global $CONFIG;
@@ -261,25 +229,19 @@ class contentHelper {
 						$arrUserid[$val['userid']] = $val['userid'];	
 					}
 									
-					$users = implode(",",$arrUserid); 
-					
-					$sql = "SELECT * FROM _user_profile WHERE userid IN ({$users})    ";
-					$qDataUser = $this->apps->fetch($sql,1);
-					if($qDataUser){
-								
-							foreach($qDataUser as $val){
-								$userDetail[$val['id']]['fullname'] =  ucwords(strtolower($val['name']." ".$val['lastname'])); 
-								$userDetail[$val['id']]['layname'] =  strtolower($val['username']); 
-							}
-							
+					$userSelectedID = implode(",",$arrUserid); 
+					if(!$userSelectedID) return false;
+					$userDetail = $this->apps->userHelper->getUserProfile($userSelectedID);
+					 
+					if($userDetail){
+						  	
 							foreach($qData as $key => $val ){						
 								if(array_key_exists($val['userid'],$userDetail)){
 									$qData[$key]['userdetail'] = $userDetail[$val['userid']]; 
 									$data[$val['contentid']][$val['userid']]= $qData[$key];
 								}
 							}
-							
-						
+							 
 							if($data){ 
 								foreach($data as $key => $val){
 									 
@@ -357,19 +319,13 @@ class contentHelper {
 					$arrUserid[$val['userid']] = $val['userid'];				
 				}
 				
-				$users = implode(",",$arrUserid);
-				
-				$sql = "SELECT * FROM _user_profile WHERE userid IN ({$users})    ";
-				$qDataUser = $this->apps->fetch($sql,1);
-				// if($firstCommentAndLastComment)  pr($sql); 
-				if($qDataUser){
-				 
-					foreach($qDataUser as $val){
-						$userDetail[$val['id']]['fullname'] =  ucwords(strtolower($val['name']." ".$val['lastname'])); 			 
-						$userDetail[$val['id']]['layname'] =   strtolower($val['username']); 			 
-					}
-					
-					foreach($qData as $key => $val){
+				$userSelectedID = implode(",",$arrUserid); 
+				if(!$userSelectedID) return false;
+				$userDetail = $this->apps->userHelper->getUserProfile($userSelectedID);
+					 
+				if($userDetail){
+				   
+				   foreach($qData as $key => $val){
 						/* html entity decode */
 						$qData[$key]['comment'] = nl2br(html_entity_decode($qData[$key]['comment']));
 						$qData[$key]['createddate'] = timeago($qData[$key]['createddate']);
@@ -378,6 +334,7 @@ class contentHelper {
 						if(array_key_exists($val['userid'],$userDetail)){
 							$arrComment[$val['contentid']][$key]['fullname'] = $userDetail[$val['userid']]['fullname'] ; 
 							$arrComment[$val['contentid']][$key]['layname'] = $userDetail[$val['userid']]['layname'] ; 
+							$arrComment[$val['contentid']][$key]['img'] = $userDetail[$val['userid']]['imagesdata']['image_full_path'] ; 
 						}
 					}
 				
@@ -437,56 +394,6 @@ class contentHelper {
 			return $arrtype;
 		}else return false;
 		
-	}
-	
-	function getImagesPath($thedata=false,$indeximage='image',$imagepath='',$thumbnail='s_'){
-		$imagedata['imagepath'] = false;
-		$imagedata['imagepath_small'] = false;
-		GLOBAL $CONFIG;
-		if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thedata[$indeximage]}")) $imagedata['imagepath'] = $imagepath;	 
-		if($thumbnail)if(is_file(ROOT_PUBLIC_ASSETS_PATH."{$imagepath}/{$thumbnail}_{$thedata[$indeximage]}")) $imagedata['imagepath_small'] = $imagepath;
-  
-		if($imagedata['imagepath']){
-			$imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
-			$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagedata['imagepath']."/".$thedata[$indeximage];
-		}else {
-			$imagedata['image_full_path'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
-			$rootimg = ROOT_PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
-		}
-		if($thumbnail){
-			if($imagedata['imagepath_small']) $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagedata['imagepath_small']."/{$thumbnail}_".$thedata[$indeximage];
-			else $imagedata['image_full_path_thumb'] = PUBLIC_ASSETS_PATH.$imagepath."/default.jpg";
-		}
-		
-		$imagedata['image_type'] = "B";
-		
-		list($width, $height, $type, $attr) = getimagesize($rootimg);
-		/* w : h */
-		$w = 0;
-		$h = 0;
-		if($height>$width) {
-			$w = ceil($width/$width); 
-			$h = ceil($height/$width); 
-			if($w<$h) $imagedata['image_type'] = "P";
-		}
-		if($width>$height){
-		
-			$w = ceil($width/$height);
-			$h = ceil($height/$height);
-			if($w>$h) $imagedata['image_type'] = "L"; 
-			
-			// $d[$rootimg][] = $rootimg;
-			// $d[$rootimg][] = $width;
-			// $d[$rootimg][] = $height;
-			// $d[$rootimg][] = $w ;
-			// $d[$rootimg][] = $h ;
-			// $d[$rootimg][] = $imagedata['image_type'];
-			// pr($d);
-		}
-		
-		
-		// pr($imagedata);
-		return $imagedata;
 	}
 	
 	function sendPost($imagesdata=false){

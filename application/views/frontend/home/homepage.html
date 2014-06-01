@@ -3,18 +3,18 @@
 
                 <!-- content right : s -->
                 <div class="contentRight" id="timelinepages" >
-                    <div class="contentRightIn timelinepages"  >
+                    <div class="timelinepages contentRightIn js-masonry" id="timelinepagesCont" data-masonry-options='{ "columnWidth": 1, "itemSelector": ".box" }' >
 						<?=$this->view('frontend/widgets/upload-box')?>
 						
 						<?php foreach($stickyads as $val) : ?>
-                        <div class="item stickypaths">
+                        <div class="item box stickypaths">
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
                                         <?=$val['category_name']?>
                                     </a></div>
                                 <div class="right">
                                 <span>
-                                    <i class="icon-thumbs-up">&nbsp;<?=$val['cool']['total']?></i>
+                                    <i class="icon-thumbs-up addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?>" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
                                     <i class="icon-comment-1">&nbsp;<?=$val['comment']['total']?></i>
                                 </span>
                                 </div>
@@ -30,7 +30,7 @@
 								
 								<?php foreach($val['comment']['users'] as $ckeys=> $comment) : ?>
                                 <div class="listComment listCommentMain clearfix">
-                                    <div class="imgProfCom left"></div>
+                                    <div class="imgProfCom left" ><img src="<?=$comment['img']?>"  class="imgProfCom" /></div>
                                     <div class="boxNameCom left">
                                         <a href="#"><?=$comment['fullname']?></a>
                                         <h6>&nbsp; - <?=$comment['createddate']?></h6>
@@ -39,7 +39,7 @@
                                         <p class="pMainComm"><?=$comment['comment']?></p>
                                     </div>
                                 </div>
-								 <?php if($ckeys==0) : ?>
+								 <?php if($ckeys==1) : ?>
 									 <?php if($val['comment']['total']>2) : ?>
 										<a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>" class="totCom">
 											<i class=" icon-comment-alt"></i><?=($val['comment']['total']-2)?> more comments<i class="icon-down-micro"></i>
@@ -57,19 +57,20 @@
 						<?php foreach($timeline as  $val) : ?>
 						 <?php
 							$items = 3;
-							if($val['imagesdata']['image_type']=='L')$items = 2;
-							if($val['imagesdata']['image_type']=='P')$items = 3;
-							if($val['imagesdata']['image_type']=='B')$items = 3;
+							$vitems = 3;
+							if($val['imagesdata']['image_type']=='L'){ $items = 2; $vitems = 2; }
+							if($val['imagesdata']['image_type']=='P'){ $items = 4; $vitems = 2; }
+							if($val['imagesdata']['image_type']=='B')  $items = 3;
 						 ?>
 					 
-                        <div class="ads-block-timeline item<?=$items?>" style="margin:5px" >
+                        <div class="ads-block-timeline item<?=$items?> box v<?=$vitems?>" style="margin:5px" >
                             <div class="itemText">
                                 <div class="left"><a href="#" class="CatTag">
                                          <?=$val['category_name']?>
                                     </a></div>
                                 <div class="right">
                                 <span>
-                                    <i class="icon-thumbs-up addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?>" ><?=$val['cool']['total']?></span></i>
+                                    <i class="icon-thumbs-up addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?>" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
                                     <i class="icon-comment-1">&nbsp;<?=$val['comment']['total']?></i>
                                 </span>
                                 </div>
@@ -103,4 +104,6 @@
 					  if( $(this).scrollTop() >= this.scrollTopMax ) callPaging('timelinePaging','.timelinepages',limit,false); 
 				});
 			});
+			
+		
 </script>

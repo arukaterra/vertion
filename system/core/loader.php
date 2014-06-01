@@ -65,8 +65,8 @@ class Load extends db {
 	function assign(){
   
 		if($this->session->getSession('is_login')){ 
-			
-			 $this->assign['userssession']['users']=$this->session->getSession('users');
+			// pr();exit;
+			 $this->assign['userssession']['users']=$this->apps->user;
 			 
 			return true;			
 		}

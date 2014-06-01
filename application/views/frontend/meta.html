@@ -25,9 +25,11 @@
         <![endif]-->
       
         <script src="<?=ASSETS_PATH?>web/js/jquery-1.8.2.js"></script>
-        <script src="<?=ASSETS_PATH?>web/js/jquery-ui-1.8.min.js"></script>
+        <script src="<?=ASSETS_PATH?>web/js/jquery-ui-1.8.min.js"></script> 
       
         <script src="<?=ASSETS_PATH?>web/js/script.js"></script>
+		
+		<script src="<?=ASSETS_PATH?>web/js/masonry.pkgd.min.js"></script>
 		<script>
             var isactivepages ='<?=$this->load->controller()?>';
 			var locale = <?=LOCALE?>;
@@ -108,4 +110,22 @@
                   obj.className = obj.className.replace(' codesOn', '');
                 }
               }
+			var container = false;
+				var msnry = false;
+		$(function()  {
+			// masonry 
+				var $container = $('#timelinepagesCont');
+				// initialize
+				
+				  $container.masonry({
+					columnWidth: 1,
+					itemSelector: '.box'
+					});
+				
+			
+		});
+		
+ 
+				
+			 
         </script>

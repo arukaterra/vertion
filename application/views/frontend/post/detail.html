@@ -11,8 +11,8 @@
 					</div>
                         <div class="shareButton right">
 							
-                            <a href="javascript:void(0)" class="addcool"  vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>" cid="<?=$val['id']?>" >
-                            <i class="icon-thumbs-up" ></i>Cool <span class="vcool<?=$val['id']?>"><?=$val['cool']['total']?></span></a>
+                            <a href="javascript:void(0)" class="addcool"  vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>" cid="<?=$val['id']?>"  >
+                            <i class="icon-thumbs-up" ></i>Cool <span class="vcool<?=$val['id']?>" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></a>
                             <a href="javascript:void(0)"  class="adsShare" cid="<?=$val['id']?>"   vsid="<?=$val['vsid']?>"  >
                                 <i class="icon-flag"></i>Ads Share </a><span class="adsShareLink<?=$val['id']?>"></span>
 							<a href="#">
@@ -70,7 +70,7 @@
 									<?php if($val['comment']['total']>0) : ?>
 									<?php foreach($val['comment']['users'] as $keys => $comment) : ?>
 									<div class="listComment clearfix">
-										<div class="imgProfCom left"></div>
+										<div class="imgProfCom left"><img src="<?=$comment['img']?>"  class="imgProfCom" /></div>
 										<div class="boxNameCom left">
 											<a href="<?=BASE_PATH.$comment['layname']?>"><?=$comment['fullname']?></a>
 											<h6>&nbsp;  <?=$comment['createddate']?></h6>
