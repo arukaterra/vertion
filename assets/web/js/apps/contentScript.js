@@ -165,7 +165,7 @@
 				var vitems = 3;
 				if(e.imagesdata.image_type=='L'){ items = 2; vitems=2 }
 				if(e.imagesdata.image_type=='P'){ items = 4; vitems=2 }
-				if(e.imagesdata.image_type=='P5'){ items = 5; vitems=2 }
+				if(e.imagesdata.image_type=='P5'){ items = 5; vitems=4 }
 				if(e.imagesdata.image_type=='B')items = 3;
 				 ecoolme =0;
 				if(e.cool.me==true) ecoolme =1; 
