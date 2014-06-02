@@ -111,8 +111,12 @@
 		 	
 			$(document).ready(function(){
 				$("#timelinepages").scroll(function() { 
-				 
-					  if( $(this).scrollTop() >= this.scrollTopMax ) callPaging('timelinePaging','.timelinepages',limit,false); 
+						var timelinepagesSpace = document.getElementById("timelinepages");
+						var timelinepagesContSpace = document.getElementById("timelinepagesCont"); 
+						var thisscrollTopMax = timelinepagesContSpace.clientHeight - timelinepagesSpace.clientHeight;
+					 
+					 
+					  if( $(this).scrollTop() >= thisscrollTopMax ) callPaging('timelinePaging','.timelinepages',limit,false); 
 				});
 			});
 			

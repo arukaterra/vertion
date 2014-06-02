@@ -43,7 +43,7 @@
 				<?php if($items==3) : ?>
 					<div class="contentRight boxRead" id="commentBox">
 						
-						<div class="contentRightIn">
+						<div class="contentRightIn" id="commentBoxCont">
 							<br />
 							<br />
 							<div class="imgCatCont left">
@@ -104,7 +104,7 @@
 				<?php else : ?>
 					<div class="contentRight boxRead" id="commentBox">
 						
-						<div class="contentRightIn">
+						<div class="contentRightIn"  id="commentBoxCont">
 							<br />
 							<br />
 							<div class="imgCatCont left w93"  >
@@ -174,8 +174,11 @@
 		 	
 			$(document).ready(function(){
 				$("#commentBox").scroll(function() { 
+					var commentBoxSpace = document.getElementById("commentBox");
+					var commentBoxContSpace = document.getElementById("commentBoxCont"); 
+					var thisscrollTopMax = commentBoxContSpace.clientHeight - commentBoxSpace.clientHeight ;
 				 
-					  if( $(this).scrollTop() >= this.scrollTopMax ) callPaging('commentPaging','.commentBox',limit,false); 
+					  if( $(this).scrollTop() >= thisscrollTopMax ) callPaging('commentPaging','.commentBox',limit,false); 
 				});
 			});
 			
