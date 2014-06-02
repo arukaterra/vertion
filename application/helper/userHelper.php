@@ -83,8 +83,8 @@ class userHelper {
 		if($height>$width) {
 			$w = ceil($width/$width); 
 			$h = ceil($height/$width); 
-			if($w<$h) $imagedata['image_type'] = "P";
-			if($h>=4) $imagedata['image_type'] = "P5";
+			if($w<$h) $imagedata['image_type'] = "P5";
+			if($h>3) $imagedata['image_type'] = "P5";
 		}
 		if($width>$height){
 		
