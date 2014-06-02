@@ -29,6 +29,9 @@ class Application extends Load {
 				$this->user = $activeuserdata[$activeuser['id']]; 
 			}	
 		}
+		if($this->load->controller()=='share'){
+			$this->userHelper = $this->helper('userHelper');	
+		}
 		
 		$this->call();
 	 }

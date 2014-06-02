@@ -14,8 +14,14 @@
                                     </a></div>
                                 <div class="right">
                                 <span>
-                                    <i class="icon-thumbs-up addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?>" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
-                                    <i class="icon-comment-1">&nbsp;<?=$val['comment']['total']?></i>
+								<?php if($val['cool']['me']) : ?>
+                                    <i class="icon-thumbs-up addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?> top0 posRel left0 " coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
+                                    
+								 <?php else : ?>
+									 <i class="icon-thumbs-down addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?> top0 posRel left0" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
+                                   
+								 <?php endif ; ?>
+								  <i class="icon-comment-1">&nbsp;<?=$val['comment']['total']?></i>
                                 </span>
                                 </div>
                                 <div class="clearit"></div>
@@ -44,9 +50,9 @@
 										<a href="<?=BASE_PATH."post/detail/?g=layer&vsid=".$val['vsid']?>" class="totCom">
 											<i class=" icon-comment-alt"></i><?=($val['comment']['total']-2)?> more comments<i class="icon-down-micro"></i>
 											</a>
-									 <?php endif ?>
-								 <?php endif ?>
-                                <?php endforeach ?>
+									 <?php endif ; ?>
+								 <?php endif ; ?>
+                                <?php endforeach ; ?>
 								
                                 <?php endif ?>
                              </div>
@@ -60,6 +66,7 @@
 							$vitems = 3;
 							if($val['imagesdata']['image_type']=='L'){ $items = 2; $vitems = 2; }
 							if($val['imagesdata']['image_type']=='P'){ $items = 4; $vitems = 2; }
+							if($val['imagesdata']['image_type']=='P5'){ $items = 5; $vitems = 2; }
 							if($val['imagesdata']['image_type']=='B')  $items = 3;
 						 ?>
 					 
@@ -70,7 +77,11 @@
                                     </a></div>
                                 <div class="right">
                                 <span>
-                                    <i class="icon-thumbs-up addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?>" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
+									<?php if($val['cool']['me']) : ?>
+										<i class="icon-thumbs-up addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?> top0 posRel left0" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
+									<?php else : ?>
+										<i class="icon-thumbs-down addcool"  cid="<?=$val['id']?>" vsid="<?=$val['vsid']?>" ct="<?=$val['cool']['total']?>"  >&nbsp;<span class="vcool<?=$val['id']?> top0 posRel left0" coolme="<?=$val['cool']['me']?>" ><?=$val['cool']['total']?></span></i>
+									<?php endif ; ?>
                                     <i class="icon-comment-1">&nbsp;<?=$val['comment']['total']?></i>
                                 </span>
                                 </div>

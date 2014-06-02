@@ -164,9 +164,12 @@
 				var items = 3;
 				var vitems = 3;
 				if(e.imagesdata.image_type=='L'){ items = 2; vitems=2 }
-				if(e.imagesdata.image_type=='P'){ items = 3; vitems=2 }
+				if(e.imagesdata.image_type=='P'){ items = 4; vitems=2 }
+				if(e.imagesdata.image_type=='P5'){ items = 5; vitems=2 }
 				if(e.imagesdata.image_type=='B')items = 3;
-							
+				 ecoolme =0;
+				if(e.cool.me==true) ecoolme =1; 
+				
 				var html ="";
 				html+="<div class='ads-block-timeline item"+items+" box v"+vitems+"' style='margin:5px' >";
 				html+="                   <div class='itemText'>";
@@ -175,7 +178,11 @@
 				html+="                            </a></div>";
 				html+="                        <div class='right'>";
 				html+="                        <span>";
-				html+="                            <i class='icon-thumbs-up addcool' vsid='"+e.vsid+"' cid='"+e.id+"' ct='"+e.cool.total+"' >&nbsp;<span class='vcool"+e.id+"' >"+e.cool.total+"</span> </i>";
+				if(ecoolme){
+					html+="                            <i class='icon-thumbs-up addcool' vsid='"+e.vsid+"' cid='"+e.id+"' ct='"+e.cool.total+"' >&nbsp;<span class='vcool"+e.id+" top0 posRel left0 '  coolme='"+ecoolme+"' >"+e.cool.total+"</span> </i>";
+				}else{
+						html+="                            <i class='icon-thumbs-down addcool' vsid='"+e.vsid+"' cid='"+e.id+"' ct='"+e.cool.total+"' >&nbsp;<span class='vcool"+e.id+" top0 posRel left0'  coolme='"+ecoolme+"' >"+e.cool.total+"</span> </i>";
+				}
 				html+="                           <i class='icon-comment-1'>&nbsp; "+e.comment.total+"</i>";
 				html+="                        </span>";
 				html+="                        </div>";
@@ -322,7 +329,7 @@
 	function commentView(e){
 		  var html ="";
 				html+="<div class='listComment clearfix'>";
-              	html+="<div class='imgProfCom left'></div>";
+              	html+="<div class='imgProfCom left'><img src='"+e.img+"'  class='imgProfCom' /></div>";
              	html+="<div class='boxNameCom left'>";
 				html+="<a href='#'>  "+e.fullname+"</a>";
 				html+="<h6>&nbsp;  "+e.createddate+"</h6>";
@@ -430,9 +437,13 @@
  
 							if(!coolme) {
 								ct++;
+								thisobj.removeClass('icon-thumbs-down');
+								thisobj.addClass('icon-thumbs-up');
 								$(".vcool"+cid).attr('coolme',1);
 							}else {
 								ct--;
+								thisobj.removeClass('icon-thumbs-up');
+								thisobj.addClass('icon-thumbs-down');
 								$(".vcool"+cid).attr('coolme',0);
 							}
 							
