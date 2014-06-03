@@ -11,6 +11,8 @@ class contentHelper {
 		$this->database = $DATABASE;
 		
 		if(is_array($this->apps->user)) $this->uid = intval($this->apps->user['id']);	
+		
+			
 	}
 	
 	
@@ -18,13 +20,15 @@ class contentHelper {
 	function getStickyAds($start=0,$limit=1){ 
  	
 		 
-		$qUser = "";
-		if($this->apps->layname)$qUser = " AND userid = {$this->apps->layname} "; 
+		$qProfiler = "";
+		if($this->apps->layname)$qProfiler = " AND userid = {$this->apps->layname} "; 
+		if($this->apps->calias)$qProfiler = " AND community = {$this->apps->calias} "; 
+		
 		
 		$sql = "
 		SELECT *
 		FROM `vertion_content`
-		WHERE nstatus = 1 AND sticky = 1 {$qUser}
+		WHERE nstatus = 1 AND sticky = 1 {$qProfiler}
 		ORDER BY modifieddate DESC
 		LIMIT {$start},{$limit}
 		
@@ -51,20 +55,21 @@ class contentHelper {
 			$qSearch = " AND ( caption like '%{$search}' OR content like '%{$search}%' ) ";
 		}
 		
-		
-		$qUser = "";
-		if($this->apps->layname)$qUser = " AND userid = {$this->apps->layname} "; 
+		 
+		$qProfiler = "";
+		if($this->apps->layname)$qProfiler = " AND userid = {$this->apps->layname} "; 
+		if($this->apps->calias)$qProfiler = " AND community = {$this->apps->calias} "; 
 		
 		$sql = "
 		SELECT *
 		FROM `vertion_content`
 		WHERE nstatus = 1 AND sticky = 0 
-		{$qSearch} {$qUser}
+		{$qSearch} {$qProfiler}
 		ORDER BY modifieddate DESC
 		LIMIT {$start},{$limit} 
 		";
-		
 		// pr($sql);
+		 
 		$qData = $this->apps->fetch($sql,1);
 		
 		if($qData) {
@@ -413,6 +418,8 @@ class contentHelper {
 		$sticky = 0;
 		$nstatus = 1;
 		$images = "";
+		$community = 0;
+		if($this->apps->calias)$community=$this->apps->calias;
 		
 		if(!$caption) return $data;
 		if(!$content)return $data;
@@ -425,9 +432,9 @@ class contentHelper {
 		
 		$sql = "
 		INSERT INTO  `vertion_content` 
-		( `caption`, `content`, `images`, `category`, `type`, `createddate`, `modifieddate`, `userid`, `sticky`, `nstatus`,stringid) 
+		( `caption`, `content`, `images`, `category`, `type`, `createddate`, `modifieddate`, `userid`, `sticky`, `nstatus`,stringid,community) 
 		VALUES 
-		(  '{$caption}', '{$content}', '{$images}', '{$category}', '{$type}', '{$createddate}', '{$modifieddate}', '{$userid}', '{$sticky}', '{$nstatus}','{$stringid}') 
+		(  '{$caption}', '{$content}', '{$images}', '{$category}', '{$type}', '{$createddate}', '{$modifieddate}', '{$userid}', '{$sticky}', '{$nstatus}','{$stringid}',{$community}) 
 		";
 		// pr($sql);
 		$qData = $this->apps->query($sql);

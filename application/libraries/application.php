@@ -4,15 +4,14 @@ class Application extends Load {
 	 
 	var $usersAuth ;
 	var $user ;
-	var $layname ;
+	var $layname =0;
+	var $calias =0;
 	var $controller ;
 	var $func ;
 	var $userHelper ;
 	
 	function __construct(){
-		parent::__construct();
-		
-				
+		parent::__construct(); 
 	}
 	
 	function initial(){ 
@@ -24,13 +23,16 @@ class Application extends Load {
 				exit;
 			}else{
 				$activeuser = @$this->session->getSession('users');
-				$this->userHelper = $this->helper('userHelper');	
+				$this->userHelper = $this->helper('userHelper'); 
 				$activeuserdata = $this->userHelper->getUserProfile($activeuser['id']); 
 				$this->user = $activeuserdata[$activeuser['id']]; 
+				$this->communityHelper = $this->helper('communityHelper');	
+				// pr($this->user);
 			}	
 		}
 		if($this->load->controller()=='share'){
-			$this->userHelper = $this->helper('userHelper');	
+			$this->userHelper 		= $this->helper('userHelper');
+			$this->communityHelper 	= $this->helper('communityHelper');	
 		}
 		
 		$this->call();
@@ -45,9 +47,16 @@ class Application extends Load {
 			
 			$sourcefile = ROOT_PATH.APPLICATION_PATH.APPS_PATH.'/'.$this->load->controller().'.php';
 			if(file_exists($sourcefile)){
-			 
+				if($this->controller!='post'){
+					$this->session->setSession('calias',0);
+					$this->session->setSession('layname',0);
+					
+				}else{
+					$this->calias = $this->session->getSession('calias');		
+					$this->layname = $this->session->getSession('layname');
+				}
 				include $sourcefile;
-			
+				
 				$controller = $this->load->controller();
 				
 				$$controller = new $controller; 

@@ -5,7 +5,7 @@
                 <div class="contentRight" id="timelinepages" >
                     <div class="timelinepages contentRightIn js-masonry" id="timelinepagesCont" data-masonry-options='{ "columnWidth": 1, "itemSelector": ".box" }' >
 						<?=$this->view('frontend/widgets/upload-box')?>
-						
+						<?php if($stickyads) : ?>
 						<?php foreach($stickyads as $val) : ?>
                         <div class="item box stickypaths">
                             <div class="itemText">
@@ -59,7 +59,8 @@
  
                         </div>
 						<?php endforeach ?>
-						  
+						<?php endif ?>
+						<?php if($timeline) : ?>
 						<?php foreach($timeline as  $val) : ?>
 						 <?php
 							$items = 3;
@@ -100,7 +101,7 @@
                             </div>
                         </div>
                        <?php endforeach ?>
-                      
+                      <?php endif ?>
                     </div>
 					  <div class="clearit"></div>
                 </div>

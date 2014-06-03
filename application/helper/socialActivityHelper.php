@@ -62,7 +62,7 @@ class socialActivityHelper {
 		$qData = $this->apps->query($sql);
 		$lastId = $this->apps->getLastinsertID();
 		if($lastId>0) {
-			
+			$this->updateContentDateOnSocialize($cid);
 			$postdata =$this->apps->userHelper->getUserProfile($this->uid);   	 
 			$postdata[$this->uid]['comment'] = str_replace('\n','<br/>',$message);
 			$postdata[$this->uid]['createddate'] = timeago($createddate);
@@ -99,9 +99,9 @@ class socialActivityHelper {
 		"; 
 		
 		$qData = $this->apps->query($sql);
-		// $lastId = $this->apps->getLastinsertID();
+		$lastId = $this->apps->getLastinsertID();
 		if($qData) {
-		 
+			if($lastId>0)$this->updateContentDateOnSocialize($cid);
 			$respond['result'] = true;
 			$respond['code'] = 1;
 			$respond['message'] = $locale['post']['success']; 
@@ -112,7 +112,13 @@ class socialActivityHelper {
 	}
 	
 
-	
+	function updateContentDateOnSocialize($cid=false){
+		if($cid==0) return false;
+		$datetimes = date("Y-m-d H:i:s");
+		$sql= "UPDATE vertion_content SET modifieddate='{$datetimes}' WHERE id = {$cid} LIMIT 1"; 
+		$qData = $this->apps->query($sql); 
+		return false;
+	}
 }
 
 

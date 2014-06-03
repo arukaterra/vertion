@@ -61,33 +61,18 @@
 					 
                     <div class="categories">
                         <h1>Your Communities
-                            <i class="icon-plus-circle plusCategories"></i>
+                           <i class="icon-plus-circle plusCategories pluscommunitybutton"></i> 
                         </h1>
-                        <ul>
+                        <ul class="communitylist" >
+							<?php foreach($users['community'] as $val) : ?>
+							 
                             <li class="clearfix active">
                                
                                 <div class="categoriesTitle lefte">
-                                    <a href="#">Rackters</a>
+                                    <a href="<?=BASE_PATH?><?=$val['communityalias']?>"><?=$val['communityname']?></a>
                                 </div>
                             </li>
-                            <li class="clearfix">
-                              
-                                <div class="categoriesTitle left">
-                                    <a href="#">Fcore</a>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                       
-                                <div class="categoriesTitle left">
-                                    <a href="#">Siskom UG</a>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                               
-                                <div class="categoriesTitle left">
-                                    <a href="#">ACSL Lab</a>
-                                </div>
-                            </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
  

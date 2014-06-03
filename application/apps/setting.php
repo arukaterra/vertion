@@ -23,6 +23,11 @@ class setting extends application{
 		$data['something'] = '';
 		$this->templates('frontend/setting/account',$data);
 	}
+	
+	function community(){
+		$data['something'] = '';
+		$this->templates('frontend/setting/community',$data);
+	}
 }
 
 ?>

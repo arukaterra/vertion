@@ -1,21 +1,19 @@
 <?php
 
-class profile extends application{
+class community extends application{
 	
 	function beforFilter($apps=false){
 		$this->apps =$apps;
-	
-		$this->contentHelper = $this->apps->helper('contentHelper');	
-		
+		$this->contentHelper = $this->apps->helper('contentHelper'); 
+			
+		 $this->uploadHelper = $this->apps->helper('uploadHelper');
+		 
 		$communityProfiler = $this->apps->communityHelper->getCommunity();
 		// pr($communityProfiler);
 		if($communityProfiler) if($communityProfiler['result'])$this->apps->calias = $communityProfiler['data']['id'];
 		$this->apps->layname = $this->apps->user['id'];
-		 
 		if(!$this->apps->calias) $this->apps->layname = $this->apps->userHelper->getUserContentID();
 		
-		$this->apps->session->setSession('calias',$this->apps->calias);		
-		$this->apps->session->setSession('layname',$this->apps->layname);		
 	}
 	
 	function index(){
@@ -40,7 +38,31 @@ class profile extends application{
 
 	}
 	
-
+	function addnewcommunity(){
+	
+			if (isset($_FILES['imglogo'])&&$_FILES['imglogo']['name']!=NULL) {
+				if (isset($_FILES['imglogo'])&&$_FILES['imglogo']['size'] <= 20000000) {
+					$path = ROOT_PUBLIC_ASSETS_PATH."community/";
+					$uploaddata = $this->uploadHelper->uploadThisImage($_FILES['imglogo'],$path);
+						 
+					if ($uploaddata['arrImage']!=NULL) {
+						
+					} else {
+						$uploaddata = false;
+					}
+				} else {
+					$uploaddata = false;
+				}
+			} else {
+				$uploaddata = false;
+			}
+			
+			$res = $this->apps->communityHelper->addnewcommunity(false,$uploaddata)  ;
+			 
+			print json_encode($res);exit;
+	 
+	}
+	
 }
 
 ?>

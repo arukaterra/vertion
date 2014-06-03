@@ -459,3 +459,68 @@
 					});
 					
 	})
+	
+	 
+	 $(document).on('click','.pluscommunitybutton',function(){
+			 
+			window.location = basedomain+"setting/community";
+	 })
+	
+	function newcommunityinlistview(e){
+		var html = "<li class='clearfix'>  <div class='categoriesTitle lefte'> "; 
+		html+="  <a href='"+basedomain+e.communityalias+"' >"+e.communityname+"</a> ";
+		html+=" </div></li>";
+		return html;
+	}
+	
+	
+	var uploadlabelcommunity = 0; 
+	$(document).on('click','.addnewcommunity',function(){
+			
+	
+		if(uploadlabelcommunity==1){
+			 
+			var cmtnm = $('.cmtnm').val();
+		 
+			uploadlabelcommunity = 0;
+			
+			if(!cmtnm) return false;
+			 
+			
+			
+			 var fd = new FormData($("#newcommunityform")[0]);
+				//fd.append("CustomField", "This is some extra data"); 
+				$.ajax({
+					url: basedomain+"community/addnewcommunity",
+					beforeSend : function() {
+					 
+						$(".addnewcommunity").after("<span class='onuploading' >"+locale.post.uploading+"</span>");
+						 
+						 $('.cmtnm').val('');
+						 $('.imglogo').val('');
+						  
+					},
+					type: "POST",
+					data: fd,
+					dataType : "JSON",
+					processData: false,  // tell jQuery not to process the data
+					contentType: false   // tell jQuery not to set contentType
+					}).done(function( data ) {
+						var html = "";
+						$('.onuploading').remove();
+						if(data.result){
+							html = newcommunityinlistview(data.data);
+							$(".communitylist").prepend(html);
+						} 
+						  
+				});
+
+			
+			
+		}else {
+		 	
+			uploadlabelcommunity = 1;
+		}
+		
+	});	
+	
