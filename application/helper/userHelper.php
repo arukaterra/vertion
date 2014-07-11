@@ -137,7 +137,52 @@ class userHelper {
 		return $imagedata;
 	}
 	
-	
+	function updateMyProfile($imagesdata=false){
+		
+		global $locale;
+		$respond['result'] = false;
+		$respond['code'] = false;
+		$respond['message'] = $locale['post']['failed'];
+		$respond['data'] =  array();
+		 
+		$fullname = strip_tags(_p('fullname')); 
+		$arrName = explode(' ',$fullname); 
+		$aboutme = strip_tags(_p('aboutme')); 
+		$dob = strip_tags(_p('dob')); 
+		$gender = strip_tags(_p('gender')); 
+		$images =false;
+		 if($imagesdata) $images = $imagesdata['arrImage']['filename'];
+		
+		if(array_key_exists(0,$arrName)) $updateProfile['name'] = $arrName[0];
+		if(array_key_exists(1,$arrName)) $updateProfile['lastname'] = $arrName[1];
+		// if($aboutme) $updateProfile['aboutme'] = $aboutme; 
+		if($dob) $updateProfile['birthday'] = $dob; 
+		if($gender) $updateProfile['gender'] = $gender; 
+		if($images) $updateProfile['img'] = $images; 
+		$updateProfile['modifieddate'] =date("Y-m-d H:i:s"); 
+		$qUpdateProfile = array();
+		foreach($updateProfile as $key =>$val){
+			$qUpdateProfile[] = " {$key}='{$val}' ";
+		}
+		if(!$qUpdateProfile) return $respond;
+		$qUpdate = implode(',',$qUpdateProfile);
+		$sql = "
+				UPDATE  `_user_profile` SET {$qUpdate}
+				WHERE userid = {$this->apps->user['id']} LIMIT 1
+		"; 
+		 
+		$qData = $this->apps->query($sql); 
+		if($qData) {
+		  
+			$respond['result'] = true;
+			$respond['code'] = 1;
+			$respond['message'] = $locale['post']['success']; 
+			$respond['data'] =  array();
+		} 
+		
+		return $respond;
+		
+	}
 }
 
 

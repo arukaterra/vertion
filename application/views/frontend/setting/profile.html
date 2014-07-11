@@ -1,68 +1,83 @@
  
                <div class="headerCategories">
 					<?=$this->view('frontend/setting/setting-nav')?>
+					
                 </div>
                 <!-- header categories : e -->
                 <!-- content right : s -->
+				 
                 <div class="contentRight boxRead">
                     <div class="contentRightIn">
                         <br />
                         <br />
                         <br />
                         <!-- profile : s -->
+						<form id="updateProfile" method="POST" action=""   >
                         <div class="profile clearfix">
-                            <div class="photoProfile left">
-                                <img src="images/profile.jpg">
-                                <a href="#" class="changeProfile">change picture</a>
+                            <div class="photoProfile left ">
+                                <span class="previewimages    " ><img src="<?=$users['img']?>" /></span>
+                                <a href="javascript:void(0)" class="openuploadvertion changeProfile">change picture</a>
+									<input type="file" style="display:none" class="imagesvertion" name="images" />
+									<input type="hidden"  class="hasimages" value="" />
                             </div>
                             <div class="detailProfile left">
                                 <!-- list : s -->
                                 <div class="titleProfile">
-                                    <span class="mainTitle">Full Name</span>
+                                    <span class="mainTitle">My Name</span>
                                     <span class="contentForm">
-                                        <input type="text" value="Rizki Mardita" />
+                                        <input  name="fullname" type="text" placeholder="My Fullname" class="fullnameTxt" value="<?=$users['name']?> <?=$users['lastname']?>"  />
                                     </span>
                                 </div>
                                 <!-- list : e -->
                                 <br />
                                 <!-- list : s -->
                                 <div class="titleProfile">
-                                    <span class="mainTitle">Description</span>
+                                    <span class="mainTitle">About Me</span>
                                     <span class="contentForm">
-                                        <textarea type="text" >Syok, Zack Lee Hampir Menangis Dengar Roger Danuarta Overdosis</textarea>
+                                        <textarea  name="aboutme" type="text" placeholder="Who am I" class="aboutmeTxt"  > </textarea>
                                     </span>
                                 </div>
                                 <!-- list : e -->
                                 <br />
                                 <!-- list : s -->
                                 <div class="titleProfile">
-                                    <span class="mainTitle">Birthday</span>
+                                    <span class="mainTitle">My Birthday</span>
                                     <span class="contentForm">
-                                        <select>
+                                        <select class="dob_d"  name="dob_d" >
                                             <option>Day</option>
-                                            <option>1</option>
-                                            <option>2</option>
+											<?php $dob = explode('-',$users['birthday']) ;?>
+											<?php for($i=1;$i<=31;$i++) : ?>
+											<?php $days = ($i<10) ? "0{$i}" : $i ; ?>
+                                            <option value="<?=$days?>" <?php echo ($dob[2]==$days) ? 'selected' : '' ; ?> ><?=$i?></option> 
+											<?php endfor; ?>
                                         </select>
-                                        <select>
+                                        <select  class="dob_m"   name="dob_m" >
                                             <option>Month</option>
-                                            <option>1</option>
-                                            <option>2</option>
+											<?php for($i=1;$i<=12;$i++) : ?>
+											<?php $intMonth = ($i<10) ? "0{$i}" : $i ; ?>
+											<?php $month = date("F",strtotime("2014-{$intMonth}-01")); ?>
+                                            <option value="<?=$intMonth?>" <?php echo ($dob[1]==$intMonth) ? 'selected' : '' ; ?>  ><?=$month?> </option> 
+											<?php endfor; ?>
+                                             
                                         </select>
-                                        <select>
+                                        <select  class="dob_y"  name="dob_y"  >
                                             <option>Year</option>
-                                            <option>1</option>
-                                            <option>2</option>
+                                            <?php $sYear = date("Y",strtotime("-50 year")) ; ?>
+                                            <?php $nYear = date("Y") ; ?> 
+											<?php for($i=$sYear;$i<=$nYear;$i++) : ?>
+                                            <option value="<?=$i?>"  <?php echo ($dob[0]==$i) ? 'selected' : '' ; ?>   ><?=$i?></option> 
+											<?php endfor; ?>
                                         </select>
                                     </span>
                                 </div>
                                 <!-- list : e --><br />
                                 <!-- list : s -->
                                 <div class="titleProfile">
-                                    <span class="mainTitle">Gender</span>
+                                    <span class="mainTitle">My Gender</span>
                                     <span class="contentForm">
-                                        <select>
-                                            <option>Male</option>
-                                            <option>Female</option>
+                                        <select class="gennderTxt"  name="gender"  >
+                                            <option value="M"  <?php echo ($users['gender']=="M") ? 'selected' : '' ; ?>   >Male</option>
+                                            <option value="F"  <?php echo ($users['gender']=="F") ? 'selected' : '' ; ?>   >Female</option>
                                         </select>
                                     </span>
                                 </div>
@@ -70,11 +85,12 @@
                                 <br />
                                 <br />
                                 <br />
-                                <a href="#" class="bLogin bProfile">
+                                <a href="javascript:void(0)" class="bLogin bProfile saveMyProfile" >
                                     Save
                                 </a>
                             </div>
                         </div>
+						</form>
                         <!-- profile : e -->
                         <div class="clearit"></div>
                     </div>
@@ -90,5 +106,7 @@
             // initialize tabs pemilu dari masa ke masa
             $("ul.tabs").tabs("div.panes > div");
         });
+		
+		
     </script>
  

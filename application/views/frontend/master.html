@@ -8,21 +8,25 @@
 	<!-- wrapper : s -->
 	
         <div class="wrapper">
+		
 		<?=$this->view('frontend/navigation',$data)?>
-		      
+		    
 		<!-- header : e -->
 		<!-- content : s -->
 		<div class="content clearfix">
+		<div class="loadingMessage loadingBar" ></div> 
 		<?php if($this->load->controller()=='login'||$this->load->controller()=='share'||$this->load->controller()=='register'): ?>
+			 
 			<?=$this->view($main_content,$data)?>
 		<?php else: ?>
 			<?=$this->view('frontend/navigation-left',$data)?>
+			
 			<?=$this->view($main_content,$data)?>
 		<?php endif ?>
 		</div>
 		<!-- content : e -->
 
-	      </div>
+	    </div>
         <!-- wrapper : e -->
 		<?=$this->view('frontend/footer',$data)?>
 		

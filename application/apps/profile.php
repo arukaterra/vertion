@@ -6,6 +6,7 @@ class profile extends application{
 		$this->apps =$apps;
 	
 		$this->contentHelper = $this->apps->helper('contentHelper');	
+		$this->uploadHelper  = $this->apps->helper('uploadHelper');	
 		
 		$communityProfiler = $this->apps->communityHelper->getCommunity();
 		// pr($communityProfiler);
@@ -38,6 +39,30 @@ class profile extends application{
 		 // pr($data);exit;
 		$this->templates('frontend/home/homepage',$data);
 
+	}
+	
+	function update(){
+			
+				if (isset($_FILES['images'])&&$_FILES['images']['name']!=NULL) {
+				if (isset($_FILES['images'])&&$_FILES['images']['size'] <= 20000000) {
+					$path = ROOT_PUBLIC_ASSETS_PATH."profile/";
+					$uploaddata = $this->uploadHelper->uploadThisImage($_FILES['images'],$path);
+						 
+					if ($uploaddata['arrImage']!=NULL) {
+						
+					} else {
+						$uploaddata = false;
+					}
+				} else {
+					$uploaddata = false;
+				}
+			} else {
+				$uploaddata = false;
+			}
+			
+			$res =  $this->apps->userHelper->updateMyProfile($uploaddata);
+			 
+			print json_encode($res);exit;
 	}
 	
 
