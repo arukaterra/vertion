@@ -1,9 +1,13 @@
+	var w = 0;
+	var timeouts ; 
+	var test;
 	var uploadlabel = 0; 
 	$(document).on('click','.plusNewHome',function(){
 			
 	
 		if(uploadlabel==1){
-			$(".uploadlabel").html(locale.uploadlabel.post);
+			
+			// $(".uploadlabel").html(locale.uploadlabel.post);
 			
 			var caption = $('.titleUpload').val();
 			var content = $('.descUpload').val();
@@ -34,10 +38,20 @@
 					data: fd,
 					dataType : "JSON",
 					processData: false,  // tell jQuery not to process the data
-					contentType: false   // tell jQuery not to set contentType
+					contentType: false,   // tell jQuery not to set contentType
+					error: function() {
+						$(".loadingBar").width('100%');   
+						w = 0;
+						clearTimeout(timeouts);
+						setTimeout(function(){$(".loadingBar").width('0%'); },1000);
+					}
 					}).done(function( data ) {
 						var html = "";
 						$('.onuploading').remove();
+						$(".loadingBar").width('100%');  
+						w = 0;
+						clearTimeout(timeouts);
+						setTimeout(function(){$(".loadingBar").width('0%'); },1000);
 						if(data.result){
 							html = timelineView(data.data);
 						}else{
@@ -55,10 +69,9 @@
 				});
 
 			
-			
+			timeouts = setTimeout(checkProgress(),10);
 		}else {
-			$(".uploadlabel").html(locale.uploadlabel.upload);
-			
+			// $(".uploadlabel").html(locale.uploadlabel.upload); 
 			uploadlabel = 1;
 		}
 		
@@ -249,10 +262,21 @@
 					},
 					type: "POST",
 					data: {start:start,s:s},
-					dataType : "json"
+					dataType : "json",
+					error: function() {
+						$(".loadingBar").width('100%'); 
+						saveprofileok=0; 
+						w = 0;
+						clearTimeout(timeouts);
+						setTimeout(function(){$(".loadingBar").width('0%'); },1000);
+					}
 					}).done(function( data ) {
 						var html ="";
 						$('.slideloadpaging').remove();
+						$(".loadingBar").width('100%');  
+						w = 0;
+						clearTimeout(timeouts);
+						setTimeout(function(){$(".loadingBar").width('0%'); },1000);
 						if(data.result){
 							$.each(data.data,function(i,e){
 									html += timelineView(e);
@@ -273,7 +297,7 @@
 							itemSelector: '.box'
 							});
 					});
- 
+			timeouts = setTimeout(checkProgress(),10);
 	}
 	 
 	var loadcommentok = 0;
@@ -524,3 +548,50 @@
 		
 	});	
 	
+	var saveprofileok = 0; 
+
+	$(document).on('click','.saveMyProfile',function(){ 
+			// var fullname = $(".fullnameTxt").val(); 
+			// var aboutme = $(".aboutmeTxt").val(); 
+			// var arrDob = [ $(".dob_y").val() , $(".dob_m").val() ,$(".dob_d").val() ]; 
+			// var dob = arrDob.join('');
+			// var gennder = $(".gennderTxt").val(); 
+		    
+			if(saveprofileok==1) return false; 
+			 var fd = new FormData($("#updateProfile")[0]);
+			
+			  $.ajax({
+					url: basedomain+"profile/update", 
+					type: "POST",
+					beforeSend : function() { 
+						saveprofileok=1;   
+					},
+					data:fd,
+					dataType : "json",
+					processData: false,  // tell jQuery not to process the data
+					contentType: false ,  // tell jQuery not to set contentType
+					error: function() {
+						$(".loadingBar").width('100%'); 
+						saveprofileok=0; 
+						w = 0;
+						clearTimeout(timeouts);
+						setTimeout(function(){$(".loadingBar").width('0%'); },1000);
+					}
+			}).done(function( data ) {
+					$(".loadingBar").width('100%'); 
+					saveprofileok=0;   
+					w = 0;
+					clearTimeout(timeouts); 
+					setTimeout(function(){$(".loadingBar").width('0%'); },1000);
+			}) ;
+			
+			timeouts = setTimeout(checkProgress(),10);
+		 
+		});
+		
+		function checkProgress() { 
+			$(".loadingBar").width(w+'%'); 
+			// console.log(w);
+			w++; 
+			timeouts = setTimeout(function(){checkProgress()},10);
+		}
